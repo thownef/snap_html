@@ -1,9 +1,18 @@
-import RoutesApp from "@/routes"
+import RoutesApp from '@/routes'
+import { ConfigProvider } from 'antd'
 
 function App() {
   return (
     <>
-      <RoutesApp />
+      <ConfigProvider
+        theme={{
+          token: {
+            colorPrimary: '#d92a33'
+          }
+        }}
+      >
+        <RoutesApp />
+      </ConfigProvider>
     </>
   )
 }
