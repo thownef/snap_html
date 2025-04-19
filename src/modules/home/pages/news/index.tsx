@@ -3,7 +3,7 @@ import { PagePath } from "@/shared/core/enum/page.enum"
 
 const NewsPage = () => {
   return (
-    <Link to={PagePath.TEMPLATE}>Template</Link>
+    <Link to={PagePath.TEMPLATE}>To Template</Link>
   )
 }
 
