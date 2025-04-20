@@ -1,31 +1,8 @@
 import { useCallback, useState } from 'react'
 import { blockList } from '@/modules/template/data/blockList'
-import ReactDOMServer from 'react-dom/server'
-import { IframeTemplate } from '@/modules/template/components/Template/IframeTemplate'
-import BaseRenderBlock from '@/modules/template/components/Block/BaseRenderBlock'
 
-const useHandleBlock = (setValue: any) => {
+const useHandleBlock = () => {
   const [blocks, setBlocks] = useState(blockList)
-
-  const handleGetHtmlValue = useCallback((newBlocks: typeof blockList) => {
-    const templateHtml = ReactDOMServer.renderToStaticMarkup(<IframeTemplate />)
-    const parser = new DOMParser()
-    const parsedTemplate = parser.parseFromString(templateHtml, 'text/html')
-    const mountPoint = parsedTemplate.querySelector('#react-mount-point')
-    if (!mountPoint) return
-    const blocksHtml = ReactDOMServer.renderToStaticMarkup(
-      <>
-        {newBlocks.map((block) => (
-          <BaseRenderBlock key={block.id} id={block.id} block={block} />
-        ))}
-      </>
-    )
-
-    mountPoint.innerHTML = blocksHtml
-
-    const finalHtml = parsedTemplate.documentElement.outerHTML
-    setValue('html_part', finalHtml)
-  }, [])
 
   const handleDuplicate = useCallback((blockId: number) => {
     return () => {
@@ -141,8 +118,7 @@ const useHandleBlock = (setValue: any) => {
     onDuplicateColumn: handleDuplicateColumn,
     onDeleteColumn: handleDeleteColumn,
     onMoveUp: handleMoveUp,
-    onMoveDown: handleMoveDown,
-    onGetHtmlValue: handleGetHtmlValue
+    onMoveDown: handleMoveDown
   }
 }
 
