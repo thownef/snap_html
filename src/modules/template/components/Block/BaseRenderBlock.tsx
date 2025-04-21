@@ -1,3 +1,4 @@
+import { type Block } from '@/modules/template/core/types/block.type'
 import { getColumnPadding } from '@/modules/template/utils'
 
 interface BaseRenderBlockProps {
@@ -5,7 +6,7 @@ interface BaseRenderBlockProps {
   id: number
   padding?: string
   background?: string
-  block: any
+  block: Block
 }
 
 const BaseRenderBlock = ({
@@ -33,7 +34,7 @@ const BaseRenderBlock = ({
             <table align='center' width='100%' border={0} cellPadding={0} cellSpacing={0} role='presentation'>
               <tbody style={{ width: '100%' }}>
                 <tr style={{ width: '100%' }}>
-                  {block.contents.map((content: any, index: number) => (
+                  {block.contents.map((content, index) => (
                     <td
                       key={content.id}
                       className='layout-vertical'
@@ -66,14 +67,6 @@ const BaseRenderBlock = ({
                                     </tr>
                                   </tbody>
                                 </table>
-                                <div
-                                  className='mail-parts-edit-panel mail-parts-edit-panel-0-0-0'
-                                  title='パーツ編集'
-                                  data-block-id={0}
-                                  data-column-id={0}
-                                  data-part-id={0}
-                                  data-part-type='text'
-                                />
                               </td>
                             </tr>
                           </tbody>

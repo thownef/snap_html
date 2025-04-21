@@ -1,4 +1,6 @@
-export const blockList = [
+import { Block } from "@/modules/template/core/types/block.type";
+
+export const blockList: Block[] = [
   {
     id: 1,
     type: 'multi',
@@ -6,6 +8,7 @@ export const blockList = [
     contents: [
       {
         id: 1,
+        type: 'image',
         content: 1,
         preview: () => (
           <span style={{ display: 'inline-block' }}>
@@ -21,6 +24,7 @@ export const blockList = [
       {
         id: 2,
         content: 2,
+        type: 'text',
         preview: () => (
           <div
             className='mail-text'
@@ -72,6 +76,7 @@ export const blockList = [
     contents: [
       {
         id: 1,
+        type: 'image',
         content: 1,
         preview: () => (
           <img
@@ -91,6 +96,7 @@ export const blockList = [
     contents: [
       {
         id: 1,
+        type: 'text',
         content: 1,
         preview: () => (
           <div
@@ -133,6 +139,7 @@ export const blockList = [
       {
         id: 1,
         content: 1,
+        type: 'text',
         preview: () => (
           <div
             className='mail-text'

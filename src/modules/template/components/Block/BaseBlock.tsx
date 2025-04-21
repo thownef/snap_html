@@ -1,20 +1,24 @@
 import { memo } from 'react'
+import _ from 'lodash'
 import AddBlockButton from '@/modules/template/components/Button/AddBlockButton'
 import GroupBlockButton from '@/modules/template/components/Button/GroupBlockButton'
 import GroupColumnButton from '@/modules/template/components/Button/GroupColumnButton'
 import { getColumnPadding } from '@/modules/template/utils'
+import { Block, ColumnBlock, SelectedBlock } from '@/modules/template/core/types/block.type'
 
 interface BaseBlockProps {
   key: number
-  block: any
+  block: Block
   index: number
   count: number
+  selectedBlock: SelectedBlock | null
   onDuplicate: (blockId: number) => () => void
   onDelete: (blockId: number) => () => void
   onDuplicateColumn: (blockId: number, columnId: number) => () => void
   onDeleteColumn: (blockId: number, columnId: number) => () => void
   onMoveUp: (blockId: number) => () => void
   onMoveDown: (blockId: number) => () => void
+  onSelectBlock: (column: ColumnBlock, blockId: number) => () => void
 }
 
 const BaseBlock = memo(
@@ -22,12 +26,14 @@ const BaseBlock = memo(
     block,
     index,
     count,
+    selectedBlock,
     onDuplicate,
     onDelete,
     onDuplicateColumn,
     onDeleteColumn,
     onMoveUp,
-    onMoveDown
+    onMoveDown,
+    onSelectBlock
   }: BaseBlockProps) => {
     return (
       <table
@@ -45,7 +51,7 @@ const BaseBlock = memo(
             <td>
               <AddBlockButton blockId={block.id} />
               <div className='mail-block-insert-line' />
-              <div className='mail-block-panel' data-block-id={block.id} />
+              <div className='mail-block-panel' />
               <GroupBlockButton
                 blockId={block.id}
                 canMoveUp={index > 0}
@@ -58,8 +64,9 @@ const BaseBlock = memo(
               <table align='center' width='100%' border={0} cellPadding={0} cellSpacing={0} role='presentation'>
                 <tbody style={{ width: '100%' }}>
                   <tr style={{ width: '100%' }}>
-                    {block.contents.map((content: any, index: number) => (
+                    {block.contents.map((content, index) => (
                       <td
+                        onClick={onSelectBlock(content, block.id)}
                         key={content.id}
                         className='layout-vertical'
                         width={`${100 / block.contents.length}%`}
@@ -102,12 +109,8 @@ const BaseBlock = memo(
                                     </tbody>
                                   </table>
                                   <div
-                                    className='mail-parts-edit-panel mail-parts-edit-panel-0-0-0'
+                                    className={`mail-parts-edit-panel ${selectedBlock && selectedBlock.blockId === block.id && selectedBlock.id === content.id ? 'edit-target-element' : ''}`}
                                     title='パーツ編集'
-                                    data-block-id={0}
-                                    data-column-id={0}
-                                    data-part-id={0}
-                                    data-part-type='text'
                                   />
                                 </td>
                               </tr>
@@ -126,10 +129,14 @@ const BaseBlock = memo(
     )
   },
   (prevProps, nextProps) => {
-    if (prevProps.block !== nextProps.block || prevProps.index !== nextProps.index) {
-      return false
+    if (
+      _.isEqual(prevProps.block, nextProps.block) &&
+      _.isEqual(prevProps.selectedBlock, nextProps.selectedBlock) &&
+      prevProps.index === nextProps.index
+    ) {
+      return true
     }
-    return true
+    return false
   }
 )
 

@@ -1,11 +1,11 @@
 import { useCallback } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
+import ReactDOMServer from 'react-dom/server'
 import { Radio } from 'antd'
 import BlockContainer from '@/modules/template/components/Block/BlockContainer'
 import useHandleBlock from '@/modules/template/hooks/useHandleBlock'
 import Iframe from '@/modules/template/components/Iframe/Iframe'
 import Setting from '@/modules/template/components/Setting/Setting'
-import ReactDOMServer from 'react-dom/server'
 import { IframeTemplate } from '@/modules/template/components/Template/IframeTemplate'
 import BaseRenderBlock from '@/modules/template/components/Block/BaseRenderBlock'
 import { blockList } from '@/modules/template/data/blockList'
@@ -13,7 +13,19 @@ import useHandlePreviewMode from '@/modules/template/hooks/useHandlePreviewMode'
 
 const TemplatePage = () => {
   const { handleSubmit, setValue } = useForm<any>()
-  const { blocks, onDuplicate, onDelete, onDuplicateColumn, onDeleteColumn, onMoveUp, onMoveDown } = useHandleBlock()
+  const {
+    blocks,
+    selectedBlock,
+    activeKey,
+    onDuplicate,
+    onDelete,
+    onDuplicateColumn,
+    onDeleteColumn,
+    onMoveUp,
+    onMoveDown,
+    onSelectBlock,
+    onChangeTab
+  } = useHandleBlock()
   const { iframeRef, onChangeMode } = useHandlePreviewMode()
   const handleGetHtmlValue = useCallback((newBlocks: typeof blockList) => {
     const templateHtml = ReactDOMServer.renderToStaticMarkup(<IframeTemplate />)
@@ -34,13 +46,10 @@ const TemplatePage = () => {
     const finalHtml = parsedTemplate.documentElement.outerHTML
     setValue('html_part', finalHtml)
   }, [])
-  
 
   const onSubmit: SubmitHandler<any> = (data) => {
     console.log(data)
   }
-
-  
 
   return (
     <form onSubmit={handleSubmit(onSubmit)}>
@@ -77,12 +86,14 @@ const TemplatePage = () => {
                   content={
                     <BlockContainer
                       blocks={blocks}
+                      selectedBlock={selectedBlock}
                       onDuplicate={onDuplicate}
                       onDelete={onDelete}
                       onDuplicateColumn={onDuplicateColumn}
                       onDeleteColumn={onDeleteColumn}
                       onMoveUp={onMoveUp}
                       onMoveDown={onMoveDown}
+                      onSelectBlock={onSelectBlock}
                     />
                   }
                 />
@@ -93,7 +104,7 @@ const TemplatePage = () => {
             <button type='submit'>submit</button>
           </footer>
         </div>
-        <Setting />
+        <Setting selectedBlock={selectedBlock} activeKey={activeKey} onChangeTab={onChangeTab} />
       </div>
     </form>
   )

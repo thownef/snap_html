@@ -1,8 +1,11 @@
 import { useCallback, useState } from 'react'
 import { blockList } from '@/modules/template/data/blockList'
+import { Block, ColumnBlock, SelectedBlock } from '@/modules/template/core/types/block.type'
 
 const useHandleBlock = () => {
-  const [blocks, setBlocks] = useState(blockList)
+  const [blocks, setBlocks] = useState<Block[]>(blockList)
+  const [selectedBlock, setSelectedBlock] = useState<SelectedBlock | null>(null)
+  const [activeKey, setActiveKey] = useState<string>('sendSettings')
 
   const handleDuplicate = useCallback((blockId: number) => {
     return () => {
@@ -111,14 +114,29 @@ const useHandleBlock = () => {
     }
   }, [])
 
+  const handleSelectBlock = useCallback((column: ColumnBlock, blockId: number) => {
+    return () => {
+      setSelectedBlock({ blockId, ...column })
+      setActiveKey('blockSettings')
+    }
+  }, [])
+
+  const handleChangeTab = useCallback((newKey: string) => {
+    setActiveKey(newKey)
+  }, [])
+
   return {
     blocks,
+    selectedBlock,
+    activeKey,
     onDuplicate: handleDuplicate,
     onDelete: handleDelete,
     onDuplicateColumn: handleDuplicateColumn,
     onDeleteColumn: handleDeleteColumn,
     onMoveUp: handleMoveUp,
-    onMoveDown: handleMoveDown
+    onMoveDown: handleMoveDown,
+    onSelectBlock: handleSelectBlock,
+    onChangeTab: handleChangeTab
   }
 }
 
