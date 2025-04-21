@@ -2,7 +2,7 @@ export type ColumnBlock = {
   id: number
   type: string
   content: any
-  preview: () => React.ReactNode
+  preview: (content: string) => React.ReactNode
 }
 
 export type Block = {

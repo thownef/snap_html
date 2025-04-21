@@ -64,10 +64,10 @@ const BaseBlock = memo(
               <table align='center' width='100%' border={0} cellPadding={0} cellSpacing={0} role='presentation'>
                 <tbody style={{ width: '100%' }}>
                   <tr style={{ width: '100%' }}>
-                    {block.contents.map((content, index) => (
+                    {block.contents.map((column, index) => (
                       <td
-                        onClick={onSelectBlock(content, block.id)}
-                        key={content.id}
+                        onClick={onSelectBlock(column, block.id)}
+                        key={column.id}
                         className='layout-vertical'
                         width={`${100 / block.contents.length}%`}
                         style={{
@@ -83,7 +83,7 @@ const BaseBlock = memo(
                             count={block.contents.length}
                             index={index}
                             blockId={block.id}
-                            columnId={content.id}
+                            columnId={column.id}
                             onDuplicateColumn={onDuplicateColumn}
                             onDeleteColumn={onDeleteColumn}
                           />
@@ -104,12 +104,12 @@ const BaseBlock = memo(
                                   <table width='100%' border={0} cellPadding={0} cellSpacing={0}>
                                     <tbody>
                                       <tr>
-                                        <td style={{ padding: 0 }}>{content.preview()}</td>
+                                        <td style={{ padding: 0 }}>{column.preview(column.content)}</td>
                                       </tr>
                                     </tbody>
                                   </table>
                                   <div
-                                    className={`mail-parts-edit-panel ${selectedBlock && selectedBlock.blockId === block.id && selectedBlock.id === content.id ? 'edit-target-element' : ''}`}
+                                    className={`mail-parts-edit-panel ${selectedBlock && selectedBlock.blockId === block.id && selectedBlock.id === column.id ? 'edit-target-element' : ''}`}
                                     title='パーツ編集'
                                   />
                                 </td>

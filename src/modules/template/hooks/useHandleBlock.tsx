@@ -121,6 +121,23 @@ const useHandleBlock = () => {
     }
   }, [])
 
+  const handleChangeBlock = useCallback((content: string, blockId: number, columnId: number) => {
+    setBlocks((prev) => {
+      const updatedBlocks = prev.map((block) => {
+        if (block.id !== blockId) return block
+
+        const updatedContents = block.contents.map((col) => {
+          if (col.id !== columnId) return col
+          return { ...col, content }
+        })
+
+        return { ...block, contents: updatedContents }
+      })
+
+      return updatedBlocks
+    })
+  }, [])
+
   const handleChangeTab = useCallback((newKey: string) => {
     setActiveKey(newKey)
   }, [])
@@ -136,6 +153,7 @@ const useHandleBlock = () => {
     onMoveUp: handleMoveUp,
     onMoveDown: handleMoveDown,
     onSelectBlock: handleSelectBlock,
+    onChangeBlock: handleChangeBlock,
     onChangeTab: handleChangeTab
   }
 }

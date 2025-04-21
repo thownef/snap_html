@@ -14,31 +14,43 @@ type BlockContainerProps = {
   onSelectBlock: (column: ColumnBlock, blockId: number) => () => void
 }
 
-const BlockContainer = memo(({ blocks, selectedBlock, onDuplicate, onDelete, onDuplicateColumn, onDeleteColumn, onMoveUp, onMoveDown, onSelectBlock }: BlockContainerProps) => {
-
-  return (
-    <>
-      {blocks.map((block, index) => (
-        <BaseBlock
-          key={block.id}
-          block={block}
-          index={index}
-          count={blocks.length}
-          selectedBlock={selectedBlock}
-          onDuplicate={onDuplicate}
-          onDelete={onDelete}
-          onDuplicateColumn={onDuplicateColumn}
-          onDeleteColumn={onDeleteColumn}
-          onMoveUp={onMoveUp}
-          onMoveDown={onMoveDown}
-          onSelectBlock={onSelectBlock}
-        />
-      ))}
-    </>
-  )
-}, (prevProps, nextProps) => {
-  return prevProps.blocks === nextProps.blocks && prevProps.selectedBlock === nextProps.selectedBlock
-})
+const BlockContainer = memo(
+  ({
+    blocks,
+    selectedBlock,
+    onDuplicate,
+    onDelete,
+    onDuplicateColumn,
+    onDeleteColumn,
+    onMoveUp,
+    onMoveDown,
+    onSelectBlock
+  }: BlockContainerProps) => {
+    return (
+      <>
+        {blocks.map((block, index) => (
+          <BaseBlock
+            key={block.id}
+            block={block}
+            index={index}
+            count={blocks.length}
+            selectedBlock={selectedBlock}
+            onDuplicate={onDuplicate}
+            onDelete={onDelete}
+            onDuplicateColumn={onDuplicateColumn}
+            onDeleteColumn={onDeleteColumn}
+            onMoveUp={onMoveUp}
+            onMoveDown={onMoveDown}
+            onSelectBlock={onSelectBlock}
+          />
+        ))}
+      </>
+    )
+  },
+  (prevProps, nextProps) => {
+    return prevProps.blocks === nextProps.blocks && prevProps.selectedBlock === nextProps.selectedBlock
+  }
+)
 
 BlockContainer.displayName = 'BlockContainer'
 
