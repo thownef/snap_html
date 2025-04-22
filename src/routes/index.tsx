@@ -1,9 +1,9 @@
 import { Suspense } from "react";
 import { createBrowserRouter, RouteObject, RouterProvider } from "react-router-dom";
-import { ModuleName, PageName } from "@/shared/core/enum/page.enum";
-import { lazyLoadModuleRoute, lazyLoadRoute } from "@/routes/LazyLoadRoutes";
+import { lazyLoadRoute } from "@/routes/LazyLoadRoutes";
 import Layout from "@/shared/layouts";
 import { templatesRoute } from "@/routes/modules";
+import NavigateComponent from "@/shared/components/Navigate/Navigate";
 
 const configRoutes: RouteObject[] = [
   {
@@ -16,7 +16,7 @@ const configRoutes: RouteObject[] = [
         index: true,
         element: (
           <Suspense fallback="loading...">
-            {lazyLoadModuleRoute(ModuleName.HOME, PageName.HOME)}
+            <NavigateComponent />
           </Suspense>
         ),
       },
