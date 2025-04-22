@@ -48,6 +48,6 @@ export const colorList: Color[] = [
   },
   {
     label: '全体デザイン',
-    colors: ['#fbf8f4', '#ffffff', '#b82329', '#262626']
+    colors: ['#fbf8f4', 'rgba(255,255,255,0)', '#b82329', '#262626']
   }
 ]

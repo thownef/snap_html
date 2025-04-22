@@ -5,6 +5,7 @@ import GroupBlockButton from '@/modules/template/components/Button/GroupBlockBut
 import GroupColumnButton from '@/modules/template/components/Button/GroupColumnButton'
 import { getColumnPadding } from '@/modules/template/utils'
 import { Block, ColumnBlock, SelectedBlock } from '@/modules/template/core/types/block.type'
+import ColumnDesign from '@/shared/design-system/Column/ColumnDesign'
 
 interface BaseBlockProps {
   key: number
@@ -104,7 +105,9 @@ const BaseBlock = memo(
                                   <table width='100%' border={0} cellPadding={0} cellSpacing={0}>
                                     <tbody>
                                       <tr>
-                                        <td style={{ padding: 0 }}>{column.preview(column.content)}</td>
+                                        <td style={{ padding: 0 }}>
+                                          <ColumnDesign column={column} />
+                                        </td>
                                       </tr>
                                     </tbody>
                                   </table>
