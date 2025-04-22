@@ -5,10 +5,12 @@ import TextSetting from '@/modules/template/components/Setting/TextSetting'
 
 type BlockSettingProps = {
   selectedBlock: SelectedBlock | null
+  activeTab: string
   onChangeBlock: (content: string, blockId: number, columnId: number) => void
+  onChangeActiveTab: (newKey: string) => void
 }
 
-const BlockSetting = ({ selectedBlock, onChangeBlock }: BlockSettingProps) => {
+const BlockSetting = ({ selectedBlock, activeTab, onChangeBlock, onChangeActiveTab }: BlockSettingProps) => {
   if (!selectedBlock) {
     return (
       <div className='w-full h-full overflow-hidden'>
@@ -21,7 +23,7 @@ const BlockSetting = ({ selectedBlock, onChangeBlock }: BlockSettingProps) => {
     )
   }
 
-  const items: TabsProps['items'] = [
+  const itemImages: TabsProps['items'] = [
     {
       key: 'partsEditMenu',
       label: '画像編集',
@@ -34,7 +36,7 @@ const BlockSetting = ({ selectedBlock, onChangeBlock }: BlockSettingProps) => {
     }
   ]
 
-  const items11: TabsProps['items'] = [
+  const itemTexts: TabsProps['items'] = [
     {
       key: 'partsEditMenu',
       label: 'テキスト編集',
@@ -53,10 +55,18 @@ const BlockSetting = ({ selectedBlock, onChangeBlock }: BlockSettingProps) => {
       defaultActiveKey='1'
       type='line'
       size={'middle'}
-      items={items}
+      items={itemImages}
     />
   ) : (
-    <Tabs className='h-full [&_.ant-tabs-nav]:!mb-0' defaultActiveKey='1' type='line' size={'middle'} items={items11} />
+    <Tabs
+      className='h-full [&_.ant-tabs-nav]:!mb-0'
+      defaultActiveKey='partsEditMenu'
+      type='line'
+      size={'middle'}
+      items={itemTexts}
+      activeKey={activeTab}
+      onChange={onChangeActiveTab}
+    />
   )
 }
 

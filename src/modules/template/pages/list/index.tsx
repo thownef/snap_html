@@ -17,6 +17,7 @@ const TemplatePage = () => {
     blocks,
     selectedBlock,
     activeKey,
+    activeTab,
     onDuplicate,
     onDelete,
     onDuplicateColumn,
@@ -25,7 +26,8 @@ const TemplatePage = () => {
     onMoveDown,
     onSelectBlock,
     onChangeBlock,
-    onChangeTab
+    onChangeTab,
+    onChangeActiveTab
   } = useHandleBlock()
   const { iframeRef, onChangeMode } = useHandlePreviewMode()
   const handleGetHtmlValue = useCallback((newBlocks: typeof blockList) => {
@@ -108,8 +110,10 @@ const TemplatePage = () => {
         <Setting
           selectedBlock={selectedBlock}
           activeKey={activeKey}
+          activeTab={activeTab}
           onChangeTab={onChangeTab}
           onChangeBlock={onChangeBlock}
+          onChangeActiveTab={onChangeActiveTab}
         />
       </div>
     </form>

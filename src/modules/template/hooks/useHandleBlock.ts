@@ -6,6 +6,7 @@ const useHandleBlock = () => {
   const [blocks, setBlocks] = useState<Block[]>(blockList)
   const [selectedBlock, setSelectedBlock] = useState<SelectedBlock | null>(null)
   const [activeKey, setActiveKey] = useState<string>('sendSettings')
+  const [activeTab, setActiveTab] = useState<string>('partsEditMenu')
 
   const handleDuplicate = useCallback((blockId: number) => {
     return () => {
@@ -118,6 +119,7 @@ const useHandleBlock = () => {
     return () => {
       setSelectedBlock({ blockId, ...column })
       setActiveKey('blockSettings')
+      setActiveTab('partsEditMenu')
     }
   }, [])
 
@@ -142,10 +144,15 @@ const useHandleBlock = () => {
     setActiveKey(newKey)
   }, [])
 
+  const handleChangeActiveTab = useCallback((newKey: string) => {
+    setActiveTab(newKey)
+  }, [])
+
   return {
     blocks,
     selectedBlock,
     activeKey,
+    activeTab,
     onDuplicate: handleDuplicate,
     onDelete: handleDelete,
     onDuplicateColumn: handleDuplicateColumn,
@@ -154,7 +161,8 @@ const useHandleBlock = () => {
     onMoveDown: handleMoveDown,
     onSelectBlock: handleSelectBlock,
     onChangeBlock: handleChangeBlock,
-    onChangeTab: handleChangeTab
+    onChangeTab: handleChangeTab,
+    onChangeActiveTab: handleChangeActiveTab
   }
 }
 

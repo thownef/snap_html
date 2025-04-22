@@ -7,11 +7,13 @@ import { type SelectedBlock } from '@/modules/template/core/types/block.type'
 type SettingProps = {
   selectedBlock: SelectedBlock | null
   activeKey: string
+  activeTab: string
   onChangeTab: (newKey: string) => void
   onChangeBlock: (content: string, blockId: number, columnId: number) => void
+  onChangeActiveTab: (newKey: string) => void
 }
 
-const Setting = ({ selectedBlock, activeKey, onChangeTab, onChangeBlock }: SettingProps) => {
+const Setting = ({ selectedBlock, activeKey, activeTab, onChangeTab, onChangeBlock, onChangeActiveTab }: SettingProps) => {
   const items: TabsProps['items'] = [
     {
       key: 'sendSettings',
@@ -21,7 +23,7 @@ const Setting = ({ selectedBlock, activeKey, onChangeTab, onChangeBlock }: Setti
     {
       key: 'blockSettings',
       label: 'メール編集',
-      children: <BlockSetting selectedBlock={selectedBlock} onChangeBlock={onChangeBlock} />
+      children: <BlockSetting selectedBlock={selectedBlock} activeTab={activeTab} onChangeBlock={onChangeBlock} onChangeActiveTab={onChangeActiveTab} />
     },
     {
       key: 'overallSettings',
