@@ -1,1 +1,10 @@
-@import "tailwindcss";
+@import 'tailwindcss';
+
+.ant-color-picker-presets .ant-collapse-item:first-child .ant-collapse-header {
+  display: none;
+}
+
+.ant-color-picker-presets-items .ant-color-picker-presets-color {
+  width: 18px !important;
+  height: 18px !important;
+}

@@ -24,6 +24,7 @@ const TemplatePage = () => {
     onMoveUp,
     onMoveDown,
     onSelectBlock,
+    onChangeBlock,
     onChangeTab
   } = useHandleBlock()
   const { iframeRef, onChangeMode } = useHandlePreviewMode()
@@ -104,7 +105,12 @@ const TemplatePage = () => {
             <button type='submit'>submit</button>
           </footer>
         </div>
-        <Setting selectedBlock={selectedBlock} activeKey={activeKey} onChangeTab={onChangeTab} />
+        <Setting
+          selectedBlock={selectedBlock}
+          activeKey={activeKey}
+          onChangeTab={onChangeTab}
+          onChangeBlock={onChangeBlock}
+        />
       </div>
     </form>
   )

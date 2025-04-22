@@ -23,10 +23,11 @@ export const blockList: Block[] = [
       },
       {
         id: 2,
-        content: 2,
+        content: '<p style="margin: 0px;">テキストを入力してください。</p><p style="margin: 0px;">テキストを入力してください。</p>',
         type: 'text',
-        preview: () => (
+        preview: (content?: string) => (
           <div
+            dangerouslySetInnerHTML={{ __html: content || '' }}
             className='mail-text'
             style={{
               fontFamily:
@@ -39,32 +40,7 @@ export const blockList: Block[] = [
               overflowWrap: 'break-word',
               maxWidth: 278
             }}
-          >
-            <p style={{ margin: 0, textAlign: 'right', lineHeight: '1.25' }}>
-              <span style={{ fontSize: 14 }}>web予約：</span>
-              <a
-                target='_blank'
-                rel='noopener noreferrer nofollow'
-                href='https://ExampleNEWS.com'
-                style={{ color: 'rgb(184, 35, 41)', textDecoration: 'underline' }}
-              >
-                <span style={{ fontSize: 14, textDecoration: 'inherit' }}>
-                  <u>予約ページ</u>
-                </span>
-              </a>
-            </p>
-            <p style={{ margin: 0, textAlign: 'right', lineHeight: '1.25' }}>
-              <span style={{ fontSize: 14 }}>予約電話：</span>
-              <a
-                target='_blank'
-                rel='noopener noreferrer nofollow'
-                href='tel:01234567'
-                style={{ color: 'rgb(184, 35, 41)', textDecoration: 'underline' }}
-              >
-                <span style={{ fontSize: 14, textDecoration: 'inherit' }}>01234567</span>
-              </a>
-            </p>
-          </div>
+          />
         )
       }
     ]

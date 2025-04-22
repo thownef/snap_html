@@ -8,10 +8,10 @@ type SettingProps = {
   selectedBlock: SelectedBlock | null
   activeKey: string
   onChangeTab: (newKey: string) => void
+  onChangeBlock: (content: string, blockId: number, columnId: number) => void
 }
 
-const Setting = ({ selectedBlock, activeKey, onChangeTab }: SettingProps) => {
-
+const Setting = ({ selectedBlock, activeKey, onChangeTab, onChangeBlock }: SettingProps) => {
   const items: TabsProps['items'] = [
     {
       key: 'sendSettings',
@@ -21,7 +21,7 @@ const Setting = ({ selectedBlock, activeKey, onChangeTab }: SettingProps) => {
     {
       key: 'blockSettings',
       label: 'メール編集',
-      children: <BlockSetting selectedBlock={selectedBlock} />
+      children: <BlockSetting selectedBlock={selectedBlock} onChangeBlock={onChangeBlock} />
     },
     {
       key: 'overallSettings',
