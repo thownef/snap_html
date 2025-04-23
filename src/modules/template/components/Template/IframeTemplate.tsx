@@ -1,7 +1,6 @@
 import { HEAD_FRAME_CONTENT } from '@/modules/template/core/constants'
 
 export const IframeTemplate = () => {
-  const background = 'rgb(251, 248, 244)'
   const htmlAttributes = {
     dir: 'auto',
     lang: 'ja',
@@ -22,18 +21,20 @@ export const IframeTemplate = () => {
         }}
       >
         <table
+          id='template-background'
           align='center'
           width='100%'
           border={0}
           cellPadding={0}
           cellSpacing={0}
           role='presentation'
-          style={{ maxWidth: '100%', margin: '0px auto', width: '100%', background }}
+          style={{ maxWidth: '100%', margin: '0px auto', width: '100%' }}
         >
           <tbody>
             <tr style={{ width: '100%' }}>
               <td>
                 <table
+                  id='template-block'
                   align='center'
                   width={600}
                   className='mail-block-wrapper'

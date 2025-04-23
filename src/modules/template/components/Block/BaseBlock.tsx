@@ -6,17 +6,19 @@ import GroupColumnButton from '@/modules/template/components/Button/GroupColumnB
 import { getColumnPadding } from '@/modules/template/utils'
 import { Block, ColumnBlock, SelectedBlock } from '@/modules/template/core/types/block.type'
 import ColumnDesign from '@/shared/design-system/Column/ColumnDesign'
+import { SettingKeys } from '@/modules/template/hooks/useHandleSetting'
 
-interface BaseBlockProps {
+type BaseBlockProps = {
   key: number
   block: Block
+  settings: SettingKeys
   index: number
   count: number
   selectedBlock: SelectedBlock | null
   onDuplicate: (blockId: number) => () => void
   onDelete: (blockId: number) => () => void
-  onDuplicateColumn: (blockId: number, columnId: number) => () => void
-  onDeleteColumn: (blockId: number, columnId: number) => () => void
+  onDuplicateColumn: (blockId: number, columnId: number) => (e?: React.MouseEvent) => void
+  onDeleteColumn: (blockId: number, columnId: number) => (e?: React.MouseEvent) => void
   onMoveUp: (blockId: number) => () => void
   onMoveDown: (blockId: number) => () => void
   onSelectBlock: (column: ColumnBlock, blockId: number) => () => void
@@ -25,6 +27,7 @@ interface BaseBlockProps {
 const BaseBlock = memo(
   ({
     block,
+    settings,
     index,
     count,
     selectedBlock,
@@ -106,7 +109,7 @@ const BaseBlock = memo(
                                     <tbody>
                                       <tr>
                                         <td style={{ padding: 0 }}>
-                                          <ColumnDesign column={column} />
+                                          <ColumnDesign column={column} settings={settings} />
                                         </td>
                                       </tr>
                                     </tbody>
@@ -135,6 +138,7 @@ const BaseBlock = memo(
     if (
       _.isEqual(prevProps.block, nextProps.block) &&
       _.isEqual(prevProps.selectedBlock, nextProps.selectedBlock) &&
+      _.isEqual(prevProps.settings, nextProps.settings) &&
       prevProps.index === nextProps.index
     ) {
       return true

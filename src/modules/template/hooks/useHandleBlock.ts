@@ -37,7 +37,8 @@ const useHandleBlock = () => {
   }, [])
 
   const handleDuplicateColumn = useCallback((blockId: number, columnId: number) => {
-    return () => {
+    return (e?: React.MouseEvent) => {
+      e?.stopPropagation()
       setBlocks((prev) => {
         const newBlocks = prev.map((block) => {
           if (block.id !== blockId) return block
@@ -64,7 +65,8 @@ const useHandleBlock = () => {
   }, [])
 
   const handleDeleteColumn = useCallback((blockId: number, columnId: number) => {
-    return () => {
+    return (e?: React.MouseEvent) => {
+      e?.stopPropagation()
       setBlocks((prev) => {
         const newBlocks = prev.map((block) => {
           if (block.id !== blockId) return block

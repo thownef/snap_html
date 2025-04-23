@@ -18,5 +18,18 @@ export const blockList: Block[] = [
         type: 'text'
       }
     ]
+  },
+  {
+    id: 2,
+    type: 'text',
+    background: 'rgb(255, 255, 255, 0)',
+    contents: [
+      {
+        id: 1,
+        content:
+          '<p style="margin: 0px;">123テキストを入力してください。</p><p style="margin: 0px;">テキストを入力してください。</p>',
+        type: 'text'
+      }
+    ]
   }
 ]

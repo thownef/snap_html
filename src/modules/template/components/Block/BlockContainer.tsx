@@ -1,14 +1,17 @@
 import { memo } from 'react'
+import _ from 'lodash'
 import BaseBlock from '@/modules/template/components/Block/BaseBlock'
 import { Block, ColumnBlock, SelectedBlock } from '@/modules/template/core/types/block.type'
+import { SettingKeys } from '@/modules/template/hooks/useHandleSetting'
 
 type BlockContainerProps = {
   blocks: Block[]
   selectedBlock: SelectedBlock | null
+  settings: SettingKeys
   onDuplicate: (blockId: number) => () => void
   onDelete: (blockId: number) => () => void
-  onDuplicateColumn: (blockId: number, columnId: number) => () => void
-  onDeleteColumn: (blockId: number, columnId: number) => () => void
+  onDuplicateColumn: (blockId: number, columnId: number) => (e?: React.MouseEvent) => void
+  onDeleteColumn: (blockId: number, columnId: number) => (e?: React.MouseEvent) => void
   onMoveUp: (blockId: number) => () => void
   onMoveDown: (blockId: number) => () => void
   onSelectBlock: (column: ColumnBlock, blockId: number) => () => void
@@ -18,6 +21,7 @@ const BlockContainer = memo(
   ({
     blocks,
     selectedBlock,
+    settings,
     onDuplicate,
     onDelete,
     onDuplicateColumn,
@@ -32,6 +36,7 @@ const BlockContainer = memo(
           <BaseBlock
             key={block.id}
             block={block}
+            settings={settings}
             index={index}
             count={blocks.length}
             selectedBlock={selectedBlock}
@@ -48,7 +53,14 @@ const BlockContainer = memo(
     )
   },
   (prevProps, nextProps) => {
-    return prevProps.blocks === nextProps.blocks && prevProps.selectedBlock === nextProps.selectedBlock
+    if (
+      _.isEqual(prevProps.blocks, nextProps.blocks) &&
+      _.isEqual(prevProps.selectedBlock, nextProps.selectedBlock) &&
+      _.isEqual(prevProps.settings, nextProps.settings)
+    ) {
+      return true
+    }
+    return false
   }
 )
 

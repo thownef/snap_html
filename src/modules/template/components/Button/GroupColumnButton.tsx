@@ -7,8 +7,8 @@ type GroupColumnButtonProps = {
   columnId: number
   count: number
   index: number
-  onDuplicateColumn: (blockId: number, columnId: number) => () => void
-  onDeleteColumn: (blockId: number, columnId: number) => () => void
+  onDuplicateColumn: (blockId: number, columnId: number) => (e?: React.MouseEvent) => void
+  onDeleteColumn: (blockId: number, columnId: number) => (e?: React.MouseEvent) => void
 }
 
 const GroupColumnButton = ({ blockId, columnId, count, index, onDuplicateColumn, onDeleteColumn }: GroupColumnButtonProps) => {
