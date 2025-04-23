@@ -8,3 +8,8 @@
   width: 18px !important;
   height: 18px !important;
 }
+
+.ant-color-picker-presets-items .ant-color-picker-presets-color::before {
+  width: 22px !important;
+  height: 22px !important;
+}
