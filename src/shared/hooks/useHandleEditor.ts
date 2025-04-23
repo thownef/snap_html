@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import { Form } from 'antd'
 import { useEditor } from '@tiptap/react'
 import Color from '@tiptap/extension-color'
@@ -31,16 +31,13 @@ const useHandleEditor = (
       LineHeight,
       Link.configure({
         openOnClick: false,
-        HTMLAttributes: {
-          class: 'cursor-pointer text-blue-600 hover:underline'
-        },
       }),
       TextAlign.configure({
         types: ['heading', 'paragraph']
       }),
       Highlight.configure({ multicolor: true })
     ],
-    content: selectedBlock.content || '<p><br/></p>',
+    content: selectedBlock.content,
     onSelectionUpdate: ({ editor }) => {
       const currentFontSize = editor.getAttributes('textStyle').fontSize
       if (currentFontSize) {
@@ -59,7 +56,7 @@ const useHandleEditor = (
     editorProps: {
       attributes: {
         class:
-          'h-full px-[11px] py-1 border border-[#d9d9d9] rounded-[6px] [&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pl-[40px] [&_ol]:pl-[40px] [&_ul]:my-4 [&_ol]:my-4 bg-white text-[#262626] overflow-y-auto overflow-x-hidden focus:outline-none focus:!border-[rgb(230,80,83)]'
+          'h-full px-[11px] py-1 border border-[#d9d9d9] rounded-[6px] [&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pl-[40px] [&_ol]:pl-[40px] [&_ul]:my-4 [&_ol]:my-4 bg-white text-[#262626] overflow-y-auto overflow-x-hidden focus:outline-none focus:!border-[rgb(230,80,83)] [&_a]:!text-blue-600 [&_a]:!underline'
       }
     },
     onUpdate: ({ editor }) => {
@@ -168,6 +165,10 @@ const useHandleEditor = (
   const handleRedo = useCallback(() => {
     editor?.chain().focus().redo().run()
   }, [editor])
+
+  useEffect(() => {
+    editor?.commands.setContent(selectedBlock.content)
+  }, [editor, selectedBlock.content])
 
   return {
     editor,

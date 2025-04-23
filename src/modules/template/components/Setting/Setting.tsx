@@ -1,19 +1,23 @@
-import { Tabs, TabsProps } from 'antd'
+import { RadioChangeEvent, Tabs, TabsProps } from 'antd'
+import { AggregationColor } from 'antd/es/color-picker/color'
 import BlockSetting from '@/modules/template/components/Setting/BlockSetting'
 import SendSetting from '@/modules/template/components/Setting/SendSetting'
 import OverAllSetting from '@/modules/template/components/Setting/OverAllSetting'
 import { type SelectedBlock } from '@/modules/template/core/types/block.type'
+import { SettingKeys } from '@/modules/template/hooks/useHandleSetting'
 
 type SettingProps = {
   selectedBlock: SelectedBlock | null
   activeKey: string
   activeTab: string
+  settings: SettingKeys
   onChangeTab: (newKey: string) => void
   onChangeBlock: (content: string, blockId: number, columnId: number) => void
   onChangeActiveTab: (newKey: string) => void
+  onChangeSettings: (key: string) => (color: AggregationColor | RadioChangeEvent) => void
 }
 
-const Setting = ({ selectedBlock, activeKey, activeTab, onChangeTab, onChangeBlock, onChangeActiveTab }: SettingProps) => {
+const Setting = ({ selectedBlock, activeKey, activeTab, settings, onChangeTab, onChangeBlock, onChangeActiveTab, onChangeSettings }: SettingProps) => {
   const items: TabsProps['items'] = [
     {
       key: 'sendSettings',
@@ -25,10 +29,10 @@ const Setting = ({ selectedBlock, activeKey, activeTab, onChangeTab, onChangeBlo
       label: 'メール編集',
       children: <BlockSetting selectedBlock={selectedBlock} activeTab={activeTab} onChangeBlock={onChangeBlock} onChangeActiveTab={onChangeActiveTab} />
     },
-    {
-      key: 'overallSettings',
+      {
+        key: 'overallSettings',
       label: '全体デザイン',
-      children: <OverAllSetting />
+      children: <OverAllSetting settings={settings} onChangeSettings={onChangeSettings} />
     }
   ]
   return (
