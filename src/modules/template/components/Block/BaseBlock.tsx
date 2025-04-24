@@ -3,10 +3,10 @@ import _ from 'lodash'
 import AddBlockButton from '@/modules/template/components/Button/AddBlockButton'
 import GroupBlockButton from '@/modules/template/components/Button/GroupBlockButton'
 import GroupColumnButton from '@/modules/template/components/Button/GroupColumnButton'
-import { getColumnPadding } from '@/modules/template/utils'
-import { Block, ColumnBlock, SelectedBlock } from '@/modules/template/core/types/block.type'
+import { convertPadding, getColumnPadding } from '@/modules/template/utils'
+import { Block, ColumnBlock, SelectedColumn } from '@/modules/template/core/types/block.type'
 import ColumnDesign from '@/shared/design-system/Column/ColumnDesign'
-import { SettingKeys } from '@/modules/template/hooks/useHandleSetting'
+import { settingKeys, SettingKeys } from '@/modules/template/hooks/useHandleSetting'
 
 type BaseBlockProps = {
   key: number
@@ -14,14 +14,14 @@ type BaseBlockProps = {
   settings: SettingKeys
   index: number
   count: number
-  selectedBlock: SelectedBlock | null
+  selectedColumn: SelectedColumn | null
   onDuplicate: (blockId: number) => () => void
   onDelete: (blockId: number) => () => void
   onDuplicateColumn: (blockId: number, columnId: number) => (e?: React.MouseEvent) => void
   onDeleteColumn: (blockId: number, columnId: number) => (e?: React.MouseEvent) => void
   onMoveUp: (blockId: number) => () => void
   onMoveDown: (blockId: number) => () => void
-  onSelectBlock: (column: ColumnBlock, blockId: number) => () => void
+  onSelectColumn: (column: ColumnBlock, blockId: number) => () => void
 }
 
 const BaseBlock = memo(
@@ -30,14 +30,14 @@ const BaseBlock = memo(
     settings,
     index,
     count,
-    selectedBlock,
+    selectedColumn,
     onDuplicate,
     onDelete,
     onDuplicateColumn,
     onDeleteColumn,
     onMoveUp,
     onMoveDown,
-    onSelectBlock
+    onSelectColumn
   }: BaseBlockProps) => {
     return (
       <table
@@ -48,7 +48,11 @@ const BaseBlock = memo(
         cellPadding={0}
         cellSpacing={0}
         role='presentation'
-        style={{ padding: block.padding || '20px', background: block.background, position: 'relative' }}
+        style={{
+          padding: convertPadding(block.setting.padding),
+          background: block.setting.backgroundColor ? block.setting.backgroundColor : settings[settingKeys.BACKGROUND],
+          position: 'relative'
+        }}
       >
         <tbody>
           <tr>
@@ -70,7 +74,7 @@ const BaseBlock = memo(
                   <tr style={{ width: '100%' }}>
                     {block.contents.map((column, index) => (
                       <td
-                        onClick={onSelectBlock(column, block.id)}
+                        onClick={onSelectColumn(column, block.id)}
                         key={column.id}
                         className='layout-vertical'
                         width={`${100 / block.contents.length}%`}
@@ -78,7 +82,11 @@ const BaseBlock = memo(
                           verticalAlign: 'top',
                           width: `${100 / block.contents.length}%`,
                           maxWidth: `${100 / block.contents.length}%`,
-                          padding: getColumnPadding(block.contents.length, index),
+                          padding: getColumnPadding(
+                            block.contents.length,
+                            index,
+                            block.setting.padding.columnsInnerPadding
+                          ),
                           position: 'relative'
                         }}
                       >
@@ -90,6 +98,7 @@ const BaseBlock = memo(
                             columnId={column.id}
                             onDuplicateColumn={onDuplicateColumn}
                             onDeleteColumn={onDeleteColumn}
+                            gap={block.setting.padding.columnsInnerPadding}
                           />
                         )}
                         <div className='mail-column-edit-panel'>
@@ -115,7 +124,7 @@ const BaseBlock = memo(
                                     </tbody>
                                   </table>
                                   <div
-                                    className={`mail-parts-edit-panel ${selectedBlock && selectedBlock.blockId === block.id && selectedBlock.id === column.id ? 'edit-target-element' : ''}`}
+                                    className={`mail-parts-edit-panel ${selectedColumn && selectedColumn.blockId === block.id && selectedColumn.id === column.id ? 'edit-target-element' : ''}`}
                                     title='パーツ編集'
                                   />
                                 </td>
@@ -137,7 +146,7 @@ const BaseBlock = memo(
   (prevProps, nextProps) => {
     if (
       _.isEqual(prevProps.block, nextProps.block) &&
-      _.isEqual(prevProps.selectedBlock, nextProps.selectedBlock) &&
+      _.isEqual(prevProps.selectedColumn, nextProps.selectedColumn) &&
       _.isEqual(prevProps.settings, nextProps.settings) &&
       prevProps.index === nextProps.index
     ) {

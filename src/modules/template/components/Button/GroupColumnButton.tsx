@@ -9,11 +9,12 @@ type GroupColumnButtonProps = {
   index: number
   onDuplicateColumn: (blockId: number, columnId: number) => (e?: React.MouseEvent) => void
   onDeleteColumn: (blockId: number, columnId: number) => (e?: React.MouseEvent) => void
+  gap: number
 }
 
-const GroupColumnButton = ({ blockId, columnId, count, index, onDuplicateColumn, onDeleteColumn }: GroupColumnButtonProps) => {
+const GroupColumnButton = ({ blockId, columnId, count, index, onDuplicateColumn, onDeleteColumn, gap }: GroupColumnButtonProps) => {
   return (
-    <div className='mail-column-edit-menu' style={{ right: getColumnPaddingRight(count, index) }}>
+    <div className='mail-column-edit-menu' style={{ right: getColumnPaddingRight(count, index, gap) }}>
       {count < 4 && (
         <div className='mail-column-copy-button'>
           <div title='カラム複製'>

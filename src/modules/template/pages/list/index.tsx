@@ -17,7 +17,7 @@ const TemplatePage = () => {
   const { handleSubmit, setValue } = useForm<any>()
   const {
     blocks,
-    selectedBlock,
+    selectedColumn,
     activeKey,
     activeTab,
     onDuplicate,
@@ -26,10 +26,12 @@ const TemplatePage = () => {
     onDeleteColumn,
     onMoveUp,
     onMoveDown,
-    onSelectBlock,
+    onSelectColumn,
     onChangeBlock,
     onChangeTab,
-    onChangeActiveTab
+    onChangeActiveTab,
+    onChangeBlockPadding,
+    onChangeBackgroundBlock
   } = useHandleBlock()
   const { settings, onChangeSettings } = useHandleSetting()
   const { iframeRef, mode, onChangeMode } = useHandlePreviewMode()
@@ -81,7 +83,7 @@ const TemplatePage = () => {
                   content={
                     <BlockContainer
                       blocks={blocks}
-                      selectedBlock={selectedBlock}
+                      selectedColumn={selectedColumn}
                       settings={settings}
                       onDuplicate={onDuplicate}
                       onDelete={onDelete}
@@ -89,7 +91,7 @@ const TemplatePage = () => {
                       onDeleteColumn={onDeleteColumn}
                       onMoveUp={onMoveUp}
                       onMoveDown={onMoveDown}
-                      onSelectBlock={onSelectBlock}
+                      onSelectColumn={onSelectColumn}
                     />
                   }
                   allBackground={settings[settingKeys.ALL_BACKGROUND]}
@@ -104,7 +106,7 @@ const TemplatePage = () => {
           </footer>
         </div>
         <Setting
-          selectedBlock={selectedBlock}
+          selectedColumn={selectedColumn}
           activeKey={activeKey}
           activeTab={activeTab}
           settings={settings}
@@ -112,6 +114,8 @@ const TemplatePage = () => {
           onChangeBlock={onChangeBlock}
           onChangeActiveTab={onChangeActiveTab}
           onChangeSettings={onChangeSettings}
+          onChangeBlockPadding={onChangeBlockPadding}
+          onChangeBackgroundBlock={onChangeBackgroundBlock}
         />
       </div>
     </form>

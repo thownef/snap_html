@@ -1,12 +1,13 @@
 import { useCallback, useState } from 'react'
+import { AggregationColor } from 'antd/es/color-picker/color'
 import { blockList } from '@/modules/template/data/blockList'
-import { Block, ColumnBlock, SelectedBlock } from '@/modules/template/core/types/block.type'
+import { Block, ColumnBlock, SelectedColumn } from '@/modules/template/core/types/block.type'
 
 const useHandleBlock = () => {
   const [blocks, setBlocks] = useState<Block[]>(blockList)
-  const [selectedBlock, setSelectedBlock] = useState<SelectedBlock | null>(null)
+  const [selectedColumn, setSelectedColumn] = useState<SelectedColumn | null>(null)
   const [activeKey, setActiveKey] = useState<string>('sendSettings')
-  const [activeTab, setActiveTab] = useState<string>('partsEditMenu')
+  const [activeTab, setActiveTab] = useState<string>('blockEditMenu')
 
   const handleDuplicate = useCallback((blockId: number) => {
     return () => {
@@ -59,6 +60,13 @@ const useHandleBlock = () => {
           updatedBlock.contents.splice(columnIndex + 1, 0, newColumn)
           return updatedBlock
         })
+        setSelectedColumn((prev) => {
+          if (!prev) return null
+          return {
+            ...prev,
+            blockCount: prev.blockCount + 1
+          }
+        })
         return newBlocks
       })
     }
@@ -74,6 +82,14 @@ const useHandleBlock = () => {
           if (block.contents.length <= 1) return block
 
           const filteredContents = block.contents.filter((col) => col.id !== columnId)
+
+          setSelectedColumn((prev) => {
+            if (!prev) return null
+            return {
+              ...prev,
+              blockCount: prev.blockCount - 1
+            }
+          })
 
           return {
             ...block,
@@ -117,11 +133,22 @@ const useHandleBlock = () => {
     }
   }, [])
 
-  const handleSelectBlock = useCallback((column: ColumnBlock, blockId: number) => {
+  const handleSelectColumn = useCallback((column: ColumnBlock, blockId: number) => {
     return () => {
-      setSelectedBlock({ blockId, ...column })
-      setActiveKey('blockSettings')
-      setActiveTab('partsEditMenu')
+      setBlocks((prev) => {
+        const parentBlock = prev.find((block) => block.id === blockId)
+        if (!parentBlock) return prev
+
+        setSelectedColumn({
+          blockId,
+          ...column,
+          blockCount: parentBlock.contents.length,
+          blockSetting: parentBlock.setting
+        })
+        setActiveKey('blockSettings')
+        setActiveTab('blockEditMenu')
+        return prev
+      })
     }
   }, [])
 
@@ -150,9 +177,66 @@ const useHandleBlock = () => {
     setActiveTab(newKey)
   }, [])
 
+  const handleChangeBlockPadding = useCallback(
+    (blockId: number, paddingType: 'top' | 'right' | 'bottom' | 'left' | 'columnsInnerPadding') => {
+      return (value: number | null) => {
+        setBlocks((prev) => {
+          const updatedBlocks = prev.map((block) => {
+            if (block.id !== blockId) return block
+            const updatedBlock = {
+              ...block,
+              setting: {
+                ...block.setting,
+                padding: {
+                  ...block.setting.padding,
+                  [paddingType]: value
+                }
+              }
+            }
+
+            if (selectedColumn && selectedColumn.blockId === blockId) {
+              setSelectedColumn({
+                ...selectedColumn,
+                blockSetting: updatedBlock.setting
+              })
+            }
+
+            return updatedBlock
+          })
+
+          return updatedBlocks
+        })
+      }
+    },
+    [selectedColumn]
+  )
+
+  const handleChangeBackgroundBlock = useCallback(
+    (blockId: number) => {
+      return (color: AggregationColor) => {
+        setBlocks((prev) => {
+          const updatedBlocks = prev.map((block) => {
+            if (block.id !== blockId) return block
+            return { ...block, setting: { ...block.setting, backgroundColor: color.toRgbString() } }
+        })
+
+        if (selectedColumn && selectedColumn.blockId === blockId) {
+          setSelectedColumn({
+            ...selectedColumn,
+            blockSetting: updatedBlocks[0].setting
+          })
+        }
+
+          return updatedBlocks
+        })
+      }
+    },
+    [selectedColumn]
+  )
+
   return {
     blocks,
-    selectedBlock,
+    selectedColumn,
     activeKey,
     activeTab,
     onDuplicate: handleDuplicate,
@@ -161,10 +245,12 @@ const useHandleBlock = () => {
     onDeleteColumn: handleDeleteColumn,
     onMoveUp: handleMoveUp,
     onMoveDown: handleMoveDown,
-    onSelectBlock: handleSelectBlock,
+    onSelectColumn: handleSelectColumn,
     onChangeBlock: handleChangeBlock,
     onChangeTab: handleChangeTab,
-    onChangeActiveTab: handleChangeActiveTab
+    onChangeActiveTab: handleChangeActiveTab,
+    onChangeBlockPadding: handleChangeBlockPadding,
+    onChangeBackgroundBlock: handleChangeBackgroundBlock
   }
 }
 

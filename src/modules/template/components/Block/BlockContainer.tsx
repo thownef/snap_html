@@ -1,12 +1,12 @@
 import { memo } from 'react'
 import _ from 'lodash'
 import BaseBlock from '@/modules/template/components/Block/BaseBlock'
-import { Block, ColumnBlock, SelectedBlock } from '@/modules/template/core/types/block.type'
+import { Block, ColumnBlock, SelectedColumn } from '@/modules/template/core/types/block.type'
 import { SettingKeys } from '@/modules/template/hooks/useHandleSetting'
 
 type BlockContainerProps = {
   blocks: Block[]
-  selectedBlock: SelectedBlock | null
+  selectedColumn: SelectedColumn | null
   settings: SettingKeys
   onDuplicate: (blockId: number) => () => void
   onDelete: (blockId: number) => () => void
@@ -14,13 +14,13 @@ type BlockContainerProps = {
   onDeleteColumn: (blockId: number, columnId: number) => (e?: React.MouseEvent) => void
   onMoveUp: (blockId: number) => () => void
   onMoveDown: (blockId: number) => () => void
-  onSelectBlock: (column: ColumnBlock, blockId: number) => () => void
+  onSelectColumn: (column: ColumnBlock, blockId: number) => () => void
 }
 
 const BlockContainer = memo(
   ({
     blocks,
-    selectedBlock,
+    selectedColumn,
     settings,
     onDuplicate,
     onDelete,
@@ -28,7 +28,7 @@ const BlockContainer = memo(
     onDeleteColumn,
     onMoveUp,
     onMoveDown,
-    onSelectBlock
+    onSelectColumn
   }: BlockContainerProps) => {
     return (
       <>
@@ -39,14 +39,14 @@ const BlockContainer = memo(
             settings={settings}
             index={index}
             count={blocks.length}
-            selectedBlock={selectedBlock}
+            selectedColumn={selectedColumn}
             onDuplicate={onDuplicate}
             onDelete={onDelete}
             onDuplicateColumn={onDuplicateColumn}
             onDeleteColumn={onDeleteColumn}
             onMoveUp={onMoveUp}
             onMoveDown={onMoveDown}
-            onSelectBlock={onSelectBlock}
+            onSelectColumn={onSelectColumn}
           />
         ))}
       </>
@@ -55,7 +55,7 @@ const BlockContainer = memo(
   (prevProps, nextProps) => {
     if (
       _.isEqual(prevProps.blocks, nextProps.blocks) &&
-      _.isEqual(prevProps.selectedBlock, nextProps.selectedBlock) &&
+      _.isEqual(prevProps.selectedColumn, nextProps.selectedColumn) &&
       _.isEqual(prevProps.settings, nextProps.settings)
     ) {
       return true

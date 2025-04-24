@@ -3,11 +3,11 @@ import { AggregationColor } from 'antd/es/color-picker/color'
 import BlockSetting from '@/modules/template/components/Setting/BlockSetting'
 import SendSetting from '@/modules/template/components/Setting/SendSetting'
 import OverAllSetting from '@/modules/template/components/Setting/OverAllSetting'
-import { type SelectedBlock } from '@/modules/template/core/types/block.type'
+import { type SelectedColumn } from '@/modules/template/core/types/block.type'
 import { SettingKeys } from '@/modules/template/hooks/useHandleSetting'
 
 type SettingProps = {
-  selectedBlock: SelectedBlock | null
+  selectedColumn: SelectedColumn | null
   activeKey: string
   activeTab: string
   settings: SettingKeys
@@ -15,9 +15,25 @@ type SettingProps = {
   onChangeBlock: (content: string, blockId: number, columnId: number) => void
   onChangeActiveTab: (newKey: string) => void
   onChangeSettings: (key: string) => (color: AggregationColor | RadioChangeEvent) => void
+  onChangeBlockPadding: (
+    blockId: number,
+    paddingType: 'top' | 'right' | 'bottom' | 'left' | 'columnsInnerPadding'
+  ) => (value: number | null) => void
+  onChangeBackgroundBlock: (blockId: number) => (color: AggregationColor) => void
 }
 
-const Setting = ({ selectedBlock, activeKey, activeTab, settings, onChangeTab, onChangeBlock, onChangeActiveTab, onChangeSettings }: SettingProps) => {
+const Setting = ({
+  selectedColumn,
+  activeKey,
+  activeTab,
+  settings,
+  onChangeTab,
+  onChangeBlock,
+  onChangeActiveTab,
+  onChangeSettings,
+  onChangeBlockPadding,
+  onChangeBackgroundBlock
+}: SettingProps) => {
   const items: TabsProps['items'] = [
     {
       key: 'sendSettings',
@@ -27,10 +43,19 @@ const Setting = ({ selectedBlock, activeKey, activeTab, settings, onChangeTab, o
     {
       key: 'blockSettings',
       label: 'メール編集',
-      children: <BlockSetting selectedBlock={selectedBlock} activeTab={activeTab} onChangeBlock={onChangeBlock} onChangeActiveTab={onChangeActiveTab} />
+      children: (
+        <BlockSetting
+          selectedColumn={selectedColumn}
+          activeTab={activeTab}
+          onChangeBlock={onChangeBlock}
+          onChangeActiveTab={onChangeActiveTab}
+          onChangeBlockPadding={onChangeBlockPadding}
+          onChangeBackgroundBlock={onChangeBackgroundBlock}
+        />
+      )
     },
-      {
-        key: 'overallSettings',
+    {
+      key: 'overallSettings',
       label: '全体デザイン',
       children: <OverAllSetting settings={settings} onChangeSettings={onChangeSettings} />
     }

@@ -1,17 +1,31 @@
 import { Tabs, TabsProps } from 'antd'
-import { type SelectedBlock } from '@/modules/template/core/types/block.type'
+import { AggregationColor } from 'antd/es/color-picker/color'
+import { type SelectedColumn } from '@/modules/template/core/types/block.type'
 import ImageSetting from '@/modules/template/components/Setting/ImageSetting'
 import TextSetting from '@/modules/template/components/Setting/TextSetting'
+import BlockDesignSetting from '@/modules/template/components/Setting/BlockDesignSetting'
 
 type BlockSettingProps = {
-  selectedBlock: SelectedBlock | null
+  selectedColumn: SelectedColumn | null
   activeTab: string
   onChangeBlock: (content: string, blockId: number, columnId: number) => void
   onChangeActiveTab: (newKey: string) => void
+  onChangeBlockPadding: (
+    blockId: number,
+    paddingType: 'top' | 'right' | 'bottom' | 'left' | 'columnsInnerPadding'
+  ) => (value: number | null) => void
+  onChangeBackgroundBlock: (blockId: number) => (color: AggregationColor) => void
 }
 
-const BlockSetting = ({ selectedBlock, activeTab, onChangeBlock, onChangeActiveTab }: BlockSettingProps) => {
-  if (!selectedBlock) {
+const BlockSetting = ({
+  selectedColumn,
+  activeTab,
+  onChangeBlock,
+  onChangeActiveTab,
+  onChangeBlockPadding,
+  onChangeBackgroundBlock
+}: BlockSettingProps) => {
+  if (!selectedColumn) {
     return (
       <div className='w-full h-full overflow-hidden'>
         <div className='m-4 mx-6 w-[calc(100%-96px)] p-4 px-6 bg-gray-100 text-[rgb(140,140,140)]'>
@@ -32,7 +46,7 @@ const BlockSetting = ({ selectedBlock, activeTab, onChangeBlock, onChangeActiveT
     {
       key: 'blockEditMenu',
       label: 'ブロックデザイン',
-      children: 'ブロックデザイン'
+      children: <BlockDesignSetting selectedColumn={selectedColumn} onChangeBlockPadding={onChangeBlockPadding} onChangeBackgroundBlock={onChangeBackgroundBlock} />
     }
   ]
 
@@ -40,16 +54,16 @@ const BlockSetting = ({ selectedBlock, activeTab, onChangeBlock, onChangeActiveT
     {
       key: 'partsEditMenu',
       label: 'テキスト編集',
-      children: <TextSetting selectedBlock={selectedBlock} onChangeBlock={onChangeBlock} />
+      children: <TextSetting selectedColumn={selectedColumn} onChangeBlock={onChangeBlock} />
     },
     {
       key: 'blockEditMenu',
       label: 'ブロックデザイン',
-      children: 'ブロックデザイン'
+      children: <BlockDesignSetting selectedColumn={selectedColumn} onChangeBlockPadding={onChangeBlockPadding} onChangeBackgroundBlock={onChangeBackgroundBlock} />
     }
   ]
 
-  return selectedBlock.type === 'image' ? (
+  return selectedColumn.type === 'image' ? (
     <Tabs
       className='h-full [&_.ant-tabs-nav]:!mb-0 [&_.ant-tabs-tabpane]:!overflow-hidden [&_.ant-tabs-tabpane]:!overflow-y-auto [&_.ant-tabs-tabpane]:!h-[calc(100vh-150px)]'
       defaultActiveKey='1'
@@ -59,7 +73,7 @@ const BlockSetting = ({ selectedBlock, activeTab, onChangeBlock, onChangeActiveT
     />
   ) : (
     <Tabs
-      className='h-full [&_.ant-tabs-nav]:!mb-0'
+      className='h-full [&_.ant-tabs-nav]:h-[39px] [&_.ant-tabs-content-holder]:!h-full'
       defaultActiveKey='partsEditMenu'
       type='line'
       size={'middle'}

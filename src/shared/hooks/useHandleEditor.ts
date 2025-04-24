@@ -8,13 +8,13 @@ import { TextStyle } from '@tiptap/extension-text-style'
 import Underline from '@tiptap/extension-underline'
 import StarterKit from '@tiptap/starter-kit'
 import Highlight from '@tiptap/extension-highlight'
-import { SelectedBlock } from '@/modules/template/core/types/block.type'
+import { SelectedColumn } from '@/modules/template/core/types/block.type'
 import { AggregationColor } from 'antd/es/color-picker/color'
 import { FontSize } from '@/shared/lib/FontSize'
 import { LineHeight } from '@/shared/lib/LineHeight'
 
 const useHandleEditor = (
-  selectedBlock: SelectedBlock,
+  selectedColumn: SelectedColumn,
   onChangeBlock: (content: string, blockId: number, columnId: number) => void
 ) => {
   const [form] = Form.useForm()
@@ -37,7 +37,7 @@ const useHandleEditor = (
       }),
       Highlight.configure({ multicolor: true })
     ],
-    content: selectedBlock.content,
+    content: selectedColumn.content,
     onSelectionUpdate: ({ editor }) => {
       const currentFontSize = editor.getAttributes('textStyle').fontSize
       if (currentFontSize) {
@@ -60,7 +60,7 @@ const useHandleEditor = (
       }
     },
     onUpdate: ({ editor }) => {
-      onChangeBlock(editor.getHTML(), selectedBlock.blockId, selectedBlock.id)
+      onChangeBlock(editor.getHTML(), selectedColumn.blockId, selectedColumn.id)
     }
   })
 
@@ -167,8 +167,8 @@ const useHandleEditor = (
   }, [editor])
 
   useEffect(() => {
-    editor?.commands.setContent(selectedBlock.content)
-  }, [editor, selectedBlock.content])
+    editor?.commands.setContent(selectedColumn.content)
+  }, [editor, selectedColumn.content])
 
   return {
     editor,

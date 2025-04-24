@@ -18,16 +18,16 @@ import FontColorIcon from '@/modules/template/components/Icon/FontColorIcon'
 import HighlightColorIcon from '@/modules/template/components/Icon/HighlightColorIcon'
 import UndoIcon from '@/modules/template/components/Icon/UndoIcon'
 import RedoIcon from '@/modules/template/components/Icon/RedoIcon'
-import { SelectedBlock } from '@/modules/template/core/types/block.type'
+import { SelectedColumn } from '@/modules/template/core/types/block.type'
 import useHandleEditor from '@/shared/hooks/useHandleEditor'
 import LinkEditorForm from '@/modules/template/components/Form/LinkEditorForm'
 
 type TextSettingProps = {
-  selectedBlock: SelectedBlock
+  selectedColumn: SelectedColumn
   onChangeBlock: (content: string, blockId: number, columnId: number) => void
 }
 
-const TextSetting = ({ selectedBlock, onChangeBlock }: TextSettingProps) => {
+const TextSetting = ({ selectedColumn, onChangeBlock }: TextSettingProps) => {
   const {
     editor,
     isOpen,
@@ -50,7 +50,7 @@ const TextSetting = ({ selectedBlock, onChangeBlock }: TextSettingProps) => {
     onUndo,
     onRedo,
     onClearFormat
-  } = useHandleEditor(selectedBlock, onChangeBlock)
+  } = useHandleEditor(selectedColumn, onChangeBlock)
 
   if (!editor) {
     return null
