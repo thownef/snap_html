@@ -1,9 +1,11 @@
-import { Space, Typography, Radio, type RadioChangeEvent } from 'antd'
+import { Space, Typography, type RadioChangeEvent } from 'antd'
 import LeftBlockImage from '@/modules/template/components/Svg/LeftBlockImage'
 import CenterBlockImage from '@/modules/template/components/Svg/CenterBlockImage'
 import { AggregationColor } from 'antd/es/color-picker/color'
 import { SettingKeys, settingKeys } from '@/modules/template/hooks/useHandleSetting'
 import ColorPicker from '@/shared/components/ColorPicker/ColorPicker'
+import RadioDesign from '@/shared/design-system/Radio/RadioDesign'
+import { displayPcOptions } from '@/modules/template/core/config/columns/display-pc-list'
 const { Text } = Typography
 
 type OverAllSettingProps = {
@@ -49,18 +51,12 @@ const OverAllSetting = ({ settings, onChangeSettings }: OverAllSettingProps) => 
       <Space className='w-full bg-white rounded' direction='vertical' size='small'>
         <Space className='w-full bg-white rounded' direction='vertical' size='small'>
           <Text strong>PC表示のブロック位置</Text>
-          <Radio.Group
-            size='small'
+          <RadioDesign
             value={settings[settingKeys.CONTENT_POSITION]}
+            options={displayPcOptions}
             onChange={onChangeSettings(settingKeys.CONTENT_POSITION)}
-          >
-            <Radio.Button value='left' className='w-24 text-center'>
-              <Space>左揃え</Space>
-            </Radio.Button>
-            <Radio.Button value='center' className='w-24 text-center' defaultChecked>
-              <Space>中央揃え</Space>
-            </Radio.Button>
-          </Radio.Group>
+            className='w-full [&_.ant-radio-button-wrapper]:w-24 [&_.ant-radio-button-wrapper]:text-center'
+          />
           {settings[settingKeys.CONTENT_POSITION] === 'left' ? <LeftBlockImage /> : <CenterBlockImage />}
         </Space>
       </Space>

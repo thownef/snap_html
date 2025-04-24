@@ -1,6 +1,8 @@
-import { Space, Typography, Button, Slider, Checkbox, Radio, InputNumber } from 'antd'
-import { UploadOutlined, AppstoreOutlined, QuestionCircleFilled, LinkOutlined } from '@ant-design/icons'
 import { useRef } from 'react'
+import { Space, Typography, Button, Slider, Checkbox, InputNumber } from 'antd'
+import { UploadOutlined, AppstoreOutlined, QuestionCircleFilled, LinkOutlined } from '@ant-design/icons'
+import { displayImageList } from '@/modules/template/core/config/columns/display-image-list'
+import RadioDesign from '@/shared/design-system/Radio/RadioDesign'
 
 const ImageSetting = () => {
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -102,17 +104,12 @@ const ImageSetting = () => {
 
       <Space direction='vertical' size='small' className='mb-4 w-full'>
         <Typography.Text className='font-bold'>位置</Typography.Text>
-        <Radio.Group size='small'>
-          <Radio.Button value='left' className='w-24 text-center'>
-            <Space>左揃え</Space>
-          </Radio.Button>
-          <Radio.Button value='center' className='w-24 text-center' defaultChecked>
-            <Space>中央揃え</Space>
-          </Radio.Button>
-          <Radio.Button value='right' className='w-24 text-center'>
-            <Space>右揃え</Space>
-          </Radio.Button>
-        </Radio.Group>
+        <RadioDesign
+          options={displayImageList}
+          onChange={() => {}}
+          value={'left'}
+          className='[&_.ant-radio-button-wrapper]:w-24 [&_.ant-radio-button-wrapper]:text-center'
+        />
       </Space>
     </Space>
   )

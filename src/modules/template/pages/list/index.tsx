@@ -1,7 +1,6 @@
 import { useCallback } from 'react'
 import { useForm, SubmitHandler } from 'react-hook-form'
 import ReactDOMServer from 'react-dom/server'
-import { Radio } from 'antd'
 import BlockContainer from '@/modules/template/components/Block/BlockContainer'
 import useHandleBlock from '@/modules/template/hooks/useHandleBlock'
 import Iframe from '@/modules/template/components/Iframe/Iframe'
@@ -12,6 +11,7 @@ import { blockList } from '@/modules/template/data/blockList'
 import useHandlePreviewMode from '@/modules/template/hooks/useHandlePreviewMode'
 import useHandleSetting, { settingKeys } from '@/modules/template/hooks/useHandleSetting'
 import { modeOptions } from '@/modules/template/core/config/select-options'
+import RadioDesign from '@/shared/design-system/Radio/RadioDesign'
 
 const TemplatePage = () => {
   const { handleSubmit, setValue } = useForm<any>()
@@ -33,7 +33,6 @@ const TemplatePage = () => {
   } = useHandleBlock()
   const { settings, onChangeSettings } = useHandleSetting()
   const { iframeRef, mode, onChangeMode } = useHandlePreviewMode()
-  console.log(mode)
   const handleGetHtmlValue = useCallback((newBlocks: typeof blockList) => {
     const templateHtml = ReactDOMServer.renderToStaticMarkup(<IframeTemplate />)
     const parser = new DOMParser()
@@ -67,12 +66,10 @@ const TemplatePage = () => {
           </header>
           <main className='flex-auto max-[1424px]:max-w-[744px]'>
             <div className='h-10 bg-gray-50 border-b border-gray-200 relative text-center'>
-              <Radio.Group
+              <RadioDesign
                 options={modeOptions}
                 onChange={onChangeMode}
                 value={mode}
-                size='small'
-                optionType='button'
                 className='!px-0 !py-2 [&_.ant-radio-button-wrapper]:w-[120px]'
               />
             </div>
