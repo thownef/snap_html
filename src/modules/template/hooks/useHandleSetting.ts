@@ -27,6 +27,8 @@ const useHandleSetting = () => {
     [settingKeys.CONTENT_POSITION]: 'center'
   })
 
+  console.log(settings)
+
   const handleChangeSettings = (key: string) => (color: AggregationColor | RadioChangeEvent) => {
     const valueUpdate = 'toRgbString' in color ? color.toRgbString() : color.target.value
     setSettings((prev) => ({ ...prev, [key]: valueUpdate }))
