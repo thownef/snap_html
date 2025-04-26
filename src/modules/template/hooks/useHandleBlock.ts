@@ -2,12 +2,15 @@ import { useCallback, useState } from 'react'
 import { AggregationColor } from 'antd/es/color-picker/color'
 import { blockList } from '@/modules/template/data/blockList'
 import { Block, ColumnBlock, SelectedColumn } from '@/modules/template/core/types/block.type'
+import { createBlockFromTemplate } from '@/modules/template/utils'
 
 const useHandleBlock = () => {
   const [blocks, setBlocks] = useState<Block[]>(blockList)
   const [selectedColumn, setSelectedColumn] = useState<SelectedColumn | null>(null)
   const [activeKey, setActiveKey] = useState<string>('sendSettings')
   const [activeTab, setActiveTab] = useState<string>('partsEditMenu')
+  const [blockId, setBlockId] = useState<number>(0)
+  const [modalName, setModalName] = useState<string>('')
 
   const handleDuplicate = useCallback((blockId: number) => {
     return () => {
@@ -218,14 +221,14 @@ const useHandleBlock = () => {
           const updatedBlocks = prev.map((block) => {
             if (block.id !== blockId) return block
             return { ...block, setting: { ...block.setting, backgroundColor: color.toRgbString() } }
-        })
-
-        if (selectedColumn && selectedColumn.blockId === blockId) {
-          setSelectedColumn({
-            ...selectedColumn,
-            blockSetting: updatedBlocks[0].setting
           })
-        }
+
+          if (selectedColumn && selectedColumn.blockId === blockId) {
+            setSelectedColumn({
+              ...selectedColumn,
+              blockSetting: updatedBlocks[0].setting
+            })
+          }
 
           return updatedBlocks
         })
@@ -234,11 +237,44 @@ const useHandleBlock = () => {
     [selectedColumn]
   )
 
+  const handleOpenModal = useCallback((modalName: string, blockId: number) => {
+    return () => {
+      setModalName(modalName)
+      setBlockId(blockId)
+    }
+  }, [])
+
+  const handleAddBlock = useCallback(
+    (blockType: string, count: number = 1) => {
+      return () => {
+        setBlocks((prev) => {
+          const newBlock = createBlockFromTemplate(blockType, count)
+          const newBlocks = [...prev]
+
+          if (blockId) {
+            const insertIndex = newBlocks.findIndex((block) => block.id === blockId)
+            if (insertIndex !== -1) {
+              newBlocks.splice(insertIndex + 1, 0, newBlock)
+              return newBlocks
+            }
+          }
+
+          newBlocks.push(newBlock)
+          return newBlocks
+        })
+        setModalName('')
+        setBlockId(0)
+      }
+    },
+    [blockId]
+  )
+
   return {
     blocks,
     selectedColumn,
     activeKey,
     activeTab,
+    modalName,
     onDuplicate: handleDuplicate,
     onDelete: handleDelete,
     onDuplicateColumn: handleDuplicateColumn,
@@ -250,7 +286,9 @@ const useHandleBlock = () => {
     onChangeTab: handleChangeTab,
     onChangeActiveTab: handleChangeActiveTab,
     onChangeBlockPadding: handleChangeBlockPadding,
-    onChangeBackgroundBlock: handleChangeBackgroundBlock
+    onChangeBackgroundBlock: handleChangeBackgroundBlock,
+    onOpenModal: handleOpenModal,
+    onAddBlock: handleAddBlock
   }
 }
 

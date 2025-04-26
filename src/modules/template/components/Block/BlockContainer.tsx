@@ -15,6 +15,7 @@ type BlockContainerProps = {
   onMoveUp: (blockId: number) => () => void
   onMoveDown: (blockId: number) => () => void
   onSelectColumn: (column: ColumnBlock, blockId: number) => () => void
+  onOpenModal: (modalName: string, blockId: number) => () => void
 }
 
 const BlockContainer = memo(
@@ -28,7 +29,8 @@ const BlockContainer = memo(
     onDeleteColumn,
     onMoveUp,
     onMoveDown,
-    onSelectColumn
+    onSelectColumn,
+    onOpenModal
   }: BlockContainerProps) => {
     return (
       <>
@@ -47,6 +49,7 @@ const BlockContainer = memo(
             onMoveUp={onMoveUp}
             onMoveDown={onMoveDown}
             onSelectColumn={onSelectColumn}
+            onOpenModal={onOpenModal}
           />
         ))}
       </>

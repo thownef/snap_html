@@ -1,8 +1,9 @@
 type BlockAddButtonProps = {
   blockId: number
+  onOpenModal: (modalName: string, blockId: number) => () => void
 }
 
-const AddBlockButton = ({ blockId }: BlockAddButtonProps) => (
+const AddBlockButton = ({ blockId, onOpenModal }: BlockAddButtonProps) => (
   <div className='mail-block-add-button'>
     <div title='ブロック追加'>
       <button
@@ -10,6 +11,7 @@ const AddBlockButton = ({ blockId }: BlockAddButtonProps) => (
         type='button'
         className='ant-btn css-p8b6i ant-btn-default sc-abc88c93-0 dsNwsu js-add-block'
         style={{ padding: 0, border: 0 }}
+        onClick={onOpenModal('addBlock', blockId)}
       >
         <div className='ant-space css-p8b6i ant-space-horizontal ant-space-align-center ant-space-gap-row-small ant-space-gap-col-small'>
           <div className='ant-space-item'>

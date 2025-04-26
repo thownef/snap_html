@@ -12,9 +12,6 @@ export type PaddingBlock = PaddingColumn & {
 export type ColumnBlock = {
   id: number
   type: string
-  setting: {
-    padding: PaddingColumn
-  }
   content: string
 }
 
@@ -35,4 +32,21 @@ export type SelectedColumn = ColumnBlock & {
     padding: PaddingBlock
     backgroundColor: string
   }
+}
+
+export type BlockList = {
+  key: string
+  href: string
+  title: string
+}
+
+export type BlockIcon = {
+  id: string
+  name: string
+  anchorKey: string
+  icons: {
+    id: string
+    count: number
+    component: React.ComponentType
+  }[]
 }

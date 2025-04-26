@@ -22,6 +22,7 @@ type BaseBlockProps = {
   onMoveUp: (blockId: number) => () => void
   onMoveDown: (blockId: number) => () => void
   onSelectColumn: (column: ColumnBlock, blockId: number) => () => void
+  onOpenModal: (modalName: string, blockId: number) => () => void
 }
 
 const BaseBlock = memo(
@@ -37,7 +38,8 @@ const BaseBlock = memo(
     onDeleteColumn,
     onMoveUp,
     onMoveDown,
-    onSelectColumn
+    onSelectColumn,
+    onOpenModal
   }: BaseBlockProps) => {
     return (
       <table
@@ -57,7 +59,7 @@ const BaseBlock = memo(
         <tbody>
           <tr>
             <td>
-              <AddBlockButton blockId={block.id} />
+              <AddBlockButton blockId={block.id} onOpenModal={onOpenModal} />
               <div className='mail-block-insert-line' />
               <div className='mail-block-panel' />
               <GroupBlockButton
@@ -118,7 +120,7 @@ const BaseBlock = memo(
                                     <tbody>
                                       <tr>
                                         <td style={{ padding: 0 }}>
-                                          <ColumnDesign column={column} settings={settings} />
+                                          <ColumnDesign column={column} settings={settings} padding={block.setting.padding} count={block.contents.length} />
                                         </td>
                                       </tr>
                                     </tbody>
@@ -148,6 +150,7 @@ const BaseBlock = memo(
       _.isEqual(prevProps.block, nextProps.block) &&
       _.isEqual(prevProps.selectedColumn, nextProps.selectedColumn) &&
       _.isEqual(prevProps.settings, nextProps.settings) &&
+      prevProps.count === nextProps.count &&
       prevProps.index === nextProps.index
     ) {
       return true
