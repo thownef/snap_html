@@ -74,6 +74,7 @@ const TemplatePage = () => {
                         onMoveDown={onMoveDown}
                         onSelectColumn={onSelectColumn}
                         onOpenModal={onOpenModal}
+                        activeTab={activeTab}
                       />
                     }
                     allBackground={settings[settingKeys.ALL_BACKGROUND]}

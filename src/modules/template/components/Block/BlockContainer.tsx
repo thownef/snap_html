@@ -16,6 +16,7 @@ type BlockContainerProps = {
   onMoveDown: (blockId: number) => () => void
   onSelectColumn: (column: ColumnBlock, blockId: number) => () => void
   onOpenModal: (modalName: string, blockId: number) => () => void
+  activeTab: string
 }
 
 const BlockContainer = memo(
@@ -30,7 +31,8 @@ const BlockContainer = memo(
     onMoveUp,
     onMoveDown,
     onSelectColumn,
-    onOpenModal
+    onOpenModal,
+    activeTab
   }: BlockContainerProps) => {
     return (
       <>
@@ -50,6 +52,7 @@ const BlockContainer = memo(
             onMoveDown={onMoveDown}
             onSelectColumn={onSelectColumn}
             onOpenModal={onOpenModal}
+            activeTab={activeTab}
           />
         ))}
       </>
@@ -59,7 +62,8 @@ const BlockContainer = memo(
     if (
       _.isEqual(prevProps.blocks, nextProps.blocks) &&
       _.isEqual(prevProps.selectedColumn, nextProps.selectedColumn) &&
-      _.isEqual(prevProps.settings, nextProps.settings)
+      _.isEqual(prevProps.settings, nextProps.settings) &&
+      prevProps.activeTab === nextProps.activeTab
     ) {
       return true
     }

@@ -23,6 +23,7 @@ type BaseBlockProps = {
   onMoveDown: (blockId: number) => () => void
   onSelectColumn: (column: ColumnBlock, blockId: number) => () => void
   onOpenModal: (modalName: string, blockId: number) => () => void
+  activeTab: string
 }
 
 const BaseBlock = memo(
@@ -39,7 +40,8 @@ const BaseBlock = memo(
     onMoveUp,
     onMoveDown,
     onSelectColumn,
-    onOpenModal
+    onOpenModal,
+    activeTab
   }: BaseBlockProps) => {
     return (
       <table
@@ -61,7 +63,7 @@ const BaseBlock = memo(
             <td>
               <AddBlockButton blockId={block.id} onOpenModal={onOpenModal} />
               <div className='mail-block-insert-line' />
-              <div className='mail-block-panel' />
+              <div className={`mail-block-panel ${ selectedColumn?.blockId === block.id && activeTab === 'blockEditMenu' ? 'edit-target-element' : ''}`} />
               <GroupBlockButton
                 blockId={block.id}
                 canMoveUp={index > 0}
@@ -126,7 +128,7 @@ const BaseBlock = memo(
                                     </tbody>
                                   </table>
                                   <div
-                                    className={`mail-parts-edit-panel ${selectedColumn && selectedColumn.blockId === block.id && selectedColumn.id === column.id ? 'edit-target-element' : ''}`}
+                                    className={`mail-parts-edit-panel ${selectedColumn && selectedColumn.blockId === block.id && selectedColumn.id === column.id && activeTab !== 'blockEditMenu' ? 'edit-target-element' : ''}`}
                                     title='パーツ編集'
                                   />
                                 </td>
@@ -151,7 +153,8 @@ const BaseBlock = memo(
       _.isEqual(prevProps.selectedColumn, nextProps.selectedColumn) &&
       _.isEqual(prevProps.settings, nextProps.settings) &&
       prevProps.count === nextProps.count &&
-      prevProps.index === nextProps.index
+      prevProps.index === nextProps.index &&
+      prevProps.activeTab === nextProps.activeTab
     ) {
       return true
     }
