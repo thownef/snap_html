@@ -1,4 +1,4 @@
-import { Space, Button, Select, Row, Col, Divider, Dropdown, ColorPicker, Popover } from 'antd'
+import { Space, Button, Select, Row, Col, Divider, ColorPicker, Popover } from 'antd'
 import {
   BoldOutlined,
   UnderlineOutlined,
@@ -78,9 +78,6 @@ const TextSetting = ({ selectedColumn, onChangeBlock }: TextSettingProps) => {
                 onChange={onSetLineHeight}
                 options={lineHeightOptions}
               />
-              <Dropdown menu={{ items: [] }} trigger={['click']}>
-                <Button size='small'>差込みコード</Button>
-              </Dropdown>
             </Space>
           </Col>
           <Col>
