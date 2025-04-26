@@ -29,7 +29,7 @@ const useHandleSetting = () => {
 
   const handleChangeSettings = (key: string) => (color: AggregationColor | RadioChangeEvent) => {
     const valueUpdate = 'toRgbString' in color ? color.toRgbString() : color.target.value
-    setSettings({ ...settings, [key]: valueUpdate })
+    setSettings((prev) => ({ ...prev, [key]: valueUpdate }))
   }
 
   return {
