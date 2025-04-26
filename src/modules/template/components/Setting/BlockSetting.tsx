@@ -1,14 +1,15 @@
 import { Tabs, TabsProps } from 'antd'
 import { AggregationColor } from 'antd/es/color-picker/color'
-import { type SelectedColumn } from '@/modules/template/core/types/block.type'
+import { type SelectedColumn, ChangeBlockType } from '@/modules/template/core/types/block.type'
 import ImageSetting from '@/modules/template/components/Setting/ImageSetting'
 import TextSetting from '@/modules/template/components/Setting/TextSetting'
 import BlockDesignSetting from '@/modules/template/components/Setting/BlockDesignSetting'
+import ButtonSetting from '@/modules/template/components/Setting/ButtonSetting'
 
 type BlockSettingProps = {
   selectedColumn: SelectedColumn | null
   activeTab: string
-  onChangeBlock: (content: string, blockId: number, columnId: number) => void
+  onChangeBlock: (keyChange: string, blockId: number, columnId: number) => (value: ChangeBlockType) => void
   onChangeActiveTab: (newKey: string) => void
   onChangeBlockPadding: (
     blockId: number,
@@ -46,7 +47,13 @@ const BlockSetting = ({
     {
       key: 'blockEditMenu',
       label: 'ブロックデザイン',
-      children: <BlockDesignSetting selectedColumn={selectedColumn} onChangeBlockPadding={onChangeBlockPadding} onChangeBackgroundBlock={onChangeBackgroundBlock} />
+      children: (
+        <BlockDesignSetting
+          selectedColumn={selectedColumn}
+          onChangeBlockPadding={onChangeBlockPadding}
+          onChangeBackgroundBlock={onChangeBackgroundBlock}
+        />
+      )
     }
   ]
 
@@ -59,17 +66,54 @@ const BlockSetting = ({
     {
       key: 'blockEditMenu',
       label: 'ブロックデザイン',
-      children: <BlockDesignSetting selectedColumn={selectedColumn} onChangeBlockPadding={onChangeBlockPadding} onChangeBackgroundBlock={onChangeBackgroundBlock} />
+      children: (
+        <BlockDesignSetting
+          selectedColumn={selectedColumn}
+          onChangeBlockPadding={onChangeBlockPadding}
+          onChangeBackgroundBlock={onChangeBackgroundBlock}
+        />
+      )
+    }
+  ]
+
+  const itemButtons: TabsProps['items'] = [
+    {
+      key: 'partsEditMenu',
+      label: 'ボタン編集',
+      children: <ButtonSetting selectedColumn={selectedColumn} onChangeBlock={onChangeBlock} />
+    },
+    {
+      key: 'blockEditMenu',
+      label: 'ブロックデザイン',
+      children: (
+        <BlockDesignSetting
+          selectedColumn={selectedColumn}
+          onChangeBlockPadding={onChangeBlockPadding}
+          onChangeBackgroundBlock={onChangeBackgroundBlock}
+        />
+      )
     }
   ]
 
   return selectedColumn.type === 'image' ? (
     <Tabs
-      className='h-full [&_.ant-tabs-nav]:!mb-0 [&_.ant-tabs-tabpane]:!overflow-hidden [&_.ant-tabs-tabpane]:!overflow-y-auto [&_.ant-tabs-tabpane]:!h-[calc(100vh-150px)]'
-      defaultActiveKey='1'
+      className='h-full [&_.ant-tabs-nav]:h-[39px] [&_.ant-tabs-nav]:!mb-0 [&_.ant-tabs-tabpane]:!overflow-hidden [&_.ant-tabs-tabpane]:!overflow-y-auto [&_.ant-tabs-tabpane]:!h-[calc(100vh-150px)]'
+      defaultActiveKey='partsEditMenu'
       type='line'
       size={'middle'}
       items={itemImages}
+      activeKey={activeTab}
+      onChange={onChangeActiveTab}
+    />
+  ) : selectedColumn.type === 'text' ? (
+    <Tabs
+      className='h-full [&_.ant-tabs-nav]:h-[39px] [&_.ant-tabs-content-holder]:!h-full'
+      defaultActiveKey='partsEditMenu'
+      type='line'
+      size={'middle'}
+      items={itemTexts}
+      activeKey={activeTab}
+      onChange={onChangeActiveTab}
     />
   ) : (
     <Tabs
@@ -77,7 +121,7 @@ const BlockSetting = ({
       defaultActiveKey='partsEditMenu'
       type='line'
       size={'middle'}
-      items={itemTexts}
+      items={itemButtons}
       activeKey={activeTab}
       onChange={onChangeActiveTab}
     />

@@ -55,3 +55,26 @@ export const createBlockFromTemplate = (type: string, contentCount: number = 1):
     }))
   }
 }
+
+export const getColumnAlign = (type: string, ) => {
+  switch (type) {
+    case 'button':
+      return 'center'
+    default:
+      return undefined
+  }
+}
+export const getColumnWidth = (type: string, size?: string) => {
+  switch (type) {
+    case 'button':
+      return size === 'large' ? '100%' : 'auto'
+    case 'image':
+      return 'auto'
+    default:
+      return '100%'
+  }
+}
+
+
+
+

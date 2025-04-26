@@ -1,3 +1,4 @@
+import { FormButton, formButtonEnum, SizeButton, sizeButtonEnum } from '@/modules/template/core/enums/block.enum'
 import { Mode, ModeEnum } from '@/modules/template/core/enums/template.enum'
 import { OptionSelect } from '@/shared/core/types/common.type'
 
@@ -31,3 +32,32 @@ export const modeOptions: OptionSelect[] = [
   }
 ]
 
+export const sizeButtonOptions: OptionSelect[] = [
+  {
+    value: SizeButton.SMALL,
+    label: sizeButtonEnum[SizeButton.SMALL],
+  },
+  {
+    value: SizeButton.MIDDLE,
+    label: sizeButtonEnum[SizeButton.MIDDLE],
+  },
+  {
+    value: SizeButton.LARGE,
+    label: sizeButtonEnum[SizeButton.LARGE],
+  }
+]
+
+export const formButtonOptions: OptionSelect[] = [
+  {
+    value: FormButton.CIRCLE,
+    label: formButtonEnum[FormButton.CIRCLE],
+  },
+  {
+    value: FormButton.ROUND,
+    label: formButtonEnum[FormButton.ROUND],
+  },
+  {
+    value: FormButton.SQUARE,
+    label: formButtonEnum[FormButton.SQUARE],
+  }
+]

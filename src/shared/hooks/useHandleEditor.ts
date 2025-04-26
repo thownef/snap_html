@@ -1,6 +1,6 @@
 import { useCallback, useEffect, useState } from 'react'
 import { Form } from 'antd'
-import { useEditor } from '@tiptap/react'
+import { EditorEvents, useEditor } from '@tiptap/react'
 import Color from '@tiptap/extension-color'
 import Link from '@tiptap/extension-link'
 import TextAlign from '@tiptap/extension-text-align'
@@ -15,7 +15,7 @@ import { LineHeight } from '@/shared/lib/LineHeight'
 
 const useHandleEditor = (
   selectedColumn: SelectedColumn,
-  onChangeBlock: (content: string, blockId: number, columnId: number) => void
+  onChangeBlock: (keyChange: string, blockId: number, columnId: number) => (value: EditorEvents["update"]) => void
 ) => {
   const [form] = Form.useForm()
   const [isOpen, setIsOpen] = useState(false)
@@ -59,9 +59,7 @@ const useHandleEditor = (
           'h-full px-[11px] py-1 border border-[#d9d9d9] rounded-[6px] [&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pl-[40px] [&_ol]:pl-[40px] [&_ul]:my-4 [&_ol]:my-4 bg-white text-[#262626] overflow-y-auto overflow-x-hidden focus:outline-none focus:!border-[rgb(230,80,83)] [&_a]:!text-blue-600 [&_a]:!underline'
       }
     },
-    onUpdate: ({ editor }) => {
-      onChangeBlock(editor.getHTML(), selectedColumn.blockId, selectedColumn.id)
-    }
+    onUpdate: onChangeBlock('content', selectedColumn.blockId, selectedColumn.id)
   })
 
   const handleClearFormat = useCallback(() => {

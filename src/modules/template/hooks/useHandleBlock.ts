@@ -1,7 +1,8 @@
 import { useCallback, useState } from 'react'
+import _ from 'lodash'
 import { AggregationColor } from 'antd/es/color-picker/color'
 import { blockList } from '@/modules/template/data/blockList'
-import { Block, ColumnBlock, SelectedColumn } from '@/modules/template/core/types/block.type'
+import { Block, ChangeBlockType, ColumnBlock, SelectedColumn } from '@/modules/template/core/types/block.type'
 import { createBlockFromTemplate } from '@/modules/template/utils'
 
 const useHandleBlock = () => {
@@ -155,22 +156,49 @@ const useHandleBlock = () => {
     }
   }, [])
 
-  const handleChangeBlock = useCallback((content: string, blockId: number, columnId: number) => {
-    setBlocks((prev) => {
-      const updatedBlocks = prev.map((block) => {
-        if (block.id !== blockId) return block
+  const handleChangeBlock = useCallback(
+    (keyChange: string, blockId: number, columnId: number) => {
+      return (value: ChangeBlockType) => {
+        const valueUpdate =
+          'editor' in value
+            ? value.editor.getHTML()
+            : value instanceof AggregationColor
+              ? value.toRgbString()
+              : 'target' in value
+                ? value.target.value
+                : value
 
-        const updatedContents = block.contents.map((col) => {
-          if (col.id !== columnId) return col
-          return { ...col, content }
+        if (selectedColumn && selectedColumn.blockId === blockId) {
+          setSelectedColumn((prev) => {
+            if (!prev) return null
+            const newCol = _.cloneDeep(prev)
+            _.set(newCol, keyChange, valueUpdate)
+            return newCol
+          })
+        }
+
+        setBlocks((prev) => {
+          return prev.map((block) => {
+            if (block.id !== blockId) return block
+
+            const updatedContents = block.contents.map((col) => {
+              if (col.id !== columnId) return col
+
+              const newCol = _.cloneDeep(col)
+              _.set(newCol, keyChange, valueUpdate)
+              return newCol
+            })
+
+            return {
+              ...block,
+              contents: updatedContents
+            }
+          })
         })
-
-        return { ...block, contents: updatedContents }
-      })
-
-      return updatedBlocks
-    })
-  }, [])
+      }
+    },
+    [selectedColumn]
+  )
 
   const handleChangeTab = useCallback((newKey: string) => {
     setActiveKey(newKey)

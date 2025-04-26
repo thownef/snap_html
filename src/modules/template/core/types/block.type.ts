@@ -1,3 +1,7 @@
+import { EditorEvents } from "@tiptap/react"
+import { RadioChangeEvent } from "antd"
+import { AggregationColor } from "antd/es/color-picker/color"
+
 export type PaddingColumn = {
   bottom: number
   left: number
@@ -9,9 +13,18 @@ export type PaddingBlock = PaddingColumn & {
   columnsInnerPadding: number
 }
 
+export type SettingColumn = {
+  size?: string
+  form?: string
+  color?: string
+  backgroundColor?: string
+  href?: string
+}
+
 export type ColumnBlock = {
   id: number
   type: string
+  setting?: SettingColumn
   content: string
 }
 
@@ -50,3 +63,5 @@ export type BlockIcon = {
     component: React.ComponentType
   }[]
 }
+
+export type ChangeBlockType = EditorEvents["update"] | React.ChangeEvent<HTMLInputElement> | RadioChangeEvent | AggregationColor | { target: { value: string } }

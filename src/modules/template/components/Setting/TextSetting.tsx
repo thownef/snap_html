@@ -10,7 +10,7 @@ import {
   OrderedListOutlined,
   LinkOutlined
 } from '@ant-design/icons'
-import { EditorContent } from '@tiptap/react'
+import { EditorContent, EditorEvents } from '@tiptap/react'
 import { fontSizeOptions } from '@/modules/template/core/config/columns/font-size-list'
 import { lineHeightOptions } from '@/modules/template/core/config/columns/line-height-list'
 import { colorList } from '@/modules/template/core/config/columns/color-list'
@@ -24,7 +24,7 @@ import LinkEditorForm from '@/modules/template/components/Form/LinkEditorForm'
 
 type TextSettingProps = {
   selectedColumn: SelectedColumn
-  onChangeBlock: (content: string, blockId: number, columnId: number) => void
+  onChangeBlock: (keyChange: string, blockId: number, columnId: number) => (value: EditorEvents["update"]) => void
 }
 
 const TextSetting = ({ selectedColumn, onChangeBlock }: TextSettingProps) => {

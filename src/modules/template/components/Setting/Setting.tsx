@@ -3,7 +3,7 @@ import { AggregationColor } from 'antd/es/color-picker/color'
 import BlockSetting from '@/modules/template/components/Setting/BlockSetting'
 import SendSetting from '@/modules/template/components/Setting/SendSetting'
 import OverAllSetting from '@/modules/template/components/Setting/OverAllSetting'
-import { type SelectedColumn } from '@/modules/template/core/types/block.type'
+import { ChangeBlockType, type SelectedColumn } from '@/modules/template/core/types/block.type'
 import { SettingKeys } from '@/modules/template/hooks/useHandleSetting'
 
 type SettingProps = {
@@ -12,7 +12,7 @@ type SettingProps = {
   activeTab: string
   settings: SettingKeys
   onChangeTab: (newKey: string) => void
-  onChangeBlock: (content: string, blockId: number, columnId: number) => void
+  onChangeBlock: (keyChange: string, blockId: number, columnId: number) => (value: ChangeBlockType) => void
   onChangeActiveTab: (newKey: string) => void
   onChangeSettings: (key: string) => (color: AggregationColor | RadioChangeEvent) => void
   onChangeBlockPadding: (
