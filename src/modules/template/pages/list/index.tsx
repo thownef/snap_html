@@ -27,8 +27,7 @@ const TemplatePage = () => {
     onChangeBlock,
     onChangeTab,
     onChangeActiveTab,
-    onChangeBlockPadding,
-    onChangeBackgroundBlock,
+    onChangeSettingBlock,
     onOpenModal,
     onAddBlock
   } = useHandleBlock()
@@ -97,8 +96,7 @@ const TemplatePage = () => {
             onChangeBlock={onChangeBlock}
             onChangeActiveTab={onChangeActiveTab}
             onChangeSettings={onChangeSettings}
-            onChangeBlockPadding={onChangeBlockPadding}
-            onChangeBackgroundBlock={onChangeBackgroundBlock}
+            onChangeSettingBlock={onChangeSettingBlock}
           />
         </div>
       </form>

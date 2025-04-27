@@ -15,11 +15,7 @@ type SettingProps = {
   onChangeBlock: (keyChange: string, blockId: number, columnId: number) => (value: ChangeBlockType) => void
   onChangeActiveTab: (newKey: string) => void
   onChangeSettings: (key: string) => (color: AggregationColor | RadioChangeEvent) => void
-  onChangeBlockPadding: (
-    blockId: number,
-    paddingType: 'top' | 'right' | 'bottom' | 'left' | 'columnsInnerPadding'
-  ) => (value: number | null) => void
-  onChangeBackgroundBlock: (blockId: number) => (color: AggregationColor) => void
+  onChangeSettingBlock: (blockId: number, keyChange: string) => (value: any) => void
 }
 
 const Setting = ({
@@ -31,8 +27,7 @@ const Setting = ({
   onChangeBlock,
   onChangeActiveTab,
   onChangeSettings,
-  onChangeBlockPadding,
-  onChangeBackgroundBlock
+  onChangeSettingBlock
 }: SettingProps) => {
   const items: TabsProps['items'] = [
     {
@@ -49,8 +44,7 @@ const Setting = ({
           activeTab={activeTab}
           onChangeBlock={onChangeBlock}
           onChangeActiveTab={onChangeActiveTab}
-          onChangeBlockPadding={onChangeBlockPadding}
-          onChangeBackgroundBlock={onChangeBackgroundBlock}
+          onChangeSettingBlock={onChangeSettingBlock}
         />
       )
     },

@@ -22,6 +22,18 @@ export const formButtonEnum = {
   [FormButton.SQUARE]: '四角'
 }
 
+export enum MobileLayout {
+  VERTICAL = 'vertical',
+  HORIZONTAL = 'horizontal'
+}
+
+export const mobileLayoutEnum = {
+  [MobileLayout.VERTICAL]: '縦並び',
+  [MobileLayout.HORIZONTAL]: '横並び'
+}
+
+
+
 
 
 

@@ -1,7 +1,7 @@
 import { templateBlockList } from '@/modules/template/core/config/blocks/template-block-list'
-import { Block, PaddingBlock } from '@/modules/template/core/types/block.type'
+import { Block, SettingBlock } from '@/modules/template/core/types/block.type'
 
-export const getColumnPadding = (count: number, index: number, gap: number = 30) => {
+export const getColumnPadding = (count: number, index: number, gap: number = 20) => {
   const paddingList = {
     1: ['0px'],
     2: [`0px ${gap / 2}px 0px 0px`, `0px 0px 0px ${gap / 2}px`],
@@ -27,7 +27,7 @@ export const getColumnPaddingRight = (column: number, index: number, gap: number
   return paddingMap[column as keyof typeof paddingMap][index]
 }
 
-export const convertPadding = (padding: PaddingBlock, unit: string = 'px') => {
+export const convertPadding = (padding: SettingBlock, unit: string = 'px') => {
   const { top, right, bottom, left } = padding
   switch (true) {
     case top === right && right === bottom && bottom === left:

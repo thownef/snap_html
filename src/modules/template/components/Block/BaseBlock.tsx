@@ -53,7 +53,7 @@ const BaseBlock = memo(
         cellSpacing={0}
         role='presentation'
         style={{
-          padding: convertPadding(block.setting.padding),
+          padding: convertPadding(block.setting),
           background: block.setting.backgroundColor ? block.setting.backgroundColor : settings[settingKeys.BACKGROUND],
           position: 'relative'
         }}
@@ -89,7 +89,7 @@ const BaseBlock = memo(
                           padding: getColumnPadding(
                             block.contents.length,
                             index,
-                            block.setting.padding.columnsInnerPadding
+                            block.setting.columnsInnerPadding
                           ),
                           position: 'relative'
                         }}
@@ -102,7 +102,7 @@ const BaseBlock = memo(
                             columnId={column.id}
                             onDuplicateColumn={onDuplicateColumn}
                             onDeleteColumn={onDeleteColumn}
-                            gap={block.setting.padding.columnsInnerPadding}
+                            gap={block.setting.columnsInnerPadding}
                           />
                         )}
                         <div className='mail-column-edit-panel'>
@@ -122,7 +122,7 @@ const BaseBlock = memo(
                                     <tbody>
                                       <tr>
                                         <td style={{ padding: 0 }}>
-                                          <ColumnDesign column={column} settings={settings} padding={block.setting.padding} count={block.contents.length} />
+                                          <ColumnDesign column={column} settings={settings} padding={block.setting} count={block.contents.length} />
                                         </td>
                                       </tr>
                                     </tbody>

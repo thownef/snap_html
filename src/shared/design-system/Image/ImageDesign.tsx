@@ -1,9 +1,8 @@
 import { useMemo } from 'react'
-import { PaddingBlock } from '@/modules/template/core/types/block.type'
-
+import { SettingBlock } from '@/modules/template/core/types/block.type'
 type ImageDesignProps = {
   content: string
-  padding: PaddingBlock
+  padding: SettingBlock
   count: number
 }
 

@@ -1,5 +1,4 @@
 import { Tabs, TabsProps } from 'antd'
-import { AggregationColor } from 'antd/es/color-picker/color'
 import { type SelectedColumn, ChangeBlockType } from '@/modules/template/core/types/block.type'
 import ImageSetting from '@/modules/template/components/Setting/ImageSetting'
 import TextSetting from '@/modules/template/components/Setting/TextSetting'
@@ -11,11 +10,7 @@ type BlockSettingProps = {
   activeTab: string
   onChangeBlock: (keyChange: string, blockId: number, columnId: number) => (value: ChangeBlockType) => void
   onChangeActiveTab: (newKey: string) => void
-  onChangeBlockPadding: (
-    blockId: number,
-    paddingType: 'top' | 'right' | 'bottom' | 'left' | 'columnsInnerPadding'
-  ) => (value: number | null) => void
-  onChangeBackgroundBlock: (blockId: number) => (color: AggregationColor) => void
+  onChangeSettingBlock: (blockId: number, keyChange: string) => (value: any) => void
 }
 
 const BlockSetting = ({
@@ -23,8 +18,7 @@ const BlockSetting = ({
   activeTab,
   onChangeBlock,
   onChangeActiveTab,
-  onChangeBlockPadding,
-  onChangeBackgroundBlock
+  onChangeSettingBlock
 }: BlockSettingProps) => {
   if (!selectedColumn) {
     return (
@@ -47,13 +41,7 @@ const BlockSetting = ({
     {
       key: 'blockEditMenu',
       label: 'ブロックデザイン',
-      children: (
-        <BlockDesignSetting
-          selectedColumn={selectedColumn}
-          onChangeBlockPadding={onChangeBlockPadding}
-          onChangeBackgroundBlock={onChangeBackgroundBlock}
-        />
-      )
+      children: <BlockDesignSetting selectedColumn={selectedColumn} onChangeSettingBlock={onChangeSettingBlock} />
     }
   ]
 
@@ -66,13 +54,7 @@ const BlockSetting = ({
     {
       key: 'blockEditMenu',
       label: 'ブロックデザイン',
-      children: (
-        <BlockDesignSetting
-          selectedColumn={selectedColumn}
-          onChangeBlockPadding={onChangeBlockPadding}
-          onChangeBackgroundBlock={onChangeBackgroundBlock}
-        />
-      )
+      children: <BlockDesignSetting selectedColumn={selectedColumn} onChangeSettingBlock={onChangeSettingBlock} />
     }
   ]
 
@@ -85,13 +67,7 @@ const BlockSetting = ({
     {
       key: 'blockEditMenu',
       label: 'ブロックデザイン',
-      children: (
-        <BlockDesignSetting
-          selectedColumn={selectedColumn}
-          onChangeBlockPadding={onChangeBlockPadding}
-          onChangeBackgroundBlock={onChangeBackgroundBlock}
-        />
-      )
+      children: <BlockDesignSetting selectedColumn={selectedColumn} onChangeSettingBlock={onChangeSettingBlock} />
     }
   ]
 

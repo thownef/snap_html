@@ -1,4 +1,4 @@
-import { ColumnBlock, PaddingBlock } from '@/modules/template/core/types/block.type'
+import { ColumnBlock, SettingBlock } from '@/modules/template/core/types/block.type'
 import { SettingKeys } from '@/modules/template/hooks/useHandleSetting'
 import ButtonDesign from '@/shared/design-system/Button/ButtonDesign'
 import ImageDesign from '@/shared/design-system/Image/ImageDesign'
@@ -7,7 +7,7 @@ import TextDesign from '@/shared/design-system/Text/TextDesign'
 type ColumnDesignProps = {
   column: ColumnBlock
   settings: SettingKeys
-  padding: PaddingBlock
+  padding: SettingBlock
   count: number
 }
 

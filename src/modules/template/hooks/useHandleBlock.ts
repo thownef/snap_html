@@ -2,7 +2,13 @@ import { useCallback, useState } from 'react'
 import _ from 'lodash'
 import { AggregationColor } from 'antd/es/color-picker/color'
 import { blockList } from '@/modules/template/data/blockList'
-import { Block, ChangeBlockType, ColumnBlock, SelectedColumn } from '@/modules/template/core/types/block.type'
+import {
+  Block,
+  ChangeBlockType,
+  ChangeSettingBlockType,
+  ColumnBlock,
+  SelectedColumn
+} from '@/modules/template/core/types/block.type'
 import { createBlockFromTemplate } from '@/modules/template/utils'
 
 const useHandleBlock = () => {
@@ -208,57 +214,22 @@ const useHandleBlock = () => {
     setActiveTab(newKey)
   }, [])
 
-  const handleChangeBlockPadding = useCallback(
-    (blockId: number, paddingType: 'top' | 'right' | 'bottom' | 'left' | 'columnsInnerPadding') => {
-      return (value: number | null) => {
-        setBlocks((prev) => {
-          const updatedBlocks = prev.map((block) => {
-            if (block.id !== blockId) return block
-            const updatedBlock = {
-              ...block,
-              setting: {
-                ...block.setting,
-                padding: {
-                  ...block.setting.padding,
-                  [paddingType]: value
-                }
-              }
-            }
-
-            if (selectedColumn && selectedColumn.blockId === blockId) {
-              setSelectedColumn({
-                ...selectedColumn,
-                blockSetting: updatedBlock.setting
-              })
-            }
-
-            return updatedBlock
+  const handleChangeSettingBlock = useCallback(
+    (blockId: number, keyChange: string) => {
+      return (value: ChangeSettingBlockType) => {
+        const valueUpdate =
+          'target' in value ? value.target.value : value instanceof AggregationColor ? value.toRgbString() : value
+        if (selectedColumn && selectedColumn.blockId === blockId) {
+          setSelectedColumn((prev) => {
+            if (!prev) return null
+            return { ...prev, blockSetting: { ...prev.blockSetting, [keyChange]: valueUpdate } }
           })
-
-          return updatedBlocks
-        })
-      }
-    },
-    [selectedColumn]
-  )
-
-  const handleChangeBackgroundBlock = useCallback(
-    (blockId: number) => {
-      return (color: AggregationColor) => {
+        }
         setBlocks((prev) => {
-          const updatedBlocks = prev.map((block) => {
+          return prev.map((block) => {
             if (block.id !== blockId) return block
-            return { ...block, setting: { ...block.setting, backgroundColor: color.toRgbString() } }
+            return { ...block, setting: { ...block.setting, [keyChange]: valueUpdate } }
           })
-
-          if (selectedColumn && selectedColumn.blockId === blockId) {
-            setSelectedColumn({
-              ...selectedColumn,
-              blockSetting: updatedBlocks[0].setting
-            })
-          }
-
-          return updatedBlocks
         })
       }
     },
@@ -313,8 +284,7 @@ const useHandleBlock = () => {
     onChangeBlock: handleChangeBlock,
     onChangeTab: handleChangeTab,
     onChangeActiveTab: handleChangeActiveTab,
-    onChangeBlockPadding: handleChangeBlockPadding,
-    onChangeBackgroundBlock: handleChangeBackgroundBlock,
+    onChangeSettingBlock: handleChangeSettingBlock,
     onOpenModal: handleOpenModal,
     onAddBlock: handleAddBlock
   }
