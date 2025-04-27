@@ -119,11 +119,11 @@ const BaseBlock = memo(
                             <tbody>
                               <tr>
                                 <td>
-                                  <table align={getColumnAlign(column.type)} width={getColumnWidth(column.type, column.setting?.size)} border={0} cellPadding={0} cellSpacing={0}>
+                                  <table align={column.setting?.align || getColumnAlign(column.type)} width={getColumnWidth(column.type, column.setting?.size)} border={0} cellPadding={0} cellSpacing={0}>
                                     <tbody>
                                       <tr>
                                         <td style={{ padding: 0 }}>
-                                          <ColumnDesign column={column} settings={settings} padding={block.setting} count={block.contents.length} />
+                                          <ColumnDesign column={column} settings={settings} />
                                         </td>
                                       </tr>
                                     </tbody>

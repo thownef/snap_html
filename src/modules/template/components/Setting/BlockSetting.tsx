@@ -36,7 +36,7 @@ const BlockSetting = ({
     {
       key: 'partsEditMenu',
       label: '画像編集',
-      children: <ImageSetting />
+      children: <ImageSetting selectedColumn={selectedColumn} onChangeBlock={onChangeBlock} />
     },
     {
       key: 'blockEditMenu',

@@ -1,5 +1,5 @@
 import { EditorEvents } from "@tiptap/react"
-import { RadioChangeEvent } from "antd"
+import { CheckboxChangeEvent, RadioChangeEvent } from "antd"
 import { AggregationColor } from "antd/es/color-picker/color"
 
 export type SettingColumn = {
@@ -8,6 +8,10 @@ export type SettingColumn = {
   color?: string
   backgroundColor?: string
   href?: string
+  width?: number
+  isMobileFullWidth?: boolean
+  align?: "left" | "center" | "right"
+  widthRate?: number
 }
 
 export type ColumnBlock = {
@@ -23,6 +27,7 @@ export type SettingBlock = {
   right: number
   top: number
   columnsInnerPadding: number
+  columnMaxWidth: number
   backgroundColor: string
   mobileLayout: string
 }
@@ -57,7 +62,7 @@ export type BlockIcon = {
   }[]
 }
 
-export type ChangeBlockType = EditorEvents["update"] | React.ChangeEvent<HTMLInputElement> | RadioChangeEvent | AggregationColor | { target: { value: string } }
+export type ChangeBlockType = EditorEvents["update"] | React.ChangeEvent<HTMLInputElement> | CheckboxChangeEvent | RadioChangeEvent | AggregationColor | { target: { value: string } } | number | null
 
 export type ChangeSettingBlockType = RadioChangeEvent | AggregationColor | number | null
 

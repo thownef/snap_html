@@ -1,5 +1,6 @@
 import { templateBlockList } from '@/modules/template/core/config/blocks/template-block-list'
-import { Block, SettingBlock } from '@/modules/template/core/types/block.type'
+import { Block, ColumnBlock, SelectedColumn, SettingBlock } from '@/modules/template/core/types/block.type'
+import _ from 'lodash'
 
 export const getColumnPadding = (count: number, index: number, gap: number = 20) => {
   const paddingList = {
@@ -46,19 +47,43 @@ export const createBlockFromTemplate = (type: string, contentCount: number = 1):
 
   const baseContent = template.contents[0]
 
+  const maxWidth =
+    baseContent.type === 'image'
+      ? Math.floor(
+          (600 -
+            template.setting.left -
+            template.setting.right -
+            (contentCount - 1) * template.setting.columnsInnerPadding) /
+            contentCount
+        )
+      : undefined
+
   return {
     id: Date.now(),
     ...template,
+    setting: {
+      ...template.setting,
+      ...(maxWidth ? { columnMaxWidth: maxWidth } : {})
+    },
     contents: Array.from({ length: contentCount }, (_, index) => ({
       ...baseContent,
+      ...(baseContent.type === 'image'
+        ? {
+            setting: {
+              ...baseContent.setting,
+              width: maxWidth
+            }
+          }
+        : {}),
       id: index + 1
     }))
   }
 }
 
-export const getColumnAlign = (type: string, ) => {
+export const getColumnAlign = (type: string) => {
   switch (type) {
     case 'button':
+    case 'image':
       return 'center'
     default:
       return undefined
@@ -75,6 +100,68 @@ export const getColumnWidth = (type: string, size?: string) => {
   }
 }
 
+export const updateColumnSetting = (
+  col: ColumnBlock | SelectedColumn,
+  keyChange: string,
+  valueUpdate: number | string | boolean,
+  columnMaxWidth: number
+) => {
+  const newCol = _.cloneDeep(col)
+  switch (keyChange) {
+    case 'setting.widthRate': {
+      const newWidth = Math.round((Number(valueUpdate) * (columnMaxWidth - 32)) / 100) + 32
+      _.set(newCol, keyChange, valueUpdate)
+      _.set(newCol, 'setting.width', newWidth)
+      break
+    }
+    case 'setting.width': {
+      const newWidthRate = Math.round(((Number(valueUpdate) - 32) / (columnMaxWidth - 32)) * 100)
+      _.set(newCol, keyChange, valueUpdate)
+      _.set(newCol, 'setting.widthRate', newWidthRate)
+      break
+    }
+    default:
+      _.set(newCol, keyChange, valueUpdate)
+  }
+  return newCol
+}
 
+export const updateColumnMaxWidth = (keyChange: string, valueUpdate: number, blockSetting: SettingBlock, count: number) => {
+  const { left, right, columnsInnerPadding, columnMaxWidth } = blockSetting
+  switch (keyChange) {
+    case 'left': {
+      const newColumnMaxWidth = (600 - valueUpdate - right - (count - 1) * columnsInnerPadding) / count
+      return {
+        left: valueUpdate,
+        columnMaxWidth: newColumnMaxWidth
+      }
+    }    
+    case 'right': {
+      const newColumnMaxWidth = (600 - left - valueUpdate - (count - 1) * columnsInnerPadding) / count
+      return {
+        right: valueUpdate,
+        columnMaxWidth: newColumnMaxWidth
+      }
+    }
+    case 'columnsInnerPadding': {
+      const newColumnMaxWidth = (600 - left - right - (count - 1) * valueUpdate) / count
+      return {
+        columnMaxWidth: newColumnMaxWidth,
+        columnsInnerPadding: valueUpdate
+      }
+    }
+    default:
+      return {
+        [keyChange]: valueUpdate,
+        columnMaxWidth: columnMaxWidth
+      }
+  }
+}
 
-
+export const updateImageWidth = (setting: any, maxWidth: number) => {
+  const widthRate = setting?.widthRate ?? 100
+  return {
+    ...setting,
+    width: Math.round(widthRate * (maxWidth - 32) / 100 + 32)
+  }
+}

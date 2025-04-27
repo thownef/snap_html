@@ -11,12 +11,18 @@ export const blockList: Block[] = [
       right: 20,
       top: 20,
       columnsInnerPadding: 4,
+      columnMaxWidth: 278,
       backgroundColor: 'rgb(255, 255, 255, 0)',
       mobileLayout: MobileLayout.VERTICAL
     },
     contents: [
       {
         id: 1,
+        setting: {
+          isMobileFullWidth: true,
+          width: 278,
+          widthRate: 100 
+        },
         type: 'image',
         content: 'https://img.bme.jp/img/htmlmail_v3/limited_design/gourmet/01_logo.png'
       },
@@ -37,6 +43,7 @@ export const blockList: Block[] = [
       right: 0,
       top: 0,
       columnsInnerPadding: 20,
+      columnMaxWidth: 600,
       backgroundColor: 'rgb(255, 255, 255, 0)',
       mobileLayout: MobileLayout.VERTICAL
     },
@@ -58,6 +65,7 @@ export const blockList: Block[] = [
       right: 20,
       top: 10,
       columnsInnerPadding: 0,
+      columnMaxWidth: 560,
       backgroundColor: 'rgb(255, 255, 255, 0)',
       mobileLayout: MobileLayout.VERTICAL
     },

@@ -1,5 +1,5 @@
 import { useCallback, useState } from 'react'
-import _ from 'lodash'
+// import _ from 'lodash'
 import { AggregationColor } from 'antd/es/color-picker/color'
 import { blockList } from '@/modules/template/data/blockList'
 import {
@@ -9,7 +9,7 @@ import {
   ColumnBlock,
   SelectedColumn
 } from '@/modules/template/core/types/block.type'
-import { createBlockFromTemplate } from '@/modules/template/utils'
+import { createBlockFromTemplate, updateColumnMaxWidth, updateColumnSetting, updateImageWidth } from '@/modules/template/utils'
 
 const useHandleBlock = () => {
   const [blocks, setBlocks] = useState<Block[]>(blockList)
@@ -50,6 +50,13 @@ const useHandleBlock = () => {
   const handleDuplicateColumn = useCallback((blockId: number, columnId: number) => {
     return (e?: React.MouseEvent) => {
       e?.stopPropagation()
+      setSelectedColumn((prev) => {
+        if (!prev) return null
+        return {
+          ...prev,
+          blockCount: prev.blockCount + 1
+        }
+      })
       setBlocks((prev) => {
         const newBlocks = prev.map((block) => {
           if (block.id !== blockId) return block
@@ -66,16 +73,8 @@ const useHandleBlock = () => {
             ...block,
             contents: [...block.contents]
           }
-
           updatedBlock.contents.splice(columnIndex + 1, 0, newColumn)
           return updatedBlock
-        })
-        setSelectedColumn((prev) => {
-          if (!prev) return null
-          return {
-            ...prev,
-            blockCount: prev.blockCount + 1
-          }
         })
         return newBlocks
       })
@@ -85,6 +84,13 @@ const useHandleBlock = () => {
   const handleDeleteColumn = useCallback((blockId: number, columnId: number) => {
     return (e?: React.MouseEvent) => {
       e?.stopPropagation()
+      setSelectedColumn((prev) => {
+        if (!prev) return null
+        return {
+          ...prev,
+          blockCount: prev.blockCount - 1
+        }
+      })
       setBlocks((prev) => {
         const newBlocks = prev.map((block) => {
           if (block.id !== blockId) return block
@@ -92,14 +98,6 @@ const useHandleBlock = () => {
           if (block.contents.length <= 1) return block
 
           const filteredContents = block.contents.filter((col) => col.id !== columnId)
-
-          setSelectedColumn((prev) => {
-            if (!prev) return null
-            return {
-              ...prev,
-              blockCount: prev.blockCount - 1
-            }
-          })
 
           return {
             ...block,
@@ -166,41 +164,41 @@ const useHandleBlock = () => {
     (keyChange: string, blockId: number, columnId: number) => {
       return (value: ChangeBlockType) => {
         const valueUpdate =
-          'editor' in value
-            ? value.editor.getHTML()
-            : value instanceof AggregationColor
-              ? value.toRgbString()
-              : 'target' in value
-                ? value.target.value
-                : value
+          value === null
+            ? 32
+            : typeof value === 'object'
+              ? 'editor' in value
+                ? value.editor.getHTML()
+                : value instanceof AggregationColor
+                  ? value.toRgbString()
+                  : 'target' in value && ['checkbox'].includes((value.target as HTMLInputElement).type)
+                    ? (value.target as HTMLInputElement).checked
+                    : 'target' in value
+                      ? (value.target as HTMLInputElement).value
+                      : value
+              : value
 
         if (selectedColumn && selectedColumn.blockId === blockId) {
           setSelectedColumn((prev) => {
             if (!prev) return null
-            const newCol = _.cloneDeep(prev)
-            _.set(newCol, keyChange, valueUpdate)
-            return newCol
+            return updateColumnSetting(
+              prev,
+              keyChange,
+              valueUpdate,
+              selectedColumn.blockSetting.columnMaxWidth
+            ) as SelectedColumn
           })
         }
 
-        setBlocks((prev) => {
-          return prev.map((block) => {
+        setBlocks((prev) =>
+          prev.map((block) => {
             if (block.id !== blockId) return block
-
-            const updatedContents = block.contents.map((col) => {
-              if (col.id !== columnId) return col
-
-              const newCol = _.cloneDeep(col)
-              _.set(newCol, keyChange, valueUpdate)
-              return newCol
-            })
-
-            return {
-              ...block,
-              contents: updatedContents
-            }
+            const updatedContents = block.contents.map((col) =>
+              col.id !== columnId ? col : updateColumnSetting(col, keyChange, valueUpdate, block.setting.columnMaxWidth)
+            )
+            return { ...block, contents: updatedContents }
           })
-        })
+        )
       }
     },
     [selectedColumn]
@@ -217,26 +215,44 @@ const useHandleBlock = () => {
   const handleChangeSettingBlock = useCallback(
     (blockId: number, keyChange: string) => {
       return (value: ChangeSettingBlockType) => {
-        const valueUpdate = value === null 
-          ? 0 
-          : typeof value === 'object'
-            ? 'target' in value 
-              ? value.target.value 
-              : value instanceof AggregationColor 
-                ? value.toRgbString() 
-                : value
-            : value;
+        const valueUpdate =
+          value === null
+            ? 0
+            : typeof value === 'object'
+              ? 'target' in value
+                ? value.target.value
+                : value instanceof AggregationColor
+                  ? value.toRgbString()
+                  : value
+              : value
 
         if (selectedColumn && selectedColumn.blockId === blockId) {
           setSelectedColumn((prev) => {
             if (!prev) return null
-            return { ...prev, blockSetting: { ...prev.blockSetting, [keyChange]: valueUpdate } }
+            const blockSetting = updateColumnMaxWidth(keyChange, valueUpdate, prev.blockSetting, prev.blockCount)
+            let newSetting = prev.setting
+            if (prev.type === 'image') {
+              const maxWidth = blockSetting.columnMaxWidth
+              newSetting = updateImageWidth(prev.setting, maxWidth)
+            }
+            return { ...prev, blockSetting: { ...prev.blockSetting, ...blockSetting }, setting: newSetting }
           })
-        }
+        } 
         setBlocks((prev) => {
           return prev.map((block) => {
             if (block.id !== blockId) return block
-            return { ...block, setting: { ...block.setting, [keyChange]: valueUpdate } }
+            const blockSetting = updateColumnMaxWidth(keyChange, valueUpdate, block.setting, block.contents.length)
+            const updatedContents = block.contents.map(col => {
+              if (col.type === 'image') {
+                const maxWidth = blockSetting.columnMaxWidth
+                return {
+                  ...col,
+                  setting: updateImageWidth(col.setting, maxWidth)
+                }
+              }
+              return col
+            })
+            return { ...block, setting: { ...block.setting,  ...blockSetting }, contents: updatedContents }
           })
         })
       }

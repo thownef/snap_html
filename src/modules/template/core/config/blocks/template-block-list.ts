@@ -1,18 +1,18 @@
-import { FormButton, SizeButton } from '@/modules/template/core/enums/block.enum'
+import { FormButton, MobileLayout, SizeButton } from '@/modules/template/core/enums/block.enum'
 import { Block } from '@/modules/template/core/types/block.type'
 
 export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
   text: {
     type: 'default',
     setting: {
-      padding: {
-        bottom: 6,
-        left: 20,
-        right: 20,
-        top: 6,
-        columnsInnerPadding: 20
-      },
-      backgroundColor: 'rgb(255, 255, 255, 0)'
+      bottom: 6,
+      left: 20,
+      right: 20,
+      top: 6,
+      columnsInnerPadding: 20,
+      columnMaxWidth: 560,
+      backgroundColor: 'rgb(255, 255, 255, 0)',
+      mobileLayout: MobileLayout.VERTICAL
     },
     contents: [
       {
@@ -26,19 +26,24 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
   image: {
     type: 'default',
     setting: {
-      padding: {
-        bottom: 10,
-        left: 20,
-        right: 20,
-        top: 10,
-        columnsInnerPadding: 20
-      },
-      backgroundColor: 'rgb(255, 255, 255, 0)'
+      bottom: 10,
+      left: 20,
+      right: 20,
+      top: 10,
+      columnsInnerPadding: 20,
+      backgroundColor: 'rgb(255, 255, 255, 0)',
+      columnMaxWidth: 560,
+      mobileLayout: MobileLayout.VERTICAL
     },
     contents: [
       {
         id: 1,
         type: 'image',
+        setting: {
+          isMobileFullWidth: true,
+          align: 'center',
+          widthRate: 100
+        },
         content: 'https://img.bme.jp/img/htmlmail_v3/template-img/dummy_image_v3.png'
       }
     ]
@@ -46,14 +51,14 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
   button: {
     type: 'multi',
     setting: {
-      padding: {
-        bottom: 10,
-        left: 20,
-        right: 20,
-        top: 10,
-        columnsInnerPadding: 0
-      },
-      backgroundColor: 'rgb(255, 255, 255, 0)'
+      bottom: 10,
+      left: 20,
+      right: 20,
+      top: 10,
+      columnsInnerPadding: 0,
+      columnMaxWidth: 560,
+      backgroundColor: 'rgb(255, 255, 255, 0)',
+      mobileLayout: MobileLayout.VERTICAL
     },
     contents: [
       {

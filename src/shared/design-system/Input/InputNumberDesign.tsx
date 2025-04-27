@@ -3,7 +3,7 @@ import { InputNumber, Space, Typography } from 'antd'
 const { Text } = Typography
 
 type InputNumberDesignProps = {
-  label: string
+  label?: string
   value: number | null
   onChange: (value: number | null) => void
   min?: number
@@ -32,7 +32,7 @@ const InputNumberDesign = memo(
 
     return (
       <Space direction={direction} size='small'>
-        <Text>{label}</Text>
+        {label && <Text>{label}</Text>}
         <Space>
           {icon}
           <InputNumber
@@ -49,7 +49,10 @@ const InputNumberDesign = memo(
     )
   },
   (prevProps, nextProps) => {
-    return prevProps.value === nextProps.value
+    if(prevProps.value === nextProps.value && prevProps.max === nextProps.max) {
+      return true
+    }
+    return false
   }
 )
 

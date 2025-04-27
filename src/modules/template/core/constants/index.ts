@@ -533,15 +533,7 @@ export const HEAD_FRAME_CONTENT = `
         padding-bottom: 20px !important;
       }
 
-      .mail-parts-image-1-0-0 {
-        width: 100% !important;
-      }
-
-      .mail-parts-image-9-0-0 {
-        width: 100% !important;
-      }
-
-      .mail-parts-image-9-1-0 {
+      .mail-parts-image-mobile {
         width: 100% !important;
       }
     }

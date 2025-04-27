@@ -1,23 +1,17 @@
-import { useMemo } from 'react'
-import { SettingBlock } from '@/modules/template/core/types/block.type'
+import { SettingColumn } from '@/modules/template/core/types/block.type'
 type ImageDesignProps = {
   content: string
-  padding: SettingBlock
-  count: number
+  setting: SettingColumn | undefined
 }
 
-const ImageDesign = ({ content, padding: { left, right, columnsInnerPadding }, count }: ImageDesignProps) => {
-  const width = useMemo(
-    () => (600 - left - right - (count - 1) * columnsInnerPadding) / count,
-    [count, left, right, columnsInnerPadding]
-  )
+const ImageDesign = ({ content, setting }: ImageDesignProps) => {
   return (
     <span style={{ display: 'inline-block' }}>
       <img
-        className='mail-parts-image'
+        className={`mail-parts-image ${setting?.isMobileFullWidth ? 'mail-parts-image-mobile' : ''}`}
         src={content}
-        width={width}
-        style={{ display: 'block', outline: 'none', border: 'none', textDecoration: 'none', width: width }}
+        width={setting?.width}
+        style={{ display: 'block', outline: 'none', border: 'none', textDecoration: 'none', width: setting?.width }}
       />
     </span>
   )
