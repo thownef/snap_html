@@ -217,8 +217,16 @@ const useHandleBlock = () => {
   const handleChangeSettingBlock = useCallback(
     (blockId: number, keyChange: string) => {
       return (value: ChangeSettingBlockType) => {
-        const valueUpdate =
-          'target' in value ? value.target.value : value instanceof AggregationColor ? value.toRgbString() : value
+        const valueUpdate = value === null 
+          ? 0 
+          : typeof value === 'object'
+            ? 'target' in value 
+              ? value.target.value 
+              : value instanceof AggregationColor 
+                ? value.toRgbString() 
+                : value
+            : value;
+
         if (selectedColumn && selectedColumn.blockId === blockId) {
           setSelectedColumn((prev) => {
             if (!prev) return null

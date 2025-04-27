@@ -10,7 +10,7 @@ export const blockList: Block[] = [
       left: 20,
       right: 20,
       top: 20,
-      columnsInnerPadding: 20,
+      columnsInnerPadding: 4,
       backgroundColor: 'rgb(255, 255, 255, 0)',
       mobileLayout: MobileLayout.VERTICAL
     },

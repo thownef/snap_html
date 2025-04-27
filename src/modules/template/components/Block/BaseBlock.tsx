@@ -7,6 +7,7 @@ import { convertPadding, getColumnAlign, getColumnPadding, getColumnWidth } from
 import { Block, ColumnBlock, SelectedColumn } from '@/modules/template/core/types/block.type'
 import ColumnDesign from '@/shared/design-system/Column/ColumnDesign'
 import { settingKeys, SettingKeys } from '@/modules/template/hooks/useHandleSetting'
+import { MobileLayout } from '@/modules/template/core/enums/block.enum'
 
 type BaseBlockProps = {
   key: number
@@ -80,7 +81,7 @@ const BaseBlock = memo(
                       <td
                         onClick={onSelectColumn(column, block.id)}
                         key={column.id}
-                        className='layout-vertical'
+                        className={block.setting.mobileLayout === MobileLayout.HORIZONTAL ? 'layout-horizontal' : 'layout-vertical'}
                         width={`${100 / block.contents.length}%`}
                         style={{
                           verticalAlign: 'top',

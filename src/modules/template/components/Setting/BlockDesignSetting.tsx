@@ -9,6 +9,9 @@ import { SelectedColumn } from '@/modules/template/core/types/block.type'
 import InputNumberDesign from '@/shared/design-system/Input/InputNumberDesign'
 import RadioDesign from '@/shared/design-system/Radio/RadioDesign'
 import { mobileLayoutOptions } from '@/modules/template/core/config/select-options'
+import { MobileLayout } from '@/modules/template/core/enums/block.enum'
+import HorizontalLayoutIcon from '@/modules/template/components/Svg/HorizontalLayoutIcon'
+import VerticalLayoutIcon from '@/modules/template/components/Svg/VerticalLayoutIcon'
 const { Text } = Typography
 
 type BlockDesignSettingProps = {
@@ -22,7 +25,7 @@ const BlockDesignSetting = ({
     blockCount,
     blockSetting: { bottom, left, right, top, columnsInnerPadding, backgroundColor, mobileLayout }
   },
-  onChangeSettingBlock,
+  onChangeSettingBlock
 }: BlockDesignSettingProps) => {
   return (
     <Space className='w-full px-6 py-4' direction='vertical' size='small'>
@@ -41,7 +44,7 @@ const BlockDesignSetting = ({
             onChange={onChangeSettingBlock(blockId, 'bottom')}
             icon={<BottomPaddingIcon />}
           />
-          {blockCount > 1 && columnsInnerPadding && (
+          {blockCount > 1 && (
             <InputNumberDesign
               label='中の余白'
               value={columnsInnerPadding}
@@ -75,6 +78,7 @@ const BlockDesignSetting = ({
           onChange={onChangeSettingBlock(blockId, 'mobileLayout')}
           className='[&_.ant-radio-button-wrapper]:w-[95px] [&_.ant-radio-button-wrapper]:text-center'
         />
+        {mobileLayout === MobileLayout.HORIZONTAL ? <HorizontalLayoutIcon /> : <VerticalLayoutIcon />}
       </Space>
 
       <Space direction='vertical' size='small'>

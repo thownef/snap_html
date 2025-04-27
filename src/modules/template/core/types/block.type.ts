@@ -59,5 +59,5 @@ export type BlockIcon = {
 
 export type ChangeBlockType = EditorEvents["update"] | React.ChangeEvent<HTMLInputElement> | RadioChangeEvent | AggregationColor | { target: { value: string } }
 
-export type ChangeSettingBlockType = React.ChangeEvent<HTMLInputElement> | RadioChangeEvent | AggregationColor
+export type ChangeSettingBlockType = RadioChangeEvent | AggregationColor | number | null
 
