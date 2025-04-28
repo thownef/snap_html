@@ -174,3 +174,12 @@ export const updateImageRate = (setting: SettingColumn, maxWidth: number) => {
     widthRate
   }
 }
+
+export const getStyleTableWrapper = (type: string) => {
+  switch (type) {
+    case 'divider':
+      return { padding: '14px 0px' }
+    default:
+      return undefined
+  }
+}

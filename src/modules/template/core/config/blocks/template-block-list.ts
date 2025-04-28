@@ -75,5 +75,30 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
         content: 'ボタンテキスト'
       }
     ]
+  },
+  divider: {
+    type: 'multi',
+    setting: {
+      bottom: 6,
+      left: 20,
+      right: 20,
+      top: 6,
+      columnsInnerPadding: 20,
+      columnMaxWidth: 560,
+      backgroundColor: 'rgb(255, 255, 255, 0)',
+      mobileLayout: MobileLayout.VERTICAL
+    },
+    contents: [
+      {
+        id: 1,
+        type: 'divider',
+        setting: {
+          borderColor: '#bfbfbf',
+          borderWidth: '1px',
+          borderStyle: 'solid'
+        },
+        content: ''
+      }
+    ]
   }
 }

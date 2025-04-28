@@ -1,6 +1,7 @@
 import { ColumnBlock, SettingBlock } from '@/modules/template/core/types/block.type'
 import { SettingKeys } from '@/modules/template/hooks/useHandleSetting'
 import ButtonDesign from '@/shared/design-system/Button/ButtonDesign'
+import DividerDesign from '@/shared/design-system/Divider/DividerDesign'
 import ImageDesign from '@/shared/design-system/Image/ImageDesign'
 import TextDesign from '@/shared/design-system/Text/TextDesign'
 
@@ -18,6 +19,8 @@ const ColumnDesign = ({ column: { content, type, setting }, settingBlock, settin
       return <ImageDesign content={content} setting={setting} />
     case 'button':
       return <ButtonDesign content={content} setting={setting!} />
+    case 'divider':
+      return <DividerDesign setting={setting} />
     default:
       break
   }

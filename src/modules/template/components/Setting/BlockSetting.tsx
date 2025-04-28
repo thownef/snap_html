@@ -4,6 +4,7 @@ import ImageSetting from '@/modules/template/components/Setting/ImageSetting'
 import TextSetting from '@/modules/template/components/Setting/TextSetting'
 import BlockDesignSetting from '@/modules/template/components/Setting/BlockDesignSetting'
 import ButtonSetting from '@/modules/template/components/Setting/ButtonSetting'
+import DividerSetting from '@/modules/template/components/Setting/DividerSetting'
 
 type BlockSettingProps = {
   selectedColumn: SelectedColumn | null
@@ -53,6 +54,19 @@ const BlockSetting = ({
             key: 'partsEditMenu',
             label: 'ボタン編集',
             children: <ButtonSetting selectedColumn={selectedColumn} onChangeBlock={onChangeBlock} />
+          },
+          {
+            key: 'blockEditMenu',
+            label: 'ブロックデザイン',
+            children: <BlockDesignSetting selectedColumn={selectedColumn} onChangeSettingBlock={onChangeSettingBlock} />
+          }
+        ]
+      case 'divider':
+        return [
+          {
+            key: 'partsEditMenu',
+            label: '区切り線編集',
+            children: <DividerSetting selectedColumn={selectedColumn} onChangeBlock={onChangeBlock} />
           },
           {
             key: 'blockEditMenu',

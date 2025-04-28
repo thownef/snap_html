@@ -12,6 +12,9 @@ export type SettingColumn = {
   isMobileFullWidth?: boolean
   align?: "left" | "center" | "right"
   widthRate?: number
+  borderColor?: string
+  borderWidth?: string
+  borderStyle?: string
 }
 
 export type ColumnBlock = {

@@ -3,7 +3,7 @@ import _ from 'lodash'
 import AddBlockButton from '@/modules/template/components/Button/AddBlockButton'
 import GroupBlockButton from '@/modules/template/components/Button/GroupBlockButton'
 import GroupColumnButton from '@/modules/template/components/Button/GroupColumnButton'
-import { convertPadding, getColumnAlign, getColumnPadding, getColumnWidth } from '@/modules/template/utils'
+import { convertPadding, getColumnAlign, getColumnPadding, getColumnWidth, getStyleTableWrapper } from '@/modules/template/utils'
 import { Block, ColumnBlock, SelectedColumn } from '@/modules/template/core/types/block.type'
 import ColumnDesign from '@/shared/design-system/Column/ColumnDesign'
 import { settingKeys, SettingKeys } from '@/modules/template/hooks/useHandleSetting'
@@ -119,7 +119,7 @@ const BaseBlock = memo(
                             <tbody>
                               <tr>
                                 <td>
-                                  <table align={column.setting?.align || getColumnAlign(column.type)} width={getColumnWidth(column.type, column.setting?.size)} border={0} cellPadding={0} cellSpacing={0}>
+                                  <table style={getStyleTableWrapper(column.type)} align={column.setting?.align || getColumnAlign(column.type)} width={getColumnWidth(column.type, column.setting?.size)} border={0} cellPadding={0} cellSpacing={0}>
                                     <tbody>
                                       <tr>
                                         <td style={{ padding: 0 }}>
