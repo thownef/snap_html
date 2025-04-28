@@ -45,7 +45,7 @@ export const convertPadding = (padding: SettingBlock, unit: string = 'px') => {
 export const createBlockFromTemplate = (type: string, contentCount: number = 1): Block => {
   const template = templateBlockList[type]
 
-  const baseContent = template.contents[0]
+  const baseContent = template.columns[0]
 
   const maxWidth =
     baseContent.type === 'image'
@@ -65,7 +65,7 @@ export const createBlockFromTemplate = (type: string, contentCount: number = 1):
       ...template.setting,
       ...(maxWidth ? { columnMaxWidth: maxWidth } : {})
     },
-    contents: Array.from({ length: contentCount }, (_, index) => ({
+    columns: Array.from({ length: contentCount }, (_, index) => ({
       ...baseContent,
       ...(baseContent.type === 'image'
         ? {
@@ -94,6 +94,7 @@ export const getColumnWidth = (type: string, size?: string) => {
     case 'button':
       return size === 'large' ? '100%' : 'auto'
     case 'image':
+    case 'sns':
       return 'auto'
     default:
       return '100%'

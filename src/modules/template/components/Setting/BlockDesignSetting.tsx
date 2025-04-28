@@ -70,16 +70,18 @@ const BlockDesignSetting = ({
         </Space>
       </Space>
 
-      <Space direction='vertical' size='small'>
-        <Text strong>スマホレイアウト</Text>
-        <RadioDesign
-          value={mobileLayout}
-          options={mobileLayoutOptions}
-          onChange={onChangeSettingBlock(blockId, 'mobileLayout')}
-          className='[&_.ant-radio-button-wrapper]:w-[95px] [&_.ant-radio-button-wrapper]:text-center'
-        />
-        {mobileLayout === MobileLayout.HORIZONTAL ? <HorizontalLayoutIcon /> : <VerticalLayoutIcon />}
-      </Space>
+      {blockCount > 1 && (
+        <Space direction='vertical' size='small'>
+          <Text strong>スマホレイアウト</Text>
+          <RadioDesign
+            value={mobileLayout}
+            options={mobileLayoutOptions}
+            onChange={onChangeSettingBlock(blockId, 'mobileLayout')}
+            className='[&_.ant-radio-button-wrapper]:w-[95px] [&_.ant-radio-button-wrapper]:text-center'
+          />
+          {mobileLayout === MobileLayout.HORIZONTAL ? <HorizontalLayoutIcon /> : <VerticalLayoutIcon />}
+        </Space>
+      )}
 
       <Space direction='vertical' size='small'>
         <Text strong>ブロック背景</Text>

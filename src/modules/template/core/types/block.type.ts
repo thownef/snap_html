@@ -17,11 +17,17 @@ export type SettingColumn = {
   borderStyle?: string
 }
 
+export type Sns = {
+  type: string
+  originalHref: string
+  convertedHref: string
+}
+
 export type ColumnBlock = {
   id: number
   type: string
   setting: SettingColumn
-  content: string
+  content: string | Sns[]
 }
 
 export type SettingBlock = {
@@ -39,7 +45,7 @@ export type Block = {
   id: number
   type: string
   setting: SettingBlock
-  contents: ColumnBlock[]
+  columns: ColumnBlock[]
 }
 
 export type SelectedColumn = ColumnBlock & {

@@ -78,24 +78,24 @@ const useHandleBlock = () => {
         const newBlocks = prev.map((block) => {
           if (block.id !== blockId) return block
 
-          const columnIndex = block.contents.findIndex((col) => col.id === columnId)
+          const columnIndex = block.columns.findIndex((col) => col.id === columnId)
           if (columnIndex === -1) return block
 
           const newColumn = {
-            ...block.contents[columnIndex],
+            ...block.columns[columnIndex],
             id: Date.now()
           }
 
-          const newContents = [...block.contents]
-          newContents.splice(columnIndex + 1, 0, newColumn)
+          const newColumns = [...block.columns]
+          newColumns.splice(columnIndex + 1, 0, newColumn)
 
-          const count = newContents.length
+          const count = newColumns.length
           const left = block.setting.left || 0
           const right = block.setting.right || 0
           const columnsInnerPadding = block.setting.columnsInnerPadding || 0
           const columnMaxWidth = Math.round((600 - left - right - (count - 1) * columnsInnerPadding) / count)
 
-          const updatedContents = newContents.map(col => {
+          const updatedColumns = newColumns.map(col => {
             if (col.type === 'image') {
               return {
                 ...col,
@@ -107,7 +107,7 @@ const useHandleBlock = () => {
 
           return {
             ...block,
-            contents: updatedContents,
+            columns: updatedColumns,
             setting: {
               ...block.setting,
               columnMaxWidth
@@ -153,16 +153,16 @@ const useHandleBlock = () => {
         const newBlocks = prev.map((block) => {
           if (block.id !== blockId) return block
 
-          if (block.contents.length <= 1) return block
+          if (block.columns.length <= 1) return block
 
-          const filteredContents = block.contents.filter((col) => col.id !== columnId)
-          const count = filteredContents.length
+          const filteredColumns = block.columns.filter((col) => col.id !== columnId)
+          const count = filteredColumns.length
           const left = block.setting.left || 0
           const right = block.setting.right || 0
           const columnsInnerPadding = block.setting.columnsInnerPadding || 0
           const columnMaxWidth = Math.round((600 - left - right - (count - 1) * columnsInnerPadding) / count)
 
-          const updatedContents = filteredContents.map(col => {
+          const updatedColumns = filteredColumns.map(col => {
             if (col.type === 'image') {
               return {
                 ...col,
@@ -176,7 +176,7 @@ const useHandleBlock = () => {
 
           return {
             ...block,
-            contents: updatedContents,
+            columns: updatedColumns,
             setting: {
               ...block.setting,
               columnMaxWidth
@@ -229,7 +229,7 @@ const useHandleBlock = () => {
         setSelectedColumn({
           blockId,
           ...column,
-          blockCount: parentBlock.contents.length,
+          blockCount: parentBlock.columns.length,
           blockSetting: parentBlock.setting
         })
         setActiveKey('blockSettings')
@@ -272,10 +272,10 @@ const useHandleBlock = () => {
         setBlocks((prev) =>
           prev.map((block) => {
             if (block.id !== blockId) return block
-            const updatedContents = block.contents.map((col) =>
+            const updatedColumns = block.columns.map((col) =>
               col.id !== columnId ? col : updateColumnSetting(col, keyChange, valueUpdate, block.setting.columnMaxWidth)
             )
-            return { ...block, contents: updatedContents }
+            return { ...block, columns: updatedColumns }
           })
         )
       }
@@ -320,8 +320,8 @@ const useHandleBlock = () => {
         setBlocks((prev) => {
           return prev.map((block) => {
             if (block.id !== blockId) return block
-            const blockSetting = updateColumnMaxWidth(keyChange, valueUpdate, block.setting, block.contents.length)
-            const updatedContents = block.contents.map(col => {
+            const blockSetting = updateColumnMaxWidth(keyChange, valueUpdate, block.setting, block.columns.length)
+            const updatedColumns = block.columns.map(col => {
               if (col.type === 'image') {
                 const maxWidth = blockSetting.columnMaxWidth
                 return {
@@ -331,7 +331,7 @@ const useHandleBlock = () => {
               }
               return col
             })
-            return { ...block, setting: { ...block.setting,  ...blockSetting }, contents: updatedContents }
+            return { ...block, setting: { ...block.setting,  ...blockSetting }, columns: updatedColumns }
           })
         })
       }

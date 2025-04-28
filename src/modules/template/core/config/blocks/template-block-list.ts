@@ -14,7 +14,7 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
       backgroundColor: 'rgb(255, 255, 255, 0)',
       mobileLayout: MobileLayout.VERTICAL
     },
-    contents: [
+    columns: [
       {
         id: 1,
         type: 'text',
@@ -36,7 +36,7 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
       columnMaxWidth: 560,
       mobileLayout: MobileLayout.VERTICAL
     },
-    contents: [
+    columns: [
       {
         id: 1,
         type: 'image',
@@ -61,7 +61,7 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
       backgroundColor: 'rgb(255, 255, 255, 0)',
       mobileLayout: MobileLayout.VERTICAL
     },
-    contents: [
+    columns: [
       {
         id: 1,
         type: 'button',
@@ -88,7 +88,7 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
       backgroundColor: 'rgb(255, 255, 255, 0)',
       mobileLayout: MobileLayout.VERTICAL
     },
-    contents: [
+    columns: [
       {
         id: 1,
         type: 'divider',
@@ -98,6 +98,51 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
           borderStyle: 'solid'
         },
         content: ''
+      }
+    ]
+  },
+  sns: {
+    type: 'multi',
+    setting: {
+      bottom: 10,
+      left: 20,
+      right: 20,
+      top: 10,
+      columnsInnerPadding: 20,
+      columnMaxWidth: 560,
+      backgroundColor: 'rgb(255, 255, 255, 0)',
+      mobileLayout: MobileLayout.VERTICAL
+    },
+    columns: [
+      {
+        id: 1,
+        type: 'sns',
+        setting: {
+          align: 'center',
+          size: 'middle'
+        },
+        content: [
+          {
+            type: 'X',
+            originalHref: '',
+            convertedHref: ''
+          },
+          {
+            type: 'Facebook',
+            originalHref: '',
+            convertedHref: ''
+          },
+          {
+            type: 'YouTube',
+            originalHref: '',
+            convertedHref: ''
+          },
+          {
+            type: 'Instagram',
+            originalHref: '',
+            convertedHref: ''
+          }
+        ]
       }
     ]
   }

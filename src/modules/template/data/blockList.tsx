@@ -15,7 +15,7 @@ export const blockList: Block[] = [
       backgroundColor: 'rgb(255, 255, 255, 0)',
       mobileLayout: MobileLayout.VERTICAL
     },
-    contents: [
+    columns: [
       {
         id: 1,
         setting: {
@@ -48,7 +48,7 @@ export const blockList: Block[] = [
       backgroundColor: 'rgb(255, 255, 255, 0)',
       mobileLayout: MobileLayout.VERTICAL
     },
-    contents: [
+    columns: [
       {
         id: 1,
         setting: {},
@@ -71,7 +71,7 @@ export const blockList: Block[] = [
       backgroundColor: 'rgb(255, 255, 255, 0)',
       mobileLayout: MobileLayout.VERTICAL
     },
-    contents: [
+    columns: [
       {
         id: 1,
         type: 'button',

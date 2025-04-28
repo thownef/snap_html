@@ -77,18 +77,18 @@ const BaseBlock = memo(
               <table align='center' width='100%' border={0} cellPadding={0} cellSpacing={0} role='presentation'>
                 <tbody style={{ width: '100%' }}>
                   <tr style={{ width: '100%' }}>
-                    {block.contents.map((column, index) => (
+                    {block.columns.map((column, index) => (
                       <td
                         onClick={onSelectColumn(column, block.id)}
                         key={column.id}
                         className={block.setting.mobileLayout === MobileLayout.HORIZONTAL ? 'layout-horizontal' : 'layout-vertical'}
-                        width={`${100 / block.contents.length}%`}
+                        width={`${100 / block.columns.length}%`}
                         style={{
                           verticalAlign: 'top',
-                          width: `${100 / block.contents.length}%`,
-                          maxWidth: `${100 / block.contents.length}%`,
+                          width: `${100 / block.columns.length}%`,
+                          maxWidth: `${100 / block.columns.length}%`,
                           padding: getColumnPadding(
-                            block.contents.length,
+                            block.columns.length,
                             index,
                             block.setting.columnsInnerPadding
                           ),
@@ -97,7 +97,7 @@ const BaseBlock = memo(
                       >
                         {!(block.type === 'multi') && (
                           <GroupColumnButton
-                            count={block.contents.length}
+                            count={block.columns.length}
                             index={index}
                             blockId={block.id}
                             columnId={column.id}
