@@ -18,6 +18,7 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
       {
         id: 1,
         type: 'text',
+        setting: {},
         content:
           '<p style="margin: 0px;">テキストを入力してください。</p><p style="margin: 0px;">テキストを入力してください。</p>'
       }

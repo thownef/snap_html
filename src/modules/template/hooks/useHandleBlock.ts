@@ -1,5 +1,4 @@
 import { useCallback, useState } from 'react'
-// import _ from 'lodash'
 import { AggregationColor } from 'antd/es/color-picker/color'
 import { blockList } from '@/modules/template/data/blockList'
 import {
@@ -9,7 +8,7 @@ import {
   ColumnBlock,
   SelectedColumn
 } from '@/modules/template/core/types/block.type'
-import { createBlockFromTemplate, updateColumnMaxWidth, updateColumnSetting, updateImageWidth } from '@/modules/template/utils'
+import { createBlockFromTemplate, updateColumnMaxWidth, updateColumnSetting, updateImageRate, updateImageWidth } from '@/modules/template/utils'
 
 const useHandleBlock = () => {
   const [blocks, setBlocks] = useState<Block[]>(blockList)
@@ -46,15 +45,34 @@ const useHandleBlock = () => {
       })
     }
   }, [])
+  console.log(blocks)
 
   const handleDuplicateColumn = useCallback((blockId: number, columnId: number) => {
     return (e?: React.MouseEvent) => {
       e?.stopPropagation()
       setSelectedColumn((prev) => {
         if (!prev) return null
+        const newBlockCount = prev.blockCount + 1
+        const left = prev.blockSetting.left || 0
+        const right = prev.blockSetting.right || 0
+        const columnsInnerPadding = prev.blockSetting.columnsInnerPadding || 0
+        const columnMaxWidth = Math.round((600 - left - right - (newBlockCount - 1) * columnsInnerPadding) / newBlockCount)
+
+        let newSetting = prev.setting
+        if (prev.type === 'image') {
+          newSetting = Number(prev.setting.widthRate) === 100
+            ? { ...prev.setting, width: columnMaxWidth }
+            : updateImageRate(prev.setting, columnMaxWidth)
+        }
+
         return {
           ...prev,
-          blockCount: prev.blockCount + 1
+          blockCount: newBlockCount,
+          blockSetting: {
+            ...prev.blockSetting,
+            columnMaxWidth
+          },
+          setting: newSetting
         }
       })
       setBlocks((prev) => {
@@ -69,12 +87,33 @@ const useHandleBlock = () => {
             id: Date.now()
           }
 
-          const updatedBlock = {
+          const newContents = [...block.contents]
+          newContents.splice(columnIndex + 1, 0, newColumn)
+
+          const count = newContents.length
+          const left = block.setting.left || 0
+          const right = block.setting.right || 0
+          const columnsInnerPadding = block.setting.columnsInnerPadding || 0
+          const columnMaxWidth = Math.round((600 - left - right - (count - 1) * columnsInnerPadding) / count)
+
+          const updatedContents = newContents.map(col => {
+            if (col.type === 'image') {
+              return {
+                ...col,
+                setting: Number(col.setting.widthRate) === 100 ? {...col.setting, width: columnMaxWidth} : updateImageRate(col.setting, columnMaxWidth) 
+              }
+            }
+            return col
+          })
+
+          return {
             ...block,
-            contents: [...block.contents]
+            contents: updatedContents,
+            setting: {
+              ...block.setting,
+              columnMaxWidth
+            }
           }
-          updatedBlock.contents.splice(columnIndex + 1, 0, newColumn)
-          return updatedBlock
         })
         return newBlocks
       })
@@ -86,9 +125,29 @@ const useHandleBlock = () => {
       e?.stopPropagation()
       setSelectedColumn((prev) => {
         if (!prev) return null
+        const newBlockCount = prev.blockCount - 1
+        if (newBlockCount < 1) return prev
+
+        const left = prev.blockSetting.left || 0
+        const right = prev.blockSetting.right || 0
+        const columnsInnerPadding = prev.blockSetting.columnsInnerPadding || 0
+        const columnMaxWidth = Math.round((600 - left - right - (newBlockCount - 1) * columnsInnerPadding) / newBlockCount)
+
+        let newSetting = prev.setting
+        if (prev.type === 'image') {
+          newSetting = Number(prev.setting.widthRate) === 100
+            ? { ...prev.setting, width: columnMaxWidth }
+            : updateImageRate(prev.setting, columnMaxWidth)
+        }
+
         return {
           ...prev,
-          blockCount: prev.blockCount - 1
+          blockCount: newBlockCount,
+          blockSetting: {
+            ...prev.blockSetting,
+            columnMaxWidth
+          },
+          setting: newSetting
         }
       })
       setBlocks((prev) => {
@@ -98,10 +157,31 @@ const useHandleBlock = () => {
           if (block.contents.length <= 1) return block
 
           const filteredContents = block.contents.filter((col) => col.id !== columnId)
+          const count = filteredContents.length
+          const left = block.setting.left || 0
+          const right = block.setting.right || 0
+          const columnsInnerPadding = block.setting.columnsInnerPadding || 0
+          const columnMaxWidth = Math.round((600 - left - right - (count - 1) * columnsInnerPadding) / count)
+
+          const updatedContents = filteredContents.map(col => {
+            if (col.type === 'image') {
+              return {
+                ...col,
+                setting: Number(col.setting.widthRate) === 100
+                  ? { ...col.setting, width: columnMaxWidth }
+                  : updateImageRate(col.setting, columnMaxWidth)
+              }
+            }
+            return col
+          })
 
           return {
             ...block,
-            contents: filteredContents
+            contents: updatedContents,
+            setting: {
+              ...block.setting,
+              columnMaxWidth
+            }
           }
         })
         return newBlocks

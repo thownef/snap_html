@@ -1,5 +1,5 @@
 import { templateBlockList } from '@/modules/template/core/config/blocks/template-block-list'
-import { Block, ColumnBlock, SelectedColumn, SettingBlock } from '@/modules/template/core/types/block.type'
+import { Block, ColumnBlock, SelectedColumn, SettingBlock, SettingColumn } from '@/modules/template/core/types/block.type'
 import _ from 'lodash'
 
 export const getColumnPadding = (count: number, index: number, gap: number = 20) => {
@@ -158,10 +158,19 @@ export const updateColumnMaxWidth = (keyChange: string, valueUpdate: number, blo
   }
 }
 
-export const updateImageWidth = (setting: any, maxWidth: number) => {
+export const updateImageWidth = (setting: SettingColumn, maxWidth: number) => {
   const widthRate = setting?.widthRate ?? 100
   return {
     ...setting,
     width: Math.round(widthRate * (maxWidth - 32) / 100 + 32)
+  }
+}
+
+export const updateImageRate = (setting: SettingColumn, maxWidth: number) => {
+  const width = setting?.width ?? 0
+  const widthRate = Math.round(((width - 32) / (maxWidth - 32)) * 100)
+  return {
+    ...setting,
+    widthRate
   }
 }

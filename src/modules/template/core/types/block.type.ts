@@ -17,7 +17,7 @@ export type SettingColumn = {
 export type ColumnBlock = {
   id: number
   type: string
-  setting?: SettingColumn
+  setting: SettingColumn
   content: string
 }
 

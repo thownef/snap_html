@@ -28,6 +28,7 @@ export const blockList: Block[] = [
       },
       {
         id: 2,
+        setting: {},
         content:
           '<p style="margin: 0px;">テキストを入力してください。</p><p style="margin: 0px;">テキストを入力してください。</p>',
         type: 'text'
@@ -50,6 +51,7 @@ export const blockList: Block[] = [
     contents: [
       {
         id: 1,
+        setting: {},
         content:
           '<p style="margin: 0px;">123テキストを入力してください。</p><p style="margin: 0px;">テキストを入力してください。</p>',
         type: 'text'
