@@ -1,4 +1,4 @@
-import { Tabs, TabsProps } from 'antd'
+import { Tabs } from 'antd'
 import { type SelectedColumn, ChangeBlockType } from '@/modules/template/core/types/block.type'
 import ImageSetting from '@/modules/template/components/Setting/ImageSetting'
 import TextSetting from '@/modules/template/components/Setting/TextSetting'
@@ -32,72 +32,59 @@ const BlockSetting = ({
     )
   }
 
-  const itemImages: TabsProps['items'] = [
-    {
-      key: 'partsEditMenu',
-      label: '画像編集',
-      children: <ImageSetting selectedColumn={selectedColumn} onChangeBlock={onChangeBlock} />
-    },
-    {
-      key: 'blockEditMenu',
-      label: 'ブロックデザイン',
-      children: <BlockDesignSetting selectedColumn={selectedColumn} onChangeSettingBlock={onChangeSettingBlock} />
+  const getTabItems = (type: string) => {
+    switch (type) {
+      case 'image':
+        return [
+          {
+            key: 'partsEditMenu',
+            label: '画像編集',
+            children: <ImageSetting selectedColumn={selectedColumn} onChangeBlock={onChangeBlock} />
+          },
+          {
+            key: 'blockEditMenu',
+            label: 'ブロックデザイン',
+            children: <BlockDesignSetting selectedColumn={selectedColumn} onChangeSettingBlock={onChangeSettingBlock} />
+          }
+        ]
+      case 'button':
+        return [
+          {
+            key: 'partsEditMenu',
+            label: 'ボタン編集',
+            children: <ButtonSetting selectedColumn={selectedColumn} onChangeBlock={onChangeBlock} />
+          },
+          {
+            key: 'blockEditMenu',
+            label: 'ブロックデザイン',
+            children: <BlockDesignSetting selectedColumn={selectedColumn} onChangeSettingBlock={onChangeSettingBlock} />
+          }
+        ]
+      default:
+        return [
+          {
+            key: 'partsEditMenu',
+            label: 'テキスト編集',
+            children: <TextSetting selectedColumn={selectedColumn} onChangeBlock={onChangeBlock} />
+          },
+          {
+            key: 'blockEditMenu',
+            label: 'ブロックデザイン',
+            children: <BlockDesignSetting selectedColumn={selectedColumn} onChangeSettingBlock={onChangeSettingBlock} />
+          }
+        ]
     }
-  ]
+  }
 
-  const itemTexts: TabsProps['items'] = [
-    {
-      key: 'partsEditMenu',
-      label: 'テキスト編集',
-      children: <TextSetting selectedColumn={selectedColumn} onChangeBlock={onChangeBlock} />
-    },
-    {
-      key: 'blockEditMenu',
-      label: 'ブロックデザイン',
-      children: <BlockDesignSetting selectedColumn={selectedColumn} onChangeSettingBlock={onChangeSettingBlock} />
-    }
-  ]
+  const tabItems = getTabItems(selectedColumn.type)
 
-  const itemButtons: TabsProps['items'] = [
-    {
-      key: 'partsEditMenu',
-      label: 'ボタン編集',
-      children: <ButtonSetting selectedColumn={selectedColumn} onChangeBlock={onChangeBlock} />
-    },
-    {
-      key: 'blockEditMenu',
-      label: 'ブロックデザイン',
-      children: <BlockDesignSetting selectedColumn={selectedColumn} onChangeSettingBlock={onChangeSettingBlock} />
-    }
-  ]
-
-  return selectedColumn.type === 'image' ? (
+  return (
     <Tabs
-      className='h-full [&_.ant-tabs-nav]:h-[39px] [&_.ant-tabs-nav]:!mb-0 [&_.ant-tabs-tabpane]:!overflow-hidden [&_.ant-tabs-tabpane]:!overflow-y-auto [&_.ant-tabs-tabpane]:!h-[calc(100vh-150px)]'
+      className='h-full [&_.ant-tabs-nav]:h-[39px] [&_.ant-tabs-content-holder]:!h-full [&_.ant-tabs-nav]:!mb-0 [&_.ant-tabs-tabpane]:!overflow-hidden [&_.ant-tabs-tabpane]:!overflow-y-auto [&_.ant-tabs-tabpane]:!h-[calc(100vh-150px)]'
       defaultActiveKey='partsEditMenu'
       type='line'
-      size={'middle'}
-      items={itemImages}
-      activeKey={activeTab}
-      onChange={onChangeActiveTab}
-    />
-  ) : selectedColumn.type === 'text' ? (
-    <Tabs
-      className='h-full [&_.ant-tabs-nav]:h-[39px] [&_.ant-tabs-content-holder]:!h-full'
-      defaultActiveKey='partsEditMenu'
-      type='line'
-      size={'middle'}
-      items={itemTexts}
-      activeKey={activeTab}
-      onChange={onChangeActiveTab}
-    />
-  ) : (
-    <Tabs
-      className='h-full [&_.ant-tabs-nav]:h-[39px] [&_.ant-tabs-content-holder]:!h-full'
-      defaultActiveKey='partsEditMenu'
-      type='line'
-      size={'middle'}
-      items={itemButtons}
+      size='middle'
+      items={tabItems}
       activeKey={activeTab}
       onChange={onChangeActiveTab}
     />
