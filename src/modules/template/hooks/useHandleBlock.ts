@@ -45,7 +45,6 @@ const useHandleBlock = () => {
       })
     }
   }, [])
-  console.log(blocks)
 
   const handleDuplicateColumn = useCallback((blockId: number, columnId: number) => {
     return (e?: React.MouseEvent) => {
