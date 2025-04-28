@@ -166,7 +166,7 @@ const useHandleEditor = (
 
   useEffect(() => {
     editor?.commands.setContent(selectedColumn.content)
-  }, [editor, selectedColumn.content])
+  }, [editor, selectedColumn.blockId, selectedColumn.id])
 
   return {
     editor,
