@@ -1,11 +1,13 @@
 import { settingKeys, SettingKeys } from "@/modules/template/hooks/useHandleSetting"
+import { SettingBlock } from "@/modules/template/core/types/block.type"
 
 type TextDesignProps = {
   content: string
+  settingBlock: SettingBlock
   settings: SettingKeys
 }
 
-const TextDesign = ({ content, settings }: TextDesignProps) => {
+const TextDesign = ({ content, settingBlock, settings }: TextDesignProps) => {
   const processedContent = content.replace(
     /<a(.*?)>/g, 
     `<a$1 style="color: ${settings[settingKeys.LINK]}">`
@@ -24,7 +26,7 @@ const TextDesign = ({ content, settings }: TextDesignProps) => {
         color: settings[settingKeys.TEXT],
         wordBreak: 'break-word',
         overflowWrap: 'break-word',
-        maxWidth: 278
+        maxWidth: settingBlock.columnMaxWidth
       }}
     />
   )

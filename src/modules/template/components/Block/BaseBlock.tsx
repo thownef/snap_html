@@ -123,7 +123,7 @@ const BaseBlock = memo(
                                     <tbody>
                                       <tr>
                                         <td style={{ padding: 0 }}>
-                                          <ColumnDesign column={column} settings={settings} />
+                                          <ColumnDesign column={column} settingBlock={block.setting} settings={settings} />
                                         </td>
                                       </tr>
                                     </tbody>
