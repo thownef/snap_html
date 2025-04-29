@@ -23,7 +23,11 @@ const useHandleEditor = (
   const [lineHeight, setLineHeight] = useState('1.5')
   const editor = useEditor({
     extensions: [
-      StarterKit,
+      StarterKit.configure({
+        hardBreak: {
+          keepMarks: true,
+        }
+      }),
       Underline,
       TextStyle,
       Color,
@@ -57,6 +61,20 @@ const useHandleEditor = (
       attributes: {
         class:
           'h-full px-[11px] py-1 border border-[#d9d9d9] rounded-[6px] [&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pl-[40px] [&_ol]:pl-[40px] [&_ul]:my-4 [&_ol]:my-4 bg-white text-[#262626] overflow-y-auto overflow-x-hidden focus:outline-none focus:!border-[rgb(230,80,83)] [&_a]:!text-blue-600 [&_a]:!underline'
+      },
+      handleKeyDown: (view, event) => {
+        if (event.key === 'Enter') {
+          const { state } = view
+          if (!state.selection.empty) {
+            editor?.chain()
+              .focus()
+              .deleteSelection()
+              .insertContent('<br/>')
+              .run()
+            return true
+          }
+        }
+        return false
       }
     },
     onUpdate: onChangeBlock('content', selectedColumn.blockId, selectedColumn.id, selectedColumn.parts[0].id)
