@@ -2,13 +2,13 @@ import { settingKeys, SettingKeys } from "@/modules/template/hooks/useHandleSett
 import { SettingBlock } from "@/modules/template/core/types/block.type"
 
 type TextDesignProps = {
-  content: string
+  content: string | undefined
   settingBlock: SettingBlock
   settings: SettingKeys
 }
 
 const TextDesign = ({ content, settingBlock, settings }: TextDesignProps) => {
-  const processedContent = content.replace(
+  const processedContent = content?.replace(
     /<a(.*?)>/g, 
     `<a$1 style="color: ${settings[settingKeys.LINK]}">`
   )

@@ -12,7 +12,7 @@ type SettingProps = {
   activeTab: string
   settings: SettingKeys
   onChangeTab: (newKey: string) => void
-  onChangeBlock: (keyChange: string, blockId: number, columnId: number) => (value: ChangeBlockType) => void
+  onChangeBlock: (keyChange: string, blockId: number, columnId: number, partId: number) => (value: ChangeBlockType) => void
   onChangeActiveTab: (newKey: string) => void
   onChangeSettings: (key: string) => (color: AggregationColor | RadioChangeEvent) => void
   onChangeSettingBlock: (blockId: number, keyChange: string) => (value: any) => void

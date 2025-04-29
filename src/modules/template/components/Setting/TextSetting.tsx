@@ -24,7 +24,7 @@ import LinkEditorForm from '@/modules/template/components/Form/LinkEditorForm'
 
 type TextSettingProps = {
   selectedColumn: SelectedColumn
-  onChangeBlock: (keyChange: string, blockId: number, columnId: number) => (value: EditorEvents["update"]) => void
+  onChangeBlock: (keyChange: string, blockId: number, columnId: number, partId: number) => (value: EditorEvents["update"]) => void
 }
 
 const TextSetting = ({ selectedColumn, onChangeBlock }: TextSettingProps) => {

@@ -12,12 +12,12 @@ const { Text } = Typography
 
 type ImageSettingProps = {
   selectedColumn: SelectedColumn
-  onChangeBlock: (keyChange: string, blockId: number, columnId: number) => (value: ChangeBlockType) => void
+  onChangeBlock: (keyChange: string, blockId: number, columnId: number, partId: number) => (value: ChangeBlockType) => void
 }
 
 const ImageSetting = ({ selectedColumn, onChangeBlock }: ImageSettingProps) => {
   const {
-    setting,
+    parts,
     blockSetting: { columnMaxWidth }
   } = selectedColumn
   const fileInputRef = useRef<HTMLInputElement>(null)
@@ -103,20 +103,20 @@ const ImageSetting = ({ selectedColumn, onChangeBlock }: ImageSettingProps) => {
         <Text className='font-bold'>画像の表示幅</Text>
         <div className='flex w-full gap-4 justify-center items-center'>
           <InputNumberDesign
-            onChange={onChangeBlock('setting.width', selectedColumn.blockId, selectedColumn.id)}
+            onChange={onChangeBlock('setting.width', selectedColumn.blockId, selectedColumn.id, selectedColumn.parts[0].id)}
             min={32}
             max={columnMaxWidth}
-            value={setting?.width || null}
+            value={parts[0].setting.width || null}
           />
           <SliderDesign
-            value={setting?.widthRate ?? 100}
-            onChange={onChangeBlock('setting.widthRate', selectedColumn.blockId, selectedColumn.id)}
+            value={parts[0].setting.widthRate ?? 100}
+            onChange={onChangeBlock('setting.widthRate', selectedColumn.blockId, selectedColumn.id, selectedColumn.parts[0].id)}
           />
         </div>
         <Space align='center'>
           <Checkbox
-            checked={setting?.isMobileFullWidth}
-            onChange={onChangeBlock('setting.isMobileFullWidth', selectedColumn.blockId, selectedColumn.id)}
+            checked={parts[0].setting.isMobileFullWidth}
+            onChange={onChangeBlock('setting.isMobileFullWidth', selectedColumn.blockId, selectedColumn.id, selectedColumn.parts[0].id)}
           />
           <Text>スマホ表示幅100%</Text>
         </Space>
@@ -126,8 +126,8 @@ const ImageSetting = ({ selectedColumn, onChangeBlock }: ImageSettingProps) => {
         <Text className='font-bold'>位置</Text>
         <RadioDesign
           options={displayImageList}
-          onChange={onChangeBlock('setting.align', selectedColumn.blockId, selectedColumn.id)}
-          value={setting?.align || 'center'}
+          onChange={onChangeBlock('setting.align', selectedColumn.blockId, selectedColumn.id, selectedColumn.parts[0].id)}
+          value={parts[0].setting.align || 'center'}
           className='[&_.ant-radio-button-wrapper]:w-24 [&_.ant-radio-button-wrapper]:text-center'
         />
       </Space>

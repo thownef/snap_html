@@ -3,7 +3,13 @@ import _ from 'lodash'
 import AddBlockButton from '@/modules/template/components/Button/AddBlockButton'
 import GroupBlockButton from '@/modules/template/components/Button/GroupBlockButton'
 import GroupColumnButton from '@/modules/template/components/Button/GroupColumnButton'
-import { convertPadding, getColumnAlign, getColumnPadding, getColumnWidth, getStyleTableWrapper } from '@/modules/template/utils'
+import {
+  convertPadding,
+  getColumnAlign,
+  getColumnPadding,
+  getColumnWidth,
+  getStyleTableWrapper
+} from '@/modules/template/utils'
 import { Block, ColumnBlock, SelectedColumn } from '@/modules/template/core/types/block.type'
 import ColumnDesign from '@/shared/design-system/Column/ColumnDesign'
 import { settingKeys, SettingKeys } from '@/modules/template/hooks/useHandleSetting'
@@ -64,7 +70,9 @@ const BaseBlock = memo(
             <td>
               <AddBlockButton blockId={block.id} onOpenModal={onOpenModal} />
               <div className='mail-block-insert-line' />
-              <div className={`mail-block-panel ${ selectedColumn?.blockId === block.id && activeTab === 'blockEditMenu' ? 'edit-target-element' : ''}`} />
+              <div
+                className={`mail-block-panel ${selectedColumn?.blockId === block.id && activeTab === 'blockEditMenu' ? 'edit-target-element' : ''}`}
+              />
               <GroupBlockButton
                 blockId={block.id}
                 canMoveUp={index > 0}
@@ -81,17 +89,17 @@ const BaseBlock = memo(
                       <td
                         onClick={onSelectColumn(column, block.id)}
                         key={column.id}
-                        className={block.setting.mobileLayout === MobileLayout.HORIZONTAL ? 'layout-horizontal' : 'layout-vertical'}
+                        className={
+                          block.setting.mobileLayout === MobileLayout.HORIZONTAL
+                            ? 'layout-horizontal'
+                            : 'layout-vertical'
+                        }
                         width={`${100 / block.columns.length}%`}
                         style={{
                           verticalAlign: 'top',
                           width: `${100 / block.columns.length}%`,
                           maxWidth: `${100 / block.columns.length}%`,
-                          padding: getColumnPadding(
-                            block.columns.length,
-                            index,
-                            block.setting.columnsInnerPadding
-                          ),
+                          padding: getColumnPadding(block.columns.length, index, block.setting.columnsInnerPadding),
                           position: 'relative'
                         }}
                       >
@@ -107,35 +115,49 @@ const BaseBlock = memo(
                           />
                         )}
                         <div className='mail-column-edit-panel'>
-                          <table
-                            align='center'
-                            width='100%'
-                            border={0}
-                            cellPadding={0}
-                            cellSpacing={0}
-                            role='presentation'
-                            style={{ position: 'relative' }}
-                          >
-                            <tbody>
-                              <tr>
-                                <td>
-                                  <table style={getStyleTableWrapper(column.type)} align={column.setting?.align || getColumnAlign(column.type)} width={getColumnWidth(column.type, column.setting?.size)} border={0} cellPadding={0} cellSpacing={0}>
-                                    <tbody>
-                                      <tr>
-                                        <td style={{ padding: 0 }}>
-                                          <ColumnDesign column={column} settingBlock={block.setting} settings={settings} />
-                                        </td>
-                                      </tr>
-                                    </tbody>
-                                  </table>
-                                  <div
-                                    className={`mail-parts-edit-panel ${selectedColumn && selectedColumn.blockId === block.id && selectedColumn.id === column.id && activeTab !== 'blockEditMenu' ? 'edit-target-element' : ''}`}
-                                    title='パーツ編集'
-                                  />
-                                </td>
-                              </tr>
-                            </tbody>
-                          </table>
+                          {column.parts.map((part) => (
+                            <table
+                              key={part.id}
+                              align='center'
+                              width='100%'
+                              border={0}
+                              cellPadding={0}
+                              cellSpacing={0}
+                              role='presentation'
+                              style={{ position: 'relative' }}
+                            >
+                              <tbody>
+                                <tr>
+                                  <td>
+                                    <table
+                                      style={getStyleTableWrapper(part.type)}
+                                      align={part.setting?.align || getColumnAlign(part.type)}
+                                      width={getColumnWidth(part.type, part.setting?.size)}
+                                      border={0}
+                                      cellPadding={0}
+                                      cellSpacing={0}
+                                    >
+                                      <tbody>
+                                        <tr>
+                                          <td style={{ padding: 0 }}>
+                                            <ColumnDesign
+                                              part={part}
+                                              settingBlock={block.setting}
+                                              settings={settings}
+                                            />
+                                          </td>
+                                        </tr>
+                                      </tbody>
+                                    </table>
+                                    <div
+                                      className={`mail-parts-edit-panel ${selectedColumn && selectedColumn.blockId === block.id && selectedColumn.id === column.id && activeTab !== 'blockEditMenu' ? 'edit-target-element' : ''}`}
+                                      title='パーツ編集'
+                                    />
+                                  </td>
+                                </tr>
+                              </tbody>
+                            </table>
+                          ))}
                         </div>
                       </td>
                     ))}

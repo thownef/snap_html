@@ -15,7 +15,7 @@ import { LineHeight } from '@/shared/lib/LineHeight'
 
 const useHandleEditor = (
   selectedColumn: SelectedColumn,
-  onChangeBlock: (keyChange: string, blockId: number, columnId: number) => (value: EditorEvents["update"]) => void
+  onChangeBlock: (keyChange: string, blockId: number, columnId: number, partId: number) => (value: EditorEvents["update"]) => void
 ) => {
   const [form] = Form.useForm()
   const [isOpen, setIsOpen] = useState(false)
@@ -37,7 +37,7 @@ const useHandleEditor = (
       }),
       Highlight.configure({ multicolor: true })
     ],
-    content: selectedColumn.content,
+    content: selectedColumn.parts[0].content,
     onSelectionUpdate: ({ editor }) => {
       const currentFontSize = editor.getAttributes('textStyle').fontSize
       if (currentFontSize) {
@@ -59,7 +59,7 @@ const useHandleEditor = (
           'h-full px-[11px] py-1 border border-[#d9d9d9] rounded-[6px] [&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pl-[40px] [&_ol]:pl-[40px] [&_ul]:my-4 [&_ol]:my-4 bg-white text-[#262626] overflow-y-auto overflow-x-hidden focus:outline-none focus:!border-[rgb(230,80,83)] [&_a]:!text-blue-600 [&_a]:!underline'
       }
     },
-    onUpdate: onChangeBlock('content', selectedColumn.blockId, selectedColumn.id)
+    onUpdate: onChangeBlock('content', selectedColumn.blockId, selectedColumn.id, selectedColumn.parts[0].id)
   })
 
   const handleClearFormat = useCallback(() => {
@@ -165,7 +165,7 @@ const useHandleEditor = (
   }, [editor])
 
   useEffect(() => {
-    editor?.commands.setContent(selectedColumn.content)
+    editor?.commands.setContent(selectedColumn.parts[0].content || '')
   }, [editor, selectedColumn.blockId, selectedColumn.id])
 
   return {

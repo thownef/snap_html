@@ -4,17 +4,22 @@ import { ChangeBlockType, SelectedColumn } from '@/modules/template/core/types/b
 
 const useHandleLinkButton = (
   selectedColumn: SelectedColumn,
-  onChangeBlock: (keyChange: string, blockId: number, columnId: number) => (event: ChangeBlockType) => void
+  onChangeBlock: (
+    keyChange: string,
+    blockId: number,
+    columnId: number,
+    partId: number
+  ) => (event: ChangeBlockType) => void
 ) => {
   const [isOpen, setIsOpen] = useState(false)
   const [form] = Form.useForm()
 
   const handleTogglePopover = (isOpen: boolean) => () => {
     form.setFieldsValue({
-      urlInput: selectedColumn.setting?.href,
-      linkType: selectedColumn.setting?.href?.startsWith('mailto:')
+      urlInput: selectedColumn.parts[0].setting?.href,
+      linkType: selectedColumn.parts[0].setting?.href?.startsWith('mailto:')
         ? 'email'
-        : selectedColumn.setting?.href?.startsWith('tel:')
+        : selectedColumn.parts[0].setting?.href?.startsWith('tel:')
           ? 'phone'
           : 'URL'
     })
@@ -27,7 +32,8 @@ const useHandleLinkButton = (
     onChangeBlock(
       'setting.href',
       selectedColumn.blockId,
-      selectedColumn.id
+      selectedColumn.id,
+      selectedColumn.parts[0].id
     )({
       target: {
         value: type === 'email' ? `mailto:${value}` : type === 'phone' ? `tel:${value}` : value
@@ -42,7 +48,8 @@ const useHandleLinkButton = (
     onChangeBlock(
       'setting.href',
       selectedColumn.blockId,
-      selectedColumn.id
+      selectedColumn.id,
+      selectedColumn.parts[0].id
     )({
       target: {
         value: ''

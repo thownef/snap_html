@@ -18,26 +18,36 @@ export const blockList: Block[] = [
     columns: [
       {
         id: 1,
-        setting: {
-          isMobileFullWidth: true,
-          width: 278,
-          widthRate: 100 
-        },
-        type: 'image',
-        content: 'https://img.bme.jp/img/htmlmail_v3/limited_design/gourmet/01_logo.png'
+        parts: [
+          {
+            id: 1,
+            type: 'image',
+            setting: {
+              isMobileFullWidth: true,
+              width: 278,
+              widthRate: 100
+            },
+            content: 'https://img.bme.jp/img/htmlmail_v3/limited_design/gourmet/01_logo.png'
+          }
+        ]
       },
       {
         id: 2,
-        setting: {},
-        content:
-          '<p style="margin: 0px;">テキストを入力してください。</p><p style="margin: 0px;">テキストを入力してください。</p>',
-        type: 'text'
+        parts: [
+          {
+            id: 1,
+            type: 'text',
+            setting: {},
+            content:
+              '<p style="margin: 0px;">テキストを入力してください。</p><p style="margin: 0px;">テキストを入力してください。</p>'
+          }
+        ]
       }
     ]
   },
   {
     id: 2,
-    type: 'text',
+    type: 'default',
     setting: {
       bottom: 0,
       left: 0,
@@ -51,10 +61,15 @@ export const blockList: Block[] = [
     columns: [
       {
         id: 1,
-        setting: {},
-        content:
-          '<p style="margin: 0px;">123テキストを入力してください。</p><p style="margin: 0px;">テキストを入力してください。</p>',
-        type: 'text'
+        parts: [
+          {
+            id: 1,
+            type: 'text',
+            content:
+              '<p style="margin: 0px;">123テキストを入力してください。</p><p style="margin: 0px;">テキストを入力してください。</p>',
+            setting: {}
+          }
+        ]
       }
     ]
   },
@@ -74,15 +89,20 @@ export const blockList: Block[] = [
     columns: [
       {
         id: 1,
-        type: 'button',
-        setting: {
-          form: FormButton.ROUND,
-          size: SizeButton.MIDDLE,
-          color: 'rgb(255, 255, 255)',
-          backgroundColor: 'rgb(47, 84, 235)',
-          href: ''
-        },
-        content: 'ボタンテキスト'
+        parts: [
+          {
+            id: 1,
+            type: 'button',
+            content: 'ボタンテキスト',
+            setting: {
+              form: FormButton.ROUND,
+              size: SizeButton.MIDDLE,
+              color: 'rgb(255, 255, 255)',
+              backgroundColor: 'rgb(47, 84, 235)',
+              href: ''
+            }
+          }
+        ]
       }
     ]
   }

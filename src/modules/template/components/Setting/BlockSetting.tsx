@@ -9,7 +9,7 @@ import DividerSetting from '@/modules/template/components/Setting/DividerSetting
 type BlockSettingProps = {
   selectedColumn: SelectedColumn | null
   activeTab: string
-  onChangeBlock: (keyChange: string, blockId: number, columnId: number) => (value: ChangeBlockType) => void
+  onChangeBlock: (keyChange: string, blockId: number, columnId: number, partId: number) => (value: ChangeBlockType) => void
   onChangeActiveTab: (newKey: string) => void
   onChangeSettingBlock: (blockId: number, keyChange: string) => (value: any) => void
 }
@@ -90,7 +90,7 @@ const BlockSetting = ({
     }
   }
 
-  const tabItems = getTabItems(selectedColumn.type)
+  const tabItems = getTabItems(selectedColumn.parts[0].type)
 
   return (
     <Tabs

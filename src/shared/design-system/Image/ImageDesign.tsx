@@ -1,6 +1,6 @@
 import { SettingColumn } from '@/modules/template/core/types/block.type'
 type ImageDesignProps = {
-  content: string
+  content: string | undefined
   setting: SettingColumn | undefined
 }
 

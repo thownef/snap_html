@@ -2,7 +2,7 @@ import { FormButton, SizeButton } from '@/modules/template/core/enums/block.enum
 import { SettingColumn } from '@/modules/template/core/types/block.type'
 
 type ButtonDesignProps = {
-  content: string
+  content: string | undefined
   setting: SettingColumn
 }
 

@@ -17,10 +17,15 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
     columns: [
       {
         id: 1,
-        type: 'text',
-        setting: {},
-        content:
-          '<p style="margin: 0px;">テキストを入力してください。</p><p style="margin: 0px;">テキストを入力してください。</p>'
+        parts: [
+          {
+            id: 1,
+            type: 'text',
+            content:
+              '<p style="margin: 0px;">テキストを入力してください。</p><p style="margin: 0px;">テキストを入力してください。</p>',
+            setting: {}
+          }
+        ]
       }
     ]
   },
@@ -39,13 +44,18 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
     columns: [
       {
         id: 1,
-        type: 'image',
-        setting: {
-          isMobileFullWidth: true,
-          align: 'center',
-          widthRate: 100
-        },
-        content: 'https://img.bme.jp/img/htmlmail_v3/template-img/dummy_image_v3.png'
+        parts: [
+          {
+            id: 1,
+            type: 'image',
+            setting: {
+              isMobileFullWidth: true,
+              align: 'center',
+              widthRate: 100
+            },
+            content: 'https://img.bme.jp/img/htmlmail_v3/template-img/dummy_image_v3.png'
+          }
+        ]
       }
     ]
   },
@@ -64,15 +74,20 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
     columns: [
       {
         id: 1,
-        type: 'button',
-        setting: {
-          form: FormButton.ROUND,
-          size: SizeButton.MIDDLE,
-          color: 'rgb(255, 255, 255)',
-          backgroundColor: 'rgb(47, 84, 235)',
-          href: ''
-        },
-        content: 'ボタンテキスト'
+        parts: [
+          {
+            id: 1,
+            type: 'button',
+            setting: {
+              form: FormButton.ROUND,
+              size: SizeButton.MIDDLE,
+              color: 'rgb(255, 255, 255)',
+              backgroundColor: 'rgb(47, 84, 235)',
+              href: ''
+            },
+            content: 'ボタンテキスト'
+          }
+        ]
       }
     ]
   },
@@ -91,13 +106,18 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
     columns: [
       {
         id: 1,
-        type: 'divider',
-        setting: {
-          borderColor: '#bfbfbf',
-          borderWidth: '1px',
-          borderStyle: 'solid'
-        },
-        content: ''
+        parts: [
+          {
+            id: 1,
+            type: 'divider',
+            setting: {
+              borderColor: '#bfbfbf',
+              borderWidth: '1px',
+              borderStyle: 'solid'
+            },
+            content: ''
+          }
+        ]
       }
     ]
   },
@@ -116,31 +136,36 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
     columns: [
       {
         id: 1,
-        type: 'sns',
-        setting: {
-          align: 'center',
-          size: 'middle'
-        },
-        content: [
+        parts: [
           {
-            type: 'X',
-            originalHref: '',
-            convertedHref: ''
-          },
-          {
-            type: 'Facebook',
-            originalHref: '',
-            convertedHref: ''
-          },
-          {
-            type: 'YouTube',
-            originalHref: '',
-            convertedHref: ''
-          },
-          {
-            type: 'Instagram',
-            originalHref: '',
-            convertedHref: ''
+            id: 1,
+            type: 'sns',
+            setting: {
+              align: 'center',
+              size: 'middle'
+            },
+            icon: [
+              {
+                type: 'X',
+                originalHref: '',
+                convertedHref: ''
+              },
+              {
+                type: 'Facebook',
+                originalHref: '',
+                convertedHref: ''
+              },
+              {
+                type: 'YouTube',
+                originalHref: '',
+                convertedHref: ''
+              },
+              {
+                type: 'Instagram',
+                originalHref: '',
+                convertedHref: ''
+              }
+            ]
           }
         ]
       }

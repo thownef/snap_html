@@ -9,7 +9,7 @@ const { Text } = Typography
 
 type DividerSettingProps = {
   selectedColumn: SelectedColumn
-  onChangeBlock: (keyChange: string, blockId: number, columnId: number) => (value: ChangeBlockType) => void
+  onChangeBlock: (keyChange: string, blockId: number, columnId: number, partId: number) => (value: ChangeBlockType) => void
 }
 
 const DividerSetting = ({ selectedColumn, onChangeBlock }: DividerSettingProps) => {
@@ -19,25 +19,25 @@ const DividerSetting = ({ selectedColumn, onChangeBlock }: DividerSettingProps) 
         <Text strong>太さ</Text>
         <RadioDesign
           className='[&_.ant-radio-button-wrapper]:w-[95px] [&_.ant-radio-button-wrapper]:text-center'
-          value={selectedColumn.setting.borderWidth || '1px'}
+          value={selectedColumn.parts[0].setting.borderWidth || '1px'}
           options={borderWidthList}
-          onChange={onChangeBlock('setting.borderWidth', selectedColumn.blockId, selectedColumn.id)}
+          onChange={onChangeBlock('setting.borderWidth', selectedColumn.blockId, selectedColumn.id, selectedColumn.parts[0].id)}
         />
       </Space>
       <Space direction='vertical' size='small' className='mb-4'>
         <Text strong>線種</Text>
         <RadioDesign
           className='[&_.ant-radio-button-wrapper]:w-[95px] [&_.ant-radio-button-wrapper]:text-center'
-          value={selectedColumn.setting.borderStyle || 'solid'}
+          value={selectedColumn.parts[0].setting.borderStyle || 'solid'}
           options={borderList}
-          onChange={onChangeBlock('setting.borderStyle', selectedColumn.blockId, selectedColumn.id)}
+          onChange={onChangeBlock('setting.borderStyle', selectedColumn.blockId, selectedColumn.id, selectedColumn.parts[0].id)}
         />
       </Space>
       <Space direction='vertical' size='small' className='mb-4'>
         <Text strong>カラー</Text>
         <ColorPicker
-          value={selectedColumn.setting.borderColor || '#bfbfbf'}
-          onChange={onChangeBlock('setting.borderColor', selectedColumn.blockId, selectedColumn.id)}
+          value={selectedColumn.parts[0].setting.borderColor || '#bfbfbf'}
+          onChange={onChangeBlock('setting.borderColor', selectedColumn.blockId, selectedColumn.id, selectedColumn.parts[0].id)}
           label='線色'
         />
       </Space>

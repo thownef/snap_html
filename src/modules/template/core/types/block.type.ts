@@ -2,6 +2,12 @@ import { EditorEvents } from "@tiptap/react"
 import { CheckboxChangeEvent, RadioChangeEvent } from "antd"
 import { AggregationColor } from "antd/es/color-picker/color"
 
+export type Sns = {
+  type: string
+  originalHref: string
+  convertedHref: string
+}
+
 export type SettingColumn = {
   size?: string
   form?: string
@@ -17,17 +23,17 @@ export type SettingColumn = {
   borderStyle?: string
 }
 
-export type Sns = {
+export type PartBlock = {
+  id: number
   type: string
-  originalHref: string
-  convertedHref: string
+  content?: string
+  icon?: Sns[]
+  setting: SettingColumn
 }
 
 export type ColumnBlock = {
   id: number
-  type: string
-  setting: SettingColumn
-  content: string | Sns[]
+  parts: PartBlock[]
 }
 
 export type SettingBlock = {
