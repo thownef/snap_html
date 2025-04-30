@@ -7,74 +7,40 @@ type ButtonDesignProps = {
 }
 
 const ButtonDesign = ({ content, setting }: ButtonDesignProps) => {
-  if (setting.href) {
-    return (
-      <a
-        href={setting.href}
-        target='_blank'
-        rel='noopener noreferrer'
-        style={{
-          color: setting.color,
-          background: setting.backgroundColor,
-          fontSize: setting.size === SizeButton.SMALL ? 14 : 16,
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, Helvetica, Arial, "Noto Sans JP", "BIZ UDGothic", Meiryo, sans-serif',
-          borderRadius: setting.form === FormButton.CIRCLE ? 24 : setting.form === FormButton.ROUND ? 6 : 2,
-          width: '100%',
-          display: 'inline-block',
-          textAlign: 'center',
-          padding: setting.size === SizeButton.SMALL ? '4px 0px' : '10px 0px',
-          boxSizing: 'border-box',
-          wordBreak: 'break-word',
-          overflowWrap: 'break-word',
-          margin: 0
-        }}
-      >
-        <span
-          className='mail-button-text'
-          style={{
-            padding: '0px 20px',
-            display: 'inline-block',
-            maxWidth: 520,
-            lineHeight: '150%',
-            textDecoration: 'none'
-          }}
-        >
-          {content}
-        </span>
-      </a>
-    )
-  }
+  const commonStyles = {
+    color: setting.color,
+    background: setting.backgroundColor,
+    fontSize: setting.size === SizeButton.SMALL ? 14 : 16,
+    fontFamily:
+      '-apple-system, BlinkMacSystemFont, Helvetica, Arial, "Noto Sans JP", "BIZ UDGothic", Meiryo, sans-serif',
+    borderRadius: setting.form === FormButton.CIRCLE ? 24 : setting.form === FormButton.ROUND ? 6 : 2,
+    width: '100%',
+    display: 'inline-block',
+    textAlign: 'center',
+    padding: setting.size === SizeButton.SMALL ? '4px 0px' : '10px 0px',
+    boxSizing: 'border-box',
+    wordBreak: 'break-word',
+    overflowWrap: 'break-word',
+    margin: 0
+  } as const
 
-  return (
-    <p
-      style={{
-        color: setting.color,
-        background: setting.backgroundColor,
-        fontSize: setting.size === SizeButton.SMALL ? 14 : 16,
-        fontFamily:
-          '-apple-system, BlinkMacSystemFont, Helvetica, Arial, "Noto Sans JP", "BIZ UDGothic", Meiryo, sans-serif',
-        borderRadius: setting.form === FormButton.CIRCLE ? 24 : setting.form === FormButton.ROUND ? 6 : 2,
-        width: '100%',
-        display: 'inline-block',
-        textAlign: 'center',
-        padding: setting.size === SizeButton.SMALL ? '4px 0px' : '10px 0px',
-        boxSizing: 'border-box',
-        wordBreak: 'break-word',
-        overflowWrap: 'break-word',
-        margin: 0
-      }}
-    >
-      <span
-        className='mail-button-text'
-        style={{
-          padding: '0px 20px',
-          display: 'inline-block',
-          maxWidth: 520,
-          lineHeight: '150%',
-          textDecoration: 'none'
-        }}
-      >
+  const spanStyles = {
+    padding: '0px 20px',
+    display: 'inline-block',
+    maxWidth: 520,
+    lineHeight: '150%',
+    textDecoration: 'none'
+  } as const
+
+  return setting.href ? (
+    <a href={setting.href} target='_blank' rel='noopener noreferrer' style={commonStyles}>
+      <span className='mail-button-text' style={spanStyles}>
+        {content}
+      </span>
+    </a>
+  ) : (
+    <p style={commonStyles}>
+      <span className='mail-button-text' style={spanStyles}>
         {content}
       </span>
     </p>
