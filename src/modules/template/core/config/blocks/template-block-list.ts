@@ -146,21 +146,25 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
             },
             icon: [
               {
+                id: 1,
                 type: 'X',
                 originalHref: '',
                 convertedHref: ''
               },
               {
+                id: 2,
                 type: 'Facebook',
                 originalHref: '',
                 convertedHref: ''
               },
               {
+                id: 3,
                 type: 'YouTube',
                 originalHref: '',
                 convertedHref: ''
               },
               {
+                id: 4,
                 type: 'Instagram',
                 originalHref: '',
                 convertedHref: ''

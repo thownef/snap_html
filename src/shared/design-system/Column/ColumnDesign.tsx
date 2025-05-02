@@ -23,7 +23,7 @@ const ColumnDesign = ({ part: { content, type, setting, icon }, settingBlock, se
     case 'divider':
       return <DividerDesign setting={setting} />
     case 'sns':
-      return <SnsDesign icon={icon} />
+      return <SnsDesign icon={icon} setting={setting} />
     default:
       break
   }

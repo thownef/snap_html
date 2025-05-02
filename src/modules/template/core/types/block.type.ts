@@ -3,6 +3,7 @@ import { CheckboxChangeEvent, RadioChangeEvent } from "antd"
 import { AggregationColor } from "antd/es/color-picker/color"
 
 export type Sns = {
+  id: number
   type: string
   originalHref: string
   convertedHref: string

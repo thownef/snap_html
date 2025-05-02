@@ -65,7 +65,7 @@ const useHandleBlock = () => {
           (600 - left - right - (newBlockCount - 1) * columnsInnerPadding) / newBlockCount
         )
 
-        const updatedParts = prev.parts.map(part => {
+        const updatedParts = prev.parts.map((part) => {
           if (part.type === 'image') {
             return Number(part.setting.widthRate) === 100
               ? {
@@ -167,13 +167,14 @@ const useHandleBlock = () => {
           (600 - left - right - (newBlockCount - 1) * columnsInnerPadding) / newBlockCount
         )
 
-        const updatedParts = prev.parts.map(part => {
+        const updatedParts = prev.parts.map((part) => {
           if (part.type === 'image') {
             return {
               ...part,
-              setting: Number(part.setting.widthRate) === 100
-                ? { ...part.setting, width: columnMaxWidth }
-                : updateImageRate(part.setting, columnMaxWidth)
+              setting:
+                Number(part.setting.widthRate) === 100
+                  ? { ...part.setting, width: columnMaxWidth }
+                  : updateImageRate(part.setting, columnMaxWidth)
             }
           }
           return part
@@ -309,10 +310,10 @@ const useHandleBlock = () => {
         if (selectedColumn && selectedColumn.blockId === blockId) {
           setSelectedColumn((prev) => {
             if (!prev) return null
-            
-            const updatedParts = prev.parts.map(part => 
-              part.id !== partId 
-                ? part 
+
+            const updatedParts = prev.parts.map((part) =>
+              part.id !== partId
+                ? part
                 : updatePartSetting(part, keyChange, valueUpdate, selectedColumn.blockSetting.columnMaxWidth)
             )
 
@@ -328,10 +329,10 @@ const useHandleBlock = () => {
             if (block.id !== blockId) return block
             const updatedColumns = block.columns.map((col) => {
               if (col.id !== columnId) return col
-              
-              const updatedParts = col.parts.map(part => 
-                part.id !== partId 
-                  ? part 
+
+              const updatedParts = col.parts.map((part) =>
+                part.id !== partId
+                  ? part
                   : updatePartSetting(part, keyChange, valueUpdate, block.setting.columnMaxWidth)
               )
 
@@ -374,8 +375,8 @@ const useHandleBlock = () => {
           setSelectedColumn((prev) => {
             if (!prev) return null
             const blockSetting = updateColumnMaxWidth(keyChange, valueUpdate, prev.blockSetting, prev.blockCount)
-            
-            const updatedParts = prev.parts.map(part => {
+
+            const updatedParts = prev.parts.map((part) => {
               if (part.type === 'image') {
                 const maxWidth = blockSetting.columnMaxWidth
                 return {
@@ -399,7 +400,7 @@ const useHandleBlock = () => {
             const blockSetting = updateColumnMaxWidth(keyChange, valueUpdate, block.setting, block.columns.length)
             const updatedColumns = block.columns.map((col) => ({
               ...col,
-              parts: col.parts.map(part => {
+              parts: col.parts.map((part) => {
                 if (part.type === 'image') {
                   const maxWidth = blockSetting.columnMaxWidth
                   return {

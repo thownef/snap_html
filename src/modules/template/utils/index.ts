@@ -1,4 +1,6 @@
 import { templateBlockList } from '@/modules/template/core/config/blocks/template-block-list'
+import { EMAIL_REGEX } from '@/modules/template/core/constants'
+import { PHONE_REGEX } from '@/modules/template/core/constants'
 import { Block, PartBlock, SettingBlock, SettingColumn } from '@/modules/template/core/types/block.type'
 import _ from 'lodash'
 
@@ -196,3 +198,40 @@ export const getStyleTableWrapper = (type: string) => {
       return undefined
   }
 }
+
+export const validateLink = (value: string, type: string) => {
+  switch (type) {
+    case 'email':
+      return !EMAIL_REGEX.test(value) ? { message: '正しいメールアドレス形式に修正してください。' } : null
+    case 'phone':
+      return !PHONE_REGEX.test(value) ? { message: '正しい電話番号形式に修正してください。' } : null
+    case 'URL':
+      try {
+        new URL(value)
+        return null
+      } catch {
+        return { message: '正しいURL形式に修正してください。' }
+      }
+  }
+}
+
+export const convertLink = (value: string, type: string) => {
+  switch (type) {
+    case 'email':
+      return `mailto:${value}`
+    case 'phone':
+      return `tel:${value}`
+    default:
+      return value
+  }
+}
+export const revertLink = (value: string) => {
+  if (value.startsWith('mailto:')) {
+    return value.replace('mailto:', '')
+  }
+  if (value.startsWith('tel:')) {
+    return value.replace('tel:', '')
+  }
+  return value
+}
+

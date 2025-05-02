@@ -105,5 +105,60 @@ export const blockList: Block[] = [
         ]
       }
     ]
+  },
+  {
+    id: 4,
+    type: 'multi',
+    setting: {
+      bottom: 10,
+      left: 20,
+      right: 20,
+      top: 10,
+      columnsInnerPadding: 20,
+      columnMaxWidth: 560,
+      backgroundColor: 'rgb(255, 255, 255, 0)',
+      mobileLayout: MobileLayout.VERTICAL
+    },
+    columns: [
+      {
+        id: 1,
+        parts: [
+          {
+            id: 1,
+            type: 'sns',
+            setting: {
+              align: 'center',
+              size: 'middle'
+            },
+            icon: [
+              {
+                id: 1,
+                type: 'X',
+                originalHref: '',
+                convertedHref: ''
+              },
+              {
+                id: 2,
+                type: 'Facebook',
+                originalHref: '',
+                convertedHref: ''
+              },
+              {
+                id: 3,
+                type: 'YouTube',
+                originalHref: '',
+                convertedHref: ''
+              },
+              {
+                id: 4,
+                type: 'Instagram',
+                originalHref: '',
+                convertedHref: ''
+              }
+            ]
+          }
+        ]
+      }
+    ]
   }
 ]
