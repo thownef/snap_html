@@ -42,6 +42,7 @@ const Setting = ({
         <BlockSetting
           selectedColumn={selectedColumn}
           activeTab={activeTab}
+          settings={settings}
           onChangeBlock={onChangeBlock}
           onChangeActiveTab={onChangeActiveTab}
           onChangeSettingBlock={onChangeSettingBlock}

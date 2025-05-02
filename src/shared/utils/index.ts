@@ -75,3 +75,15 @@ export const getSnsLabel = (type: string) => {
       return ''
   }
 }
+
+export const isTransparent = (color: string, threshold: number = 0.01): boolean => {
+  const rgbaMatch = color.match(/^rgba?\((\d+),\s*(\d+),\s*(\d+)(?:,\s*([0-9.]+))?\)$/i)
+  if (rgbaMatch) {
+    const alpha = rgbaMatch[4] !== undefined ? parseFloat(rgbaMatch[4]) : 1
+    return alpha <= threshold
+  }
+
+  if (color === 'transparent') return true
+
+  return false
+}

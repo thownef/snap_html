@@ -1,5 +1,6 @@
-import { useCallback, useEffect, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import { Form } from 'antd'
+import cn from 'classnames'
 import { EditorEvents, useEditor } from '@tiptap/react'
 import Color from '@tiptap/extension-color'
 import Link from '@tiptap/extension-link'
@@ -12,20 +13,28 @@ import { SelectedColumn } from '@/modules/template/core/types/block.type'
 import { AggregationColor } from 'antd/es/color-picker/color'
 import { FontSize } from '@/shared/lib/FontSize'
 import { LineHeight } from '@/shared/lib/LineHeight'
+import { settingKeys, SettingKeys } from '@/modules/template/hooks/useHandleSetting'
+import { isTransparent } from '@/shared/utils'
 
 const useHandleEditor = (
+  settings: SettingKeys,
   selectedColumn: SelectedColumn,
-  onChangeBlock: (keyChange: string, blockId: number, columnId: number, partId: number) => (value: EditorEvents["update"]) => void
+  onChangeBlock: (
+    keyChange: string,
+    blockId: number,
+    columnId: number,
+    partId: number
+  ) => (value: EditorEvents['update']) => void
 ) => {
+  const triggerRef = useRef<HTMLButtonElement>(null)
   const [form] = Form.useForm()
-  const [isOpen, setIsOpen] = useState(false)
   const [fontSize, setFontSize] = useState('16')
   const [lineHeight, setLineHeight] = useState('1.5')
   const editor = useEditor({
     extensions: [
       StarterKit.configure({
         hardBreak: {
-          keepMarks: true,
+          keepMarks: true
         }
       }),
       Underline,
@@ -34,7 +43,7 @@ const useHandleEditor = (
       FontSize,
       LineHeight,
       Link.configure({
-        openOnClick: false,
+        openOnClick: false
       }),
       TextAlign.configure({
         types: ['heading', 'paragraph']
@@ -59,18 +68,16 @@ const useHandleEditor = (
     },
     editorProps: {
       attributes: {
-        class:
-          'h-full px-[11px] py-1 border border-[#d9d9d9] rounded-[6px] [&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pl-[40px] [&_ol]:pl-[40px] [&_ul]:my-4 [&_ol]:my-4 bg-white text-[#262626] overflow-y-auto overflow-x-hidden focus:outline-none focus:!border-[rgb(230,80,83)] [&_a]:!text-blue-600 [&_a]:!underline'
+        class: cn(
+          'custom-link h-full px-[11px] py-1 border border-[#d9d9d9] rounded-[6px] [&_ul]:list-disc [&_ol]:list-decimal [&_ul]:pl-[40px] [&_ol]:pl-[40px] [&_ul]:my-4 [&_ol]:my-4 text-[#262626] overflow-y-auto overflow-x-hidden focus:outline-none focus:!border-[rgb(230,80,83)] [&_a]:!underline'
+        ),
+        style: `background-color: ${!isTransparent(selectedColumn.blockSetting.backgroundColor) ? selectedColumn.blockSetting.backgroundColor : !isTransparent(settings[settingKeys.BACKGROUND]) ? settings[settingKeys.BACKGROUND] : 'white'};`
       },
       handleKeyDown: (view, event) => {
         if (event.key === 'Enter') {
           const { state } = view
           if (!state.selection.empty) {
-            editor?.chain()
-              .focus()
-              .deleteSelection()
-              .insertContent('<br/>')
-              .run()
+            editor?.chain().focus().deleteSelection().insertContent('<br/>').run()
             return true
           }
         }
@@ -80,19 +87,46 @@ const useHandleEditor = (
     onUpdate: onChangeBlock('content', selectedColumn.blockId, selectedColumn.id, selectedColumn.parts[0].id)
   })
 
+  const handleOpenPopover = useCallback(
+    (open: boolean) => {
+      if (open) {
+        const attrs = editor?.getAttributes('link')
+        const href = attrs?.href || ''
+        form.setFieldsValue({
+          urlInput: href.replace(/^mailto:|^tel:/, ''),
+          linkType: href.startsWith('mailto:') ? 'email' : href.startsWith('tel:') ? 'phone' : 'URL'
+        })
+      } else {
+        form.resetFields()
+      }
+    },
+    [form, editor]
+  )
+
+  const handleClosePopover = useCallback(() => {
+    form.resetFields()
+    triggerRef.current?.click()
+  }, [form])
+
   const handleClearFormat = useCallback(() => {
     editor?.chain().focus().unsetAllMarks().run()
   }, [editor])
 
-  const handleSetFontSize = useCallback((value: string) => {
-    setFontSize(value)
-    editor?.chain().focus().setFontSize(value).run()
-  }, [editor])
+  const handleSetFontSize = useCallback(
+    (value: string) => {
+      setFontSize(value)
+      editor?.chain().focus().setFontSize(value).run()
+    },
+    [editor]
+  )
 
-  const handleSetLineHeight = useCallback((value: string) => {
+  const handleSetLineHeight = useCallback(
+    (value: string) => {
       setLineHeight(value)
       editor?.chain().focus().setLineHeight(value).run()
-  }, [editor])
+    },
+    [editor]
+  )
 
   const handleToggleBold = useCallback(() => {
     editor?.chain().focus().toggleBold().run()
@@ -120,20 +154,25 @@ const useHandleEditor = (
     [editor]
   )
 
-  const handleTogglePopover = useCallback((isOpen: boolean) => {
-    return () => {
-      if (isOpen) {
-        const attrs = editor?.getAttributes('link')
-        if (attrs?.href) {
-          form.setFieldValue('urlInput', attrs.href.replace('mailto:', '').replace('tel:', ''))
-          form.setFieldValue('linkType', attrs.href.startsWith('mailto:') ? 'email' : attrs.href.startsWith('tel:') ? 'phone' : 'URL')
+  const handleTogglePopover = useCallback(
+    (isOpen: boolean) => {
+      return () => {
+        if (isOpen) {
+          const attrs = editor?.getAttributes('link')
+          if (attrs?.href) {
+            form.setFieldValue('urlInput', attrs.href.replace('mailto:', '').replace('tel:', ''))
+            form.setFieldValue(
+              'linkType',
+              attrs.href.startsWith('mailto:') ? 'email' : attrs.href.startsWith('tel:') ? 'phone' : 'URL'
+            )
+          }
+        } else {
+          form.resetFields()
         }
-      } else {
-        form.resetFields()
       }
-      setIsOpen(isOpen)
-    }
-  }, [editor, form])
+    },
+    [editor, form]
+  )
 
   const handleSetLink = useCallback(() => {
     const url = form.getFieldValue('urlInput')
@@ -142,20 +181,26 @@ const useHandleEditor = (
       if (linkType === 'URL') {
         editor?.chain().focus().setLink({ href: url }).run()
       } else if (linkType === 'email') {
-        editor?.chain().focus().setLink({ href: `mailto:${url}` }).run()
+        editor
+          ?.chain()
+          .focus()
+          .setLink({ href: `mailto:${url}` })
+          .run()
       } else if (linkType === 'phone') {
-        editor?.chain().focus().setLink({ href: `tel:${url}` }).run()
+        editor
+          ?.chain()
+          .focus()
+          .setLink({ href: `tel:${url}` })
+          .run()
       }
     }
-    setIsOpen(false)
-    form.resetFields()
+    handleClosePopover()
   }, [editor, form])
 
   const handleRemoveLink = useCallback(() => {
     editor?.chain().focus().unsetLink().run()
-    setIsOpen(false)
-    form.resetFields()
-  }, [editor, form])
+    handleClosePopover()
+  }, [editor])
 
   const handleSetTextAlign = useCallback(
     (align: string) => {
@@ -188,10 +233,12 @@ const useHandleEditor = (
 
   return {
     editor,
-    isOpen,
+    triggerRef,
     form,
     fontSize,
     lineHeight,
+    onOpenPopover: handleOpenPopover,
+    onClosePopover: handleClosePopover,
     onSetLink: handleSetLink,
     onRemoveLink: handleRemoveLink,
     onTogglePopover: handleTogglePopover,

@@ -6,10 +6,12 @@ import BlockDesignSetting from '@/modules/template/components/Setting/BlockDesig
 import ButtonSetting from '@/modules/template/components/Setting/ButtonSetting'
 import DividerSetting from '@/modules/template/components/Setting/DividerSetting'
 import SnsSetting from '@/modules/template/components/Setting/SnsSetting'
+import { SettingKeys } from '@/modules/template/hooks/useHandleSetting'
 
 type BlockSettingProps = {
   selectedColumn: SelectedColumn | null
   activeTab: string
+  settings: SettingKeys
   onChangeBlock: (keyChange: string, blockId: number, columnId: number, partId: number) => (value: ChangeBlockType) => void
   onChangeActiveTab: (newKey: string) => void
   onChangeSettingBlock: (blockId: number, keyChange: string) => (value: any) => void
@@ -18,6 +20,7 @@ type BlockSettingProps = {
 const BlockSetting = ({
   selectedColumn,
   activeTab,
+  settings,
   onChangeBlock,
   onChangeActiveTab,
   onChangeSettingBlock
@@ -93,7 +96,7 @@ const BlockSetting = ({
           {
             key: 'partsEditMenu',
             label: 'テキスト編集',
-            children: <TextSetting selectedColumn={selectedColumn} onChangeBlock={onChangeBlock} />
+            children: <TextSetting settings={settings} selectedColumn={selectedColumn} onChangeBlock={onChangeBlock} />
           },
           {
             key: 'blockEditMenu',

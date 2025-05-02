@@ -1,4 +1,5 @@
 import { Space, Button, Select, Row, Col, Divider, ColorPicker, Popover } from 'antd'
+import cn from 'classnames'
 import {
   BoldOutlined,
   UnderlineOutlined,
@@ -21,20 +22,29 @@ import RedoIcon from '@/modules/template/components/Icon/RedoIcon'
 import { SelectedColumn } from '@/modules/template/core/types/block.type'
 import useHandleEditor from '@/shared/hooks/useHandleEditor'
 import LinkEditorForm from '@/modules/template/components/Form/LinkEditorForm'
+import { settingKeys, SettingKeys } from '@/modules/template/hooks/useHandleSetting'
+import { isTransparent } from '@/shared/utils'
 
 type TextSettingProps = {
+  settings: SettingKeys
   selectedColumn: SelectedColumn
-  onChangeBlock: (keyChange: string, blockId: number, columnId: number, partId: number) => (value: EditorEvents["update"]) => void
+  onChangeBlock: (
+    keyChange: string,
+    blockId: number,
+    columnId: number,
+    partId: number
+  ) => (value: EditorEvents['update']) => void
 }
 
-const TextSetting = ({ selectedColumn, onChangeBlock }: TextSettingProps) => {
+const TextSetting = ({ settings, selectedColumn, onChangeBlock }: TextSettingProps) => {
   const {
     editor,
-    isOpen,
+    triggerRef,
     form,
     fontSize,
     lineHeight,
-    onTogglePopover,
+    onOpenPopover,
+    onClosePopover,
     onSetLink,
     onRemoveLink,
     onSetFontSize,
@@ -50,7 +60,7 @@ const TextSetting = ({ selectedColumn, onChangeBlock }: TextSettingProps) => {
     onUndo,
     onRedo,
     onClearFormat
-  } = useHandleEditor(selectedColumn, onChangeBlock)
+  } = useHandleEditor(settings, selectedColumn, onChangeBlock)
 
   if (!editor) {
     return null
@@ -81,7 +91,9 @@ const TextSetting = ({ selectedColumn, onChangeBlock }: TextSettingProps) => {
             </Space>
           </Col>
           <Col>
-            <Button size='small' onClick={onClearFormat}>書式クリア</Button>
+            <Button size='small' onClick={onClearFormat}>
+              書式クリア
+            </Button>
           </Col>
         </Row>
         <Divider className='!m-0' />
@@ -118,20 +130,20 @@ const TextSetting = ({ selectedColumn, onChangeBlock }: TextSettingProps) => {
               </ColorPicker>
               <div className='h-6 mx-0 border-l border-[rgb(240,240,240)] border-r-0' />
               <Popover
-                open={isOpen}
                 content={
                   <LinkEditorForm
                     form={form}
-                    onTogglePopover={onTogglePopover}
+                    onClosePopover={onClosePopover}
                     onSetLink={onSetLink}
                     onRemoveLink={onRemoveLink}
                   />
                 }
                 trigger='click'
                 placement='topLeft'
-                onOpenChange={onTogglePopover(!isOpen)}
+                onOpenChange={onOpenPopover}
               >
                 <Button
+                  ref={triggerRef}
                   size='small'
                   icon={<LinkOutlined />}
                   className={editor?.isActive('link') ? '!bg-gray-100 !rounded-full' : '!rounded-full'}
@@ -192,7 +204,17 @@ const TextSetting = ({ selectedColumn, onChangeBlock }: TextSettingProps) => {
         </Row>
       </Space>
       <div className='h-[calc(100vh-255px)] p-0 px-6 mt-2 text-base leading-normal'>
-        <EditorContent editor={editor} className='h-full w-full mt-2 text-base' />
+        <EditorContent
+          editor={editor}
+          className={cn('h-full w-full mt-2 text-bas', {
+            '[&_a]:!text-[color:var(--link-color)]': isTransparent(settings[settingKeys.BACKGROUND])
+          })}
+          style={
+            isTransparent(settings[settingKeys.BACKGROUND])
+              ? ({ '--link-color': settings[settingKeys.LINK] } as React.CSSProperties)
+              : ({ color: 'rgb(47,84,235) !important' } as React.CSSProperties)
+          }
+        />
       </div>
     </>
   )
