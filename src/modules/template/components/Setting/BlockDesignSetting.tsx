@@ -22,7 +22,7 @@ type BlockDesignSettingProps = {
 const BlockDesignSetting = ({
   selectedColumn: {
     blockId,
-    blockCount,
+    columnCount,
     blockSetting: { bottom, left, right, top, columnsInnerPadding, backgroundColor, mobileLayout }
   },
   onChangeSettingBlock
@@ -44,7 +44,7 @@ const BlockDesignSetting = ({
             onChange={onChangeSettingBlock(blockId, 'bottom')}
             icon={<BottomPaddingIcon />}
           />
-          {blockCount > 1 && (
+          {columnCount > 1 && (
             <InputNumberDesign
               label='中の余白'
               value={columnsInnerPadding}
@@ -70,7 +70,7 @@ const BlockDesignSetting = ({
         </Space>
       </Space>
 
-      {blockCount > 1 && (
+      {columnCount > 1 && (
         <Space direction='vertical' size='small'>
           <Text strong>スマホレイアウト</Text>
           <RadioDesign

@@ -10,7 +10,7 @@ import {
   getColumnWidth,
   getStyleTableWrapper
 } from '@/modules/template/utils'
-import { Block, ColumnBlock, SelectedColumn } from '@/modules/template/core/types/block.type'
+import { Block, PartBlock, SelectedColumn } from '@/modules/template/core/types/block.type'
 import ColumnDesign from '@/shared/design-system/Column/ColumnDesign'
 import { settingKeys, SettingKeys } from '@/modules/template/hooks/useHandleSetting'
 import { MobileLayout } from '@/modules/template/core/enums/block.enum'
@@ -28,7 +28,7 @@ type BaseBlockProps = {
   onDeleteColumn: (blockId: number, columnId: number) => (e?: React.MouseEvent) => void
   onMoveUp: (blockId: number) => () => void
   onMoveDown: (blockId: number) => () => void
-  onSelectColumn: (column: ColumnBlock, blockId: number) => () => void
+  onSelectColumn: (part: PartBlock, blockId: number, columnId: number) => () => void
   onOpenModal: (modalName: string, blockId: number) => () => void
   activeTab: string
 }
@@ -87,7 +87,6 @@ const BaseBlock = memo(
                   <tr style={{ width: '100%' }}>
                     {block.columns.map((column, index) => (
                       <td
-                        onClick={onSelectColumn(column, block.id)}
                         key={column.id}
                         className={
                           block.setting.mobileLayout === MobileLayout.HORIZONTAL
@@ -117,6 +116,7 @@ const BaseBlock = memo(
                         <div className='mail-column-edit-panel'>
                           {column.parts.map((part) => (
                             <table
+                              onClick={onSelectColumn(part, block.id, column.id)}
                               key={part.id}
                               align='center'
                               width='100%'
@@ -150,7 +150,7 @@ const BaseBlock = memo(
                                       </tbody>
                                     </table>
                                     <div
-                                      className={`mail-parts-edit-panel ${selectedColumn && selectedColumn.blockId === block.id && selectedColumn.id === column.id && activeTab !== 'blockEditMenu' ? 'edit-target-element' : ''}`}
+                                      className={`mail-parts-edit-panel ${selectedColumn && selectedColumn.blockId === block.id && selectedColumn.columnId === column.id && selectedColumn.id === part.id && activeTab !== 'blockEditMenu' ? 'edit-target-element' : ''}`}
                                       title='パーツ編集'
                                     />
                                   </td>

@@ -19,11 +19,11 @@ type SnsSettingProps = {
 
 const SnsSetting = ({ selectedColumn, onChangeBlock }: SnsSettingProps) => {
   const { dataSource, onSetDataSource, onDragEnd, onDelete } = useHandleDrag(
-    selectedColumn.parts[0].icon,
+    selectedColumn.icon,
     onChangeBlock,
     selectedColumn.blockId,
-    selectedColumn.id,
-    selectedColumn.parts[0].id
+    selectedColumn.columnId,
+    selectedColumn.id
   )
   const { modalName, onOpenModal, onCloseModal } = useHandleModal()
 
@@ -31,7 +31,7 @@ const SnsSetting = ({ selectedColumn, onChangeBlock }: SnsSettingProps) => {
     (type: string, label: string) => {
       return () => {
         const newIcon = [
-          ...(selectedColumn.parts[0].icon || []),
+          ...(selectedColumn.icon || []),
           {
             type: type,
             originalHref: '',
@@ -50,7 +50,7 @@ const SnsSetting = ({ selectedColumn, onChangeBlock }: SnsSettingProps) => {
             type: type
           }
         ])
-        onChangeBlock('icon', selectedColumn.blockId, selectedColumn.id, selectedColumn.parts[0].id)(newIcon)
+        onChangeBlock('icon', selectedColumn.blockId, selectedColumn.columnId, selectedColumn.id)(newIcon)
         onCloseModal()
       }
     },
@@ -81,13 +81,13 @@ const SnsSetting = ({ selectedColumn, onChangeBlock }: SnsSettingProps) => {
         <Space direction='vertical' size='small' className='!mb-4 !w-full'>
           <Text strong>アイコンサイズ</Text>
           <RadioDesign
-            value={selectedColumn.parts[0].setting.size || 'middle'}
+            value={selectedColumn.setting.size || 'middle'}
             options={sizeIconList}
             onChange={onChangeBlock(
               'setting.size',
               selectedColumn.blockId,
-              selectedColumn.id,
-              selectedColumn.parts[0].id
+              selectedColumn.columnId,
+              selectedColumn.id
             )}
             className='[&_.ant-radio-button-wrapper]:w-[95px] [&_.ant-radio-button-wrapper]:text-center'
           />
@@ -96,13 +96,13 @@ const SnsSetting = ({ selectedColumn, onChangeBlock }: SnsSettingProps) => {
         <Space direction='vertical' size='small' className='!mb-4 !w-full'>
           <Text strong>アイコン位置</Text>
           <RadioDesign
-            value={selectedColumn.parts[0].setting.align || 'center'}
+            value={selectedColumn.setting.align || 'center'}
             options={positionIconList}
             onChange={onChangeBlock(
               'setting.align',
               selectedColumn.blockId,
-              selectedColumn.id,
-              selectedColumn.parts[0].id
+              selectedColumn.columnId,
+              selectedColumn.id
             )}
             className='[&_.ant-radio-button-wrapper]:w-[95px] [&_.ant-radio-button-wrapper]:text-center'
           />

@@ -47,19 +47,17 @@ export const convertPadding = (padding: SettingBlock, unit: string = 'px') => {
 export const createBlockFromTemplate = (type: string, contentCount: number = 1): Block => {
   const template = templateBlockList[type]
 
-  const baseColumn = template.columns[0]
-  const baseContent = baseColumn.parts[0]
+  const hasImagePart = template.columns.some((col) => col.parts.some((part) => part.type === 'image'))
 
-  const maxWidth =
-    baseContent.type === 'image'
-      ? Math.floor(
-          (600 -
-            template.setting.left -
-            template.setting.right -
-            (contentCount - 1) * template.setting.columnsInnerPadding) /
-            contentCount
-        )
-      : undefined
+  const maxWidth = hasImagePart
+    ? Math.floor(
+        (600 -
+          template.setting.left -
+          template.setting.right -
+          (contentCount - 1) * template.setting.columnsInnerPadding) /
+          contentCount
+      )
+    : undefined
 
   return {
     id: Date.now(),
@@ -68,24 +66,27 @@ export const createBlockFromTemplate = (type: string, contentCount: number = 1):
       ...template.setting,
       ...(maxWidth ? { columnMaxWidth: maxWidth } : {})
     },
-    columns: Array.from({ length: contentCount }, (_, index) => ({
-      ...baseColumn,
-      parts: [
-        {
-          ...baseContent,
-          ...(baseContent.type === 'image'
-            ? {
-                setting: {
-                  ...baseContent.setting,
-                  width: maxWidth
-                }
+    columns: Array.from({ length: contentCount }, (_, index) => {
+      const baseColumn = template.columns[index] || template.columns[0]
+      return {
+        ...baseColumn,
+        parts: baseColumn.parts.map((part) => {
+          if (part.type === 'image' && maxWidth) {
+            return {
+              ...part,
+              setting: {
+                ...part.setting,
+                width: maxWidth
               }
-            : {}),
-          id: index + 1
-        }
-      ],
-      id: index + 1
-    }))
+            }
+          }
+          return {
+            ...part
+          }
+        }),
+        id: index + 1
+      }
+    })
   }
 }
 
@@ -234,4 +235,3 @@ export const revertLink = (value: string) => {
   }
   return value
 }
-

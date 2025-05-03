@@ -107,7 +107,7 @@ const BlockSetting = ({
     }
   }
 
-  const tabItems = getTabItems(selectedColumn.parts[0].type)
+  const tabItems = getTabItems(selectedColumn.type)
 
   return (
     <Tabs

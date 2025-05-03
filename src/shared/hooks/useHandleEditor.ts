@@ -50,7 +50,7 @@ const useHandleEditor = (
       }),
       Highlight.configure({ multicolor: true })
     ],
-    content: selectedColumn.parts[0].content,
+    content: selectedColumn.content,
     onSelectionUpdate: ({ editor }) => {
       const currentFontSize = editor.getAttributes('textStyle').fontSize
       if (currentFontSize) {
@@ -84,7 +84,7 @@ const useHandleEditor = (
         return false
       }
     },
-    onUpdate: onChangeBlock('content', selectedColumn.blockId, selectedColumn.id, selectedColumn.parts[0].id)
+    onUpdate: onChangeBlock('content', selectedColumn.blockId, selectedColumn.columnId, selectedColumn.id)
   })
 
   const handleOpenPopover = useCallback(
@@ -228,7 +228,7 @@ const useHandleEditor = (
   }, [editor])
 
   useEffect(() => {
-    editor?.commands.setContent(selectedColumn.parts[0].content || '')
+    editor?.commands.setContent(selectedColumn.content || '')
   }, [editor, selectedColumn.blockId, selectedColumn.id])
 
   return {

@@ -113,10 +113,10 @@ export const blockIconList: BlockIcon[] = [
     name: '画像+テキスト',
     anchorKey: 'imageText',
     icons: [
-      { id: '1', count: 1, component: ImageText1Icon },
-      { id: '2', count: 2, component: ImageText2Icon },
-      { id: '3', count: 3, component: ImageText3Icon },
-      { id: '4', count: 4, component: ImageText4Icon }
+      { id: '1', count: 2, component: ImageText1Icon },
+      { id: '2', count: 3, component: ImageText2Icon },
+      { id: '3', count: 2, component: ImageText3Icon },
+      { id: '4', count: 2, component: ImageText4Icon }
     ]
   },
   {

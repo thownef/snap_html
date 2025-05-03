@@ -1,7 +1,7 @@
 import { memo } from 'react'
 import _ from 'lodash'
 import BaseBlock from '@/modules/template/components/Block/BaseBlock'
-import { Block, ColumnBlock, SelectedColumn } from '@/modules/template/core/types/block.type'
+import { Block, PartBlock, SelectedColumn } from '@/modules/template/core/types/block.type'
 import { SettingKeys } from '@/modules/template/hooks/useHandleSetting'
 
 type BlockContainerProps = {
@@ -14,7 +14,7 @@ type BlockContainerProps = {
   onDeleteColumn: (blockId: number, columnId: number) => (e?: React.MouseEvent) => void
   onMoveUp: (blockId: number) => () => void
   onMoveDown: (blockId: number) => () => void
-  onSelectColumn: (column: ColumnBlock, blockId: number) => () => void
+  onSelectColumn: (part: PartBlock, blockId: number, columnId: number) => () => void
   onOpenModal: (modalName: string, blockId: number) => () => void
   activeTab: string
 }

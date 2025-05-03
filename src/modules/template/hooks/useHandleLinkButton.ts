@@ -41,8 +41,8 @@ const useHandleLinkButton = (
         onChangeBlock(
           key,
           selectedColumn.blockId,
-          selectedColumn.id,
-          selectedColumn.parts[0].id
+          selectedColumn.columnId,
+          selectedColumn.id
         )({
           target: {
             value: convertLink(value, type)
@@ -60,8 +60,8 @@ const useHandleLinkButton = (
         onChangeBlock(
           key,
           selectedColumn.blockId,
-          selectedColumn.id,
-          selectedColumn.parts[0].id
+          selectedColumn.columnId,
+          selectedColumn.id
         )({
           target: {
             value: ''

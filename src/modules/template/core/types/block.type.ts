@@ -55,9 +55,10 @@ export type Block = {
   columns: ColumnBlock[]
 }
 
-export type SelectedColumn = ColumnBlock & {
+export type SelectedColumn = PartBlock & {
   blockId: number
-  blockCount: number
+  columnId: number
+  columnCount: number
   blockSetting: SettingBlock
 }
 
