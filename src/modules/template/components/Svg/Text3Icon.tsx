@@ -1,13 +1,6 @@
 const Text3Icon = () => {
   return (
-    <svg
-      className='rounded-xl shadow-[0_1px_3px_0px_rgba(0,0,0,0.1)] hover:shadow-[0_2px_10px_0_rgba(0,0,0,0.1)]'
-      width={202}
-      height={109}
-      viewBox='0 0 202 109'
-      fill='none'
-      xmlns='http://www.w3.org/2000/svg'
-    >
+    <svg width={202} height={109} viewBox='0 0 202 109' fill='none' xmlns='http://www.w3.org/2000/svg'>
       <rect width={202} height={109} rx={12} fill='white' />
       <path
         className='thumbnail-header--brand-color'
@@ -23,14 +16,18 @@ const Text3Icon = () => {
         d='M12 24H128V94C128 95.6569 126.657 97 125 97H15C13.3431 97 12 95.6569 12 94V24Z'
         fill='#F5F5F5'
       />
-      <path d='M18 55.4375H66' stroke='#8C8C8C' />
-      <path d='M18 58.8125H60.566' stroke='#8C8C8C' />
-      <path d='M18 62.1875H64.1887' stroke='#8C8C8C' />
-      <path d='M18 65.5625H54' stroke='#8C8C8C' />
-      <path d='M74 55.4375H122' stroke='#8C8C8C' />
-      <path d='M74 58.8125H116.566' stroke='#8C8C8C' />
-      <path d='M74 62.1875H120.189' stroke='#8C8C8C' />
-      <path d='M74 65.5625H110' stroke='#8C8C8C' />
+      <path d='M18 55.4375H47.3333' stroke='#8C8C8C' />
+      <path d='M18 58.8125H44.0126' stroke='#8C8C8C' />
+      <path d='M18 62.1875H46.2264' stroke='#8C8C8C' />
+      <path d='M18 65.5625H40' stroke='#8C8C8C' />
+      <path d='M55.334 55.4375H84.6673' stroke='#8C8C8C' />
+      <path d='M55.334 58.8125H81.3466' stroke='#8C8C8C' />
+      <path d='M55.334 62.1875H83.5604' stroke='#8C8C8C' />
+      <path d='M55.334 65.5625H77.334' stroke='#8C8C8C' />
+      <path d='M92.666 55.4375H121.999' stroke='#8C8C8C' />
+      <path d='M92.666 58.8125H118.679' stroke='#8C8C8C' />
+      <path d='M92.666 62.1875H120.892' stroke='#8C8C8C' />
+      <path d='M92.666 65.5625H114.666' stroke='#8C8C8C' />
       <path
         className='thumbnail-header--brand-color'
         d='M134 13C134 11.3431 135.343 10 137 10H187C188.657 10 190 11.3431 190 13V24H134V13Z'
@@ -45,14 +42,18 @@ const Text3Icon = () => {
         d='M134 24H190V94C190 95.6569 188.657 97 187 97H137C135.343 97 134 95.6569 134 94V24Z'
         fill='#F5F5F5'
       />
-      <path d='M140 46.375H184' stroke='#8C8C8C' />
-      <path d='M140 49.75H179.019' stroke='#8C8C8C' />
-      <path d='M140 53.125H182.34' stroke='#8C8C8C' />
-      <path d='M140 56.5H173' stroke='#8C8C8C' />
-      <path d='M140 64.5H184' stroke='#8C8C8C' />
-      <path d='M140 67.875H179.019' stroke='#8C8C8C' />
-      <path d='M140 71.25H182.34' stroke='#8C8C8C' />
-      <path d='M140 74.625H173' stroke='#8C8C8C' />
+      <path d='M140 37.3125H184' stroke='#8C8C8C' />
+      <path d='M140 40.6875H179.019' stroke='#8C8C8C' />
+      <path d='M140 44.0625H182.34' stroke='#8C8C8C' />
+      <path d='M140 47.4375H173' stroke='#8C8C8C' />
+      <path d='M140 55.4375H184' stroke='#8C8C8C' />
+      <path d='M140 58.8125H179.019' stroke='#8C8C8C' />
+      <path d='M140 62.1875H182.34' stroke='#8C8C8C' />
+      <path d='M140 65.5625H173' stroke='#8C8C8C' />
+      <path d='M140 73.5625H184' stroke='#8C8C8C' />
+      <path d='M140 76.9375H179.019' stroke='#8C8C8C' />
+      <path d='M140 80.3125H182.34' stroke='#8C8C8C' />
+      <path d='M140 83.6875H173' stroke='#8C8C8C' />
     </svg>
   )
 }

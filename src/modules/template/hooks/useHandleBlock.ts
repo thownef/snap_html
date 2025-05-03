@@ -260,7 +260,6 @@ const useHandleBlock = () => {
       })
     }
   }, [])
-  console.log(selectedColumn)
 
   const handleSelectColumn = useCallback((part: PartBlock, blockId: number, columnId: number) => {
     return () => {

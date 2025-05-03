@@ -75,6 +75,7 @@ export type BlockIcon = {
   icons: {
     id: string
     count: number
+    type: string
     component: React.ComponentType
   }[]
 }

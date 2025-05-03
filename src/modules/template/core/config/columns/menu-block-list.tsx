@@ -1,5 +1,5 @@
-import TextButton1Icon from "@/modules/template/components/Svg/TextButton1Icon";
-import ImageButton2Icon from "@/modules/template/components/Svg/ImageButton2Icon";
+import TextButton1Icon from '@/modules/template/components/Svg/TextButton1Icon'
+import ImageButton2Icon from '@/modules/template/components/Svg/ImageButton2Icon'
 import ButtonIcon from '@/modules/template/components/Svg/ButtonIcon'
 import DividerIcon from '@/modules/template/components/Svg/DividerIcon'
 import Image1Icon from '@/modules/template/components/Svg/Image1Icon'
@@ -18,8 +18,8 @@ import Text1Icon from '@/modules/template/components/Svg/Text1Icon'
 import Text2Icon from '@/modules/template/components/Svg/Text2Icon'
 import Text3Icon from '@/modules/template/components/Svg/Text3Icon'
 import { BlockIcon, BlockList } from '@/modules/template/core/types/block.type'
-import ImageButton1Icon from "@/modules/template/components/Svg/ImageButton1Icon";
-import TextButton2Icon from "@/modules/template/components/Svg/TextButton2Icon";
+import ImageButton1Icon from '@/modules/template/components/Svg/ImageButton1Icon'
+import TextButton2Icon from '@/modules/template/components/Svg/TextButton2Icon'
 
 export const menuBlockList: BlockList[] = [
   {
@@ -75,9 +75,9 @@ export const blockIconList: BlockIcon[] = [
     name: 'テキスト',
     anchorKey: 'text',
     icons: [
-      { id: '1', count: 1, component: Text1Icon },
-      { id: '2', count: 2, component: Text2Icon },
-      { id: '3', count: 3, component: Text3Icon }
+      { id: '1', count: 1, type: 'text', component: Text1Icon },
+      { id: '2', count: 2, type: 'text', component: Text2Icon },
+      { id: '3', count: 3, type: 'text', component: Text3Icon }
     ]
   },
   {
@@ -85,38 +85,38 @@ export const blockIconList: BlockIcon[] = [
     name: '画像',
     anchorKey: 'image',
     icons: [
-      { id: '1', count: 1, component: Image1Icon },
-      { id: '2', count: 2, component: Image2Icon },
-      { id: '3', count: 3, component: Image3Icon }
+      { id: '1', count: 1, type: 'image', component: Image1Icon },
+      { id: '2', count: 2, type: 'image', component: Image2Icon },
+      { id: '3', count: 3, type: 'image', component: Image3Icon }
     ]
   },
   {
     id: 'button',
     name: 'ボタン',
     anchorKey: 'button',
-    icons: [{ id: '1', count: 1, component: ButtonIcon }]
+    icons: [{ id: '1', count: 1, type: 'button', component: ButtonIcon }]
   },
   {
     id: 'divider',
     name: '区切り線',
     anchorKey: 'divider',
-    icons: [{ id: '1', count: 1, component: DividerIcon }]
+    icons: [{ id: '1', count: 1, type: 'divider', component: DividerIcon }]
   },
   {
     id: 'sns',
     name: 'SNS',
     anchorKey: 'sns',
-    icons: [{ id: '1', count: 1, component: SnsIcon }]
+    icons: [{ id: '1', count: 1, type: 'sns', component: SnsIcon }]
   },
   {
     id: 'imageText',
     name: '画像+テキスト',
     anchorKey: 'imageText',
     icons: [
-      { id: '1', count: 2, component: ImageText1Icon },
-      { id: '2', count: 3, component: ImageText2Icon },
-      { id: '3', count: 2, component: ImageText3Icon },
-      { id: '4', count: 2, component: ImageText4Icon }
+      { id: '1', count: 2, type: 'imageText', component: ImageText1Icon },
+      { id: '2', count: 3, type: 'imageText', component: ImageText2Icon },
+      { id: '3', count: 2, type: 'imageText1', component: ImageText3Icon },
+      { id: '4', count: 2, type: 'imageText2', component: ImageText4Icon }
     ]
   },
   {
@@ -124,10 +124,10 @@ export const blockIconList: BlockIcon[] = [
     name: '画像+テキスト+ボタン',
     anchorKey: 'imageTextButton',
     icons: [
-      { id: '1', count: 1, component: ImageTextButton1Icon },
-      { id: '2', count: 2, component: ImageTextButton2Icon },
-      { id: '3', count: 3, component: ImageTextButton3Icon },
-      { id: '4', count: 4, component: ImageTextButton4Icon }
+      { id: '1', count: 2, type: 'imageTextButton', component: ImageTextButton1Icon },
+      { id: '2', count: 3, type: 'imageTextButton', component: ImageTextButton2Icon },
+      { id: '3', count: 2, type: 'imageTextButton1', component: ImageTextButton3Icon },
+      { id: '4', count: 2, type: 'imageTextButton2', component: ImageTextButton4Icon }
     ]
   },
   {
@@ -135,8 +135,8 @@ export const blockIconList: BlockIcon[] = [
     name: '画像+ボタン',
     anchorKey: 'imageButton',
     icons: [
-      { id: '1', count: 1, component: ImageButton1Icon },
-      { id: '2', count: 2, component: ImageButton2Icon }
+      { id: '1', count: 2, type: 'imageButton', component: ImageButton1Icon },
+      { id: '2', count: 3, type: 'imageButton', component: ImageButton2Icon }
     ]
   },
   {
@@ -144,8 +144,8 @@ export const blockIconList: BlockIcon[] = [
     name: 'テキスト+ボタン',
     anchorKey: 'textButton',
     icons: [
-      { id: '1', count: 1, component: TextButton1Icon },
-      { id: '2', count: 2, component: TextButton2Icon }
+      { id: '1', count: 2, type: 'textButton', component: TextButton1Icon },
+      { id: '2', count: 3, type: 'textButton', component: TextButton2Icon }
     ]
   }
 ]

@@ -65,6 +65,10 @@ button.mail-parts-edit-button {
   height: calc(100% - 40px);
 }
 
+.mail-parts-padding-bottom {
+  height: calc(100% - 8px);
+}
+
 .mail-block-panel {
   position: absolute;
   top: 0;
