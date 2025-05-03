@@ -174,5 +174,126 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
         ]
       }
     ]
+  },
+  imageText: {
+    type: 'default',
+    setting: {
+      bottom: 20,
+      left: 20,
+      right: 20,
+      top: 20,
+      columnsInnerPadding: 20,
+      columnMaxWidth: 560,
+      backgroundColor: 'rgb(255, 255, 255, 0)',
+      mobileLayout: MobileLayout.VERTICAL
+    },
+    columns: [
+      {
+        id: 1,
+        parts: [
+          {
+            id: 1,
+            type: 'image',
+            setting: {
+              isMobileFullWidth: true,
+              align: 'center',
+              widthRate: 100
+            },
+            content: 'https://img.bme.jp/img/htmlmail_v3/template-img/dummy_image_v3.png'
+          },
+          {
+            id: 2,
+            type: 'text',
+            content:
+              '<p style="margin: 0px;">テキストを入力してください。</p><p style="margin: 0px;">テキストを入力してください。</p>',
+            setting: {}
+          }
+        ]
+      }
+    ]
+  },
+  imageText1: {
+    type: 'multi',
+    setting: {
+      bottom: 20,
+      left: 20,
+      right: 20,
+      top: 20,
+      columnsInnerPadding: 20,
+      columnMaxWidth: 270,
+      backgroundColor: 'rgb(255, 255, 255, 0)',
+      mobileLayout: MobileLayout.VERTICAL
+    },
+    columns: [
+      {
+        id: 1,
+        parts: [
+          {
+            id: 1,
+            type: 'image',
+            setting: {
+              isMobileFullWidth: true,
+              align: 'center',
+              widthRate: 100
+            },
+            content: 'https://img.bme.jp/img/htmlmail_v3/template-img/dummy_image_v3.png'
+          }
+        ]
+      },
+      {
+        id: 2,
+        parts: [
+          {
+            id: 1,
+            type: 'text',
+            content:
+              '<p style="margin: 0px;">テキストを入力してください。</p><p style="margin: 0px;">テキストを入力してください。</p>',
+            setting: {}
+          }
+        ]
+      }
+    ]
+  },
+  imageText2: {
+    type: 'multi',
+    setting: {
+      bottom: 20,
+      left: 20,
+      right: 20,
+      top: 20,
+      columnsInnerPadding: 20,
+      columnMaxWidth: 270,
+      backgroundColor: 'rgb(255, 255, 255, 0)',
+      mobileLayout: MobileLayout.VERTICAL
+    },
+    columns: [
+      {
+        id: 1,
+        parts: [
+          {
+            id: 1,
+            type: 'text',
+            content:
+              '<p style="margin: 0px;">テキストを入力してください。</p><p style="margin: 0px;">テキストを入力してください。</p>',
+            setting: {}
+          }
+        ]
+      },
+      {
+        id: 22,
+        parts: [
+          {
+            id: 1,
+            type: 'image',
+            setting: {
+              isMobileFullWidth: true,
+              align: 'center',
+              widthRate: 100
+            },
+            content: 'https://img.bme.jp/img/htmlmail_v3/template-img/dummy_image_v3.png'
+          }
+        ]
+      }
+    ]
   }
 }

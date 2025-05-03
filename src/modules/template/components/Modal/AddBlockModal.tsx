@@ -70,7 +70,7 @@ const AddBlockModal = ({ isModalOpen, onClose, onAddBlock }: AddBlockModalProps)
                   <Space size='small'>
                     {block.icons.map((icon) => (
                       <Button
-                        onClick={onAddBlock(block.anchorKey, icon.count)}
+                        onClick={onAddBlock(icon.type, icon.count)}
                         key={icon.id}
                         className='!p-0 !w-fit !h-fit hover:[&_.thumbnail-header--brand-color]:fill-[rgb(217,42,51)] hover:[&_.thumbnail-body--red1]:fill-[rgb(255,241,240)]'
                         type='link'
