@@ -114,7 +114,7 @@ const BaseBlock = memo(
                           />
                         )}
                         <div className='mail-column-edit-panel'>
-                          {column.parts.map((part) => (
+                          {column.parts.map((part, index) => (
                             <table
                               onClick={onSelectColumn(part, block.id, column.id)}
                               key={part.id}
@@ -139,7 +139,7 @@ const BaseBlock = memo(
                                     >
                                       <tbody>
                                         <tr>
-                                          <td style={{ padding: 0 }}>
+                                          <td style={{ padding: index !== column.parts.length - 1 ? '0px 0px 8px' : 0 }}>
                                             <ColumnDesign
                                               part={part}
                                               settingBlock={block.setting}
@@ -150,7 +150,7 @@ const BaseBlock = memo(
                                       </tbody>
                                     </table>
                                     <div
-                                      className={`mail-parts-edit-panel ${selectedColumn && selectedColumn.blockId === block.id && selectedColumn.columnId === column.id && selectedColumn.id === part.id && activeTab !== 'blockEditMenu' ? 'edit-target-element' : ''}`}
+                                      className={`mail-parts-edit-panel ${index !== column.parts.length - 1 ? 'mail-parts-padding-bottom' : ''} ${selectedColumn && selectedColumn.blockId === block.id && selectedColumn.columnId === column.id && selectedColumn.id === part.id && activeTab !== 'blockEditMenu' ? 'edit-target-element' : ''}`}
                                       title='パーツ編集'
                                     />
                                   </td>

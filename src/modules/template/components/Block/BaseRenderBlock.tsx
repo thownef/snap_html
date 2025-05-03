@@ -82,7 +82,7 @@ const BaseRenderBlock = ({ block, settings }: BaseRenderBlockProps) => {
                                   >
                                     <tbody>
                                       <tr>
-                                        <td style={{ padding: 0 }}>
+                                        <td style={{ padding: index !== column.parts.length - 1 ? '0px 0px 8px' : 0 }}>
                                           <ColumnDesign part={part} settingBlock={block.setting} settings={settings} />
                                         </td>
                                       </tr>
