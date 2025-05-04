@@ -2,9 +2,10 @@ import { useCallback } from 'react'
 import ReactDOMServer from 'react-dom/server'
 import { IframeTemplate } from '@/modules/template/components/Template/IframeTemplate'
 import BaseRenderBlock from '@/modules/template/components/Block/BaseRenderBlock'
-import { blockList } from '@/modules/template/data/blockList'
-const useHandleForm = () => {
-  const handleGetHtmlValue = useCallback((newBlocks: typeof blockList) => {
+import { SettingKeys } from '@/modules/template/hooks/useHandleSetting'
+import { Block } from '@/modules/template/core/types/block.type'
+const useHandleForm = (settings: SettingKeys) => {
+  const handleGetHtmlValue = useCallback((newBlocks: Block[]) => {
     const templateHtml = ReactDOMServer.renderToStaticMarkup(<IframeTemplate />)
     const parser = new DOMParser()
     const parsedTemplate = parser.parseFromString(templateHtml, 'text/html')
@@ -13,7 +14,7 @@ const useHandleForm = () => {
     const blocksHtml = ReactDOMServer.renderToStaticMarkup(
       <>
         {newBlocks.map((block) => (
-          <BaseRenderBlock key={block.id} id={block.id} block={block} />
+          <BaseRenderBlock key={block.id} block={block} settings={settings} />
         ))}
       </>
     )

@@ -1,6 +1,5 @@
 import { useCallback, useState } from 'react'
 import { AggregationColor } from 'antd/es/color-picker/color'
-import { blockList } from '@/modules/template/data/blockList'
 import {
   Block,
   ChangeBlockType,
@@ -15,9 +14,10 @@ import {
   updateImageWidth,
   updatePartSetting
 } from '@/modules/template/utils'
+import { initData } from '@/modules/template/core/config/blocks/block-data'
 
 const useHandleBlock = () => {
-  const [blocks, setBlocks] = useState<Block[]>(blockList)
+  const [blocks, setBlocks] = useState<Block[]>(initData)
   const [selectedColumn, setSelectedColumn] = useState<SelectedColumn | null>(null)
   const [activeKey, setActiveKey] = useState<string>('sendSettings')
   const [activeTab, setActiveTab] = useState<string>('partsEditMenu')

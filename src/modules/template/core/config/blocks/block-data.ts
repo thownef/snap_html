@@ -1,7 +1,7 @@
 import { FormButton, MobileLayout, SizeButton } from '@/modules/template/core/enums/block.enum'
 import { Block } from '@/modules/template/core/types/block.type'
 
-export const blockList: Block[] = [
+export const initData: Block[] = [
   {
     id: 1,
     type: 'multi',
