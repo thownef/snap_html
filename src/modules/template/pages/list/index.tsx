@@ -8,6 +8,7 @@ import useHandleSetting, { settingKeys } from '@/modules/template/hooks/useHandl
 import { modeOptions } from '@/modules/template/core/config/select-options'
 import RadioDesign from '@/shared/design-system/Radio/RadioDesign'
 import AddBlockModal from '@/modules/template/components/Modal/AddBlockModal'
+import useHandleForm from '@/modules/template/hooks/useHandleForm'
 
 const TemplatePage = () => {
   const { handleSubmit } = useForm<any>()
@@ -33,9 +34,11 @@ const TemplatePage = () => {
   } = useHandleBlock()
   const { settings, onChangeSettings } = useHandleSetting()
   const { iframeRef, mode, onChangeMode } = useHandlePreviewMode()
-
-  const onSubmit: SubmitHandler<any> = (data) => {
-    console.log(data)
+  const { onGetHtmlValue, onGetImage } = useHandleForm(settings)
+  const onSubmit: SubmitHandler<any> = async () => {
+    const content = onGetHtmlValue(blocks)
+    const image = await onGetImage(content || '')
+    console.log(image)
   }
 
   return (

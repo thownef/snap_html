@@ -53,7 +53,7 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
               align: 'center',
               widthRate: 100
             },
-            content: 'https://img.bme.jp/img/htmlmail_v3/template-img/dummy_image_v3.png'
+            content: 'https://res.cloudinary.com/thownef/image/upload/v1746424649/dummy_image_v3_cpohmd.webp'
           }
         ]
       }
@@ -199,7 +199,7 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
               align: 'center',
               widthRate: 100
             },
-            content: 'https://img.bme.jp/img/htmlmail_v3/template-img/dummy_image_v3.png'
+            content: 'https://res.cloudinary.com/thownef/image/upload/v1746424649/dummy_image_v3_cpohmd.webp'
           },
           {
             id: 2,
@@ -236,7 +236,7 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
               align: 'center',
               widthRate: 100
             },
-            content: 'https://img.bme.jp/img/htmlmail_v3/template-img/dummy_image_v3.png'
+            content: 'https://res.cloudinary.com/thownef/image/upload/v1746424649/dummy_image_v3_cpohmd.webp'
           }
         ]
       },
@@ -290,7 +290,7 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
               align: 'center',
               widthRate: 100
             },
-            content: 'https://img.bme.jp/img/htmlmail_v3/template-img/dummy_image_v3.png'
+            content: 'https://res.cloudinary.com/thownef/image/upload/v1746424649/dummy_image_v3_cpohmd.webp'
           }
         ]
       }
@@ -320,7 +320,7 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
               align: 'center',
               widthRate: 100
             },
-            content: 'https://img.bme.jp/img/htmlmail_v3/template-img/dummy_image_v3.png'
+            content: 'https://res.cloudinary.com/thownef/image/upload/v1746424649/dummy_image_v3_cpohmd.webp'
           },
           {
             id: 2,
@@ -369,7 +369,7 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
               align: 'center',
               widthRate: 100
             },
-            content: 'https://img.bme.jp/img/htmlmail_v3/template-img/dummy_image_v3.png'
+            content: 'https://res.cloudinary.com/thownef/image/upload/v1746424649/dummy_image_v3_cpohmd.webp'
           }
         ]
       },
@@ -447,7 +447,7 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
               align: 'center',
               widthRate: 100
             },
-            content: 'https://img.bme.jp/img/htmlmail_v3/template-img/dummy_image_v3.png'
+            content: 'https://res.cloudinary.com/thownef/image/upload/v1746424649/dummy_image_v3_cpohmd.webp'
           }
         ]
       }
@@ -477,7 +477,7 @@ export const templateBlockList: Record<string, Omit<Block, 'id'>> = {
               align: 'center',
               widthRate: 100
             },
-            content: 'https://img.bme.jp/img/htmlmail_v3/template-img/dummy_image_v3.png'
+            content: 'https://res.cloudinary.com/thownef/image/upload/v1746424649/dummy_image_v3_cpohmd.webp'
           },
           {
             id: 2,

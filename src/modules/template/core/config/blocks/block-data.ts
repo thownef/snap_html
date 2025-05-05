@@ -1,50 +1,6 @@
-import { FormButton, MobileLayout, SizeButton } from '@/modules/template/core/enums/block.enum'
 import { Block } from '@/modules/template/core/types/block.type'
 
 export const initData: Block[] = [
-  {
-    id: 1,
-    type: 'multi',
-    setting: {
-      bottom: 20,
-      left: 20,
-      right: 20,
-      top: 20,
-      columnsInnerPadding: 4,
-      columnMaxWidth: 278,
-      backgroundColor: 'rgb(255, 255, 255, 0)',
-      mobileLayout: MobileLayout.VERTICAL
-    },
-    columns: [
-      {
-        id: 1,
-        parts: [
-          {
-            id: 1,
-            type: 'image',
-            setting: {
-              isMobileFullWidth: true,
-              width: 278,
-              widthRate: 100
-            },
-            content: 'https://img.bme.jp/img/htmlmail_v3/limited_design/gourmet/01_logo.png'
-          }
-        ]
-      },
-      {
-        id: 2,
-        parts: [
-          {
-            id: 1,
-            type: 'text',
-            setting: {},
-            content:
-              '<p style="margin: 0px;">テキストを入力してください。</p><p style="margin: 0px;">テキストを入力してください。</p>'
-          }
-        ]
-      }
-    ]
-  },
   {
     id: 2,
     type: 'default',
@@ -56,7 +12,7 @@ export const initData: Block[] = [
       columnsInnerPadding: 20,
       columnMaxWidth: 600,
       backgroundColor: 'rgb(255, 255, 255, 0)',
-      mobileLayout: MobileLayout.VERTICAL
+      mobileLayout: 'vertical'
     },
     columns: [
       {
@@ -84,7 +40,7 @@ export const initData: Block[] = [
       columnsInnerPadding: 0,
       columnMaxWidth: 560,
       backgroundColor: 'rgb(255, 255, 255, 0)',
-      mobileLayout: MobileLayout.VERTICAL
+      mobileLayout: 'vertical'
     },
     columns: [
       {
@@ -95,8 +51,8 @@ export const initData: Block[] = [
             type: 'button',
             content: 'ボタンテキスト',
             setting: {
-              form: FormButton.ROUND,
-              size: SizeButton.MIDDLE,
+              form: 'round',
+              size: 'middle',
               color: 'rgb(255, 255, 255)',
               backgroundColor: 'rgb(47, 84, 235)',
               href: ''
@@ -117,7 +73,7 @@ export const initData: Block[] = [
       columnsInnerPadding: 20,
       columnMaxWidth: 560,
       backgroundColor: 'rgb(255, 255, 255, 0)',
-      mobileLayout: MobileLayout.VERTICAL
+      mobileLayout: 'vertical'
     },
     columns: [
       {
@@ -156,6 +112,355 @@ export const initData: Block[] = [
                 convertedHref: ''
               }
             ]
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 1746353641296,
+    type: 'default',
+    setting: {
+      bottom: 10,
+      left: 20,
+      right: 20,
+      top: 10,
+      columnsInnerPadding: 20,
+      backgroundColor: 'rgb(255, 255, 255, 0)',
+      columnMaxWidth: 173,
+      mobileLayout: 'vertical'
+    },
+    columns: [
+      {
+        id: 1,
+        parts: [
+          {
+            id: 1,
+            type: 'image',
+            setting: {
+              isMobileFullWidth: true,
+              align: 'center',
+              widthRate: 100,
+              width: 173
+            },
+            content: 'https://res.cloudinary.com/thownef/image/upload/v1746424649/dummy_image_v3_cpohmd.webp'
+          }
+        ]
+      },
+      {
+        id: 2,
+        parts: [
+          {
+            id: 1,
+            type: 'image',
+            setting: {
+              isMobileFullWidth: true,
+              align: 'center',
+              widthRate: 100,
+              width: 173
+            },
+            content: 'https://res.cloudinary.com/thownef/image/upload/v1746424649/dummy_image_v3_cpohmd.webp'
+          }
+        ]
+      },
+      {
+        id: 3,
+        parts: [
+          {
+            id: 1,
+            type: 'image',
+            setting: {
+              isMobileFullWidth: true,
+              align: 'center',
+              widthRate: 100,
+              width: 173
+            },
+            content: 'https://res.cloudinary.com/thownef/image/upload/v1746424649/dummy_image_v3_cpohmd.webp'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 1746353643999,
+    type: 'multi',
+    setting: {
+      bottom: 6,
+      left: 20,
+      right: 20,
+      top: 6,
+      columnsInnerPadding: 20,
+      columnMaxWidth: 560,
+      backgroundColor: 'rgb(255, 255, 255, 0)',
+      mobileLayout: 'vertical'
+    },
+    columns: [
+      {
+        id: 1,
+        parts: [
+          {
+            id: 1,
+            type: 'divider',
+            setting: {
+              borderColor: '#bfbfbf',
+              borderWidth: '1px',
+              borderStyle: 'solid'
+            },
+            content: ''
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 1746353646488,
+    type: 'default',
+    setting: {
+      bottom: 20,
+      left: 20,
+      right: 20,
+      top: 20,
+      columnsInnerPadding: 20,
+      columnMaxWidth: 270,
+      backgroundColor: 'rgb(255, 255, 255, 0)',
+      mobileLayout: 'vertical'
+    },
+    columns: [
+      {
+        id: 1,
+        parts: [
+          {
+            id: 1,
+            type: 'image',
+            setting: {
+              isMobileFullWidth: true,
+              align: 'center',
+              widthRate: 100,
+              width: 270
+            },
+            content: 'https://res.cloudinary.com/thownef/image/upload/v1746424649/dummy_image_v3_cpohmd.webp'
+          },
+          {
+            id: 2,
+            type: 'text',
+            content:
+              '<p style="margin: 0px;">テキストを入力してください。</p><p style="margin: 0px;">テキストを入力してください。</p>',
+            setting: {}
+          }
+        ]
+      },
+      {
+        id: 2,
+        parts: [
+          {
+            id: 1,
+            type: 'image',
+            setting: {
+              isMobileFullWidth: true,
+              align: 'center',
+              widthRate: 100,
+              width: 270
+            },
+            content: 'https://res.cloudinary.com/thownef/image/upload/v1746424649/dummy_image_v3_cpohmd.webp'
+          },
+          {
+            id: 2,
+            type: 'text',
+            content:
+              '<p style="margin: 0px;">テキストを入力してください。</p><p style="margin: 0px;">テキストを入力してください。</p>',
+            setting: {}
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 1746353651247,
+    type: 'multi',
+    setting: {
+      bottom: 20,
+      left: 20,
+      right: 20,
+      top: 20,
+      columnsInnerPadding: 20,
+      columnMaxWidth: 270,
+      backgroundColor: 'rgb(255, 255, 255, 0)',
+      mobileLayout: 'vertical'
+    },
+    columns: [
+      {
+        id: 1,
+        parts: [
+          {
+            id: 1,
+            type: 'image',
+            setting: {
+              isMobileFullWidth: true,
+              align: 'center',
+              widthRate: 100,
+              width: 270
+            },
+            content: 'https://res.cloudinary.com/thownef/image/upload/v1746424649/dummy_image_v3_cpohmd.webp'
+          }
+        ]
+      },
+      {
+        id: 2,
+        parts: [
+          {
+            id: 1,
+            type: 'text',
+            content:
+              '<p style="margin: 0px;">テキストを入力してください。</p><p style="margin: 0px;">テキストを入力してください。</p>',
+            setting: {}
+          },
+          {
+            id: 2,
+            type: 'button',
+            setting: {
+              form: 'round',
+              size: 'middle',
+              color: 'rgb(255, 255, 255)',
+              backgroundColor: 'rgb(47, 84, 235)',
+              href: ''
+            },
+            content: 'ボタンテキスト'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 1746353657759,
+    type: 'default',
+    setting: {
+      bottom: 20,
+      left: 20,
+      right: 20,
+      top: 20,
+      columnsInnerPadding: 20,
+      columnMaxWidth: 270,
+      backgroundColor: 'rgb(255, 255, 255, 0)',
+      mobileLayout: 'vertical'
+    },
+    columns: [
+      {
+        id: 1,
+        parts: [
+          {
+            id: 1,
+            type: 'image',
+            setting: {
+              isMobileFullWidth: true,
+              align: 'center',
+              widthRate: 100,
+              width: 270
+            },
+            content: 'https://res.cloudinary.com/thownef/image/upload/v1746424649/dummy_image_v3_cpohmd.webp'
+          },
+          {
+            id: 2,
+            type: 'button',
+            setting: {
+              form: 'round',
+              size: 'middle',
+              color: 'rgb(255, 255, 255)',
+              backgroundColor: 'rgb(47, 84, 235)',
+              href: ''
+            },
+            content: 'ボタンテキスト'
+          }
+        ]
+      },
+      {
+        id: 2,
+        parts: [
+          {
+            id: 1,
+            type: 'image',
+            setting: {
+              isMobileFullWidth: true,
+              align: 'center',
+              widthRate: 100,
+              width: 270
+            },
+            content: 'https://res.cloudinary.com/thownef/image/upload/v1746424649/dummy_image_v3_cpohmd.webp'
+          },
+          {
+            id: 2,
+            type: 'button',
+            setting: {
+              form: 'round',
+              size: 'middle',
+              color: 'rgb(255, 255, 255)',
+              backgroundColor: 'rgb(47, 84, 235)',
+              href: ''
+            },
+            content: 'ボタンテキスト'
+          }
+        ]
+      }
+    ]
+  },
+  {
+    id: 1746353655759,
+    type: 'default',
+    setting: {
+      bottom: 20,
+      left: 20,
+      right: 20,
+      top: 20,
+      columnsInnerPadding: 20,
+      columnMaxWidth: 270,
+      backgroundColor: 'rgb(255, 255, 255, 0)',
+      mobileLayout: 'vertical'
+    },
+    columns: [
+      {
+        id: 1,
+        parts: [
+          {
+            id: 1,
+            type: 'text',
+            content:
+              '<p style="margin: 0px;">テキストを入力してください。</p><p style="margin: 0px;">テキストを入力してください。</p>',
+            setting: {}
+          },
+          {
+            id: 2,
+            type: 'button',
+            setting: {
+              form: 'round',
+              size: 'middle',
+              color: 'rgb(255, 255, 255)',
+              backgroundColor: 'rgb(47, 84, 235)',
+              href: ''
+            },
+            content: 'ボタンテキスト'
+          }
+        ]
+      },
+      {
+        id: 2,
+        parts: [
+          {
+            id: 1,
+            type: 'text',
+            content:
+              '<p style="margin: 0px;">テキストを入力してください。</p><p style="margin: 0px;">テキストを入力してください。</p>',
+            setting: {}
+          },
+          {
+            id: 2,
+            type: 'button',
+            setting: {
+              form: 'round',
+              size: 'middle',
+              color: 'rgb(255, 255, 255)',
+              backgroundColor: 'rgb(47, 84, 235)',
+              href: ''
+            },
+            content: 'ボタンテキスト'
           }
         ]
       }

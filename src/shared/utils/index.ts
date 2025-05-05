@@ -1,37 +1,37 @@
 export const getSnsIcon = (type: string) => {
   switch (type) {
     case 'X':
-      return 'https://img.bme.jp/img/htmlmail/icon-sns/icon-x-basic.png'
+      return 'https://res.cloudinary.com/thownef/image/upload/v1746442363/icon-x-basic.png'
     case 'Facebook':
-      return 'https://img.bme.jp/img/htmlmail/icon-sns/icon-facebook-basic.png'
+      return 'https://res.cloudinary.com/thownef/image/upload/v1746442374/icon-facebook-basic.png'
     case 'YouTube':
-      return 'https://img.bme.jp/img/htmlmail/icon-sns/icon-youtube-basic.png'
+      return 'https://res.cloudinary.com/thownef/image/upload/v1746442383/icon-youtube-basic.png'
     case 'Instagram':
-      return 'https://img.bme.jp/img/htmlmail/icon-sns/icon-instagram-basic.png'
+      return 'https://res.cloudinary.com/thownef/image/upload/v1746442507/icon-instagram-basic.png'
     case 'LINE':
-      return 'https://img.bme.jp/img/htmlmail/icon-sns/icon-line-basic.png'
+      return 'https://res.cloudinary.com/thownef/image/upload/v1746442515/icon-line-basic.png'
     case 'LinkedIn':
-      return 'https://img.bme.jp/img/htmlmail/icon-sns/icon-linkedin-basic.png'
+      return 'https://res.cloudinary.com/thownef/image/upload/v1746442521/icon-linkedin-basic.png'
     case 'Pinterest':
-      return 'https://img.bme.jp/img/htmlmail/icon-sns/icon-pinterest-basic.png'
+      return 'https://res.cloudinary.com/thownef/image/upload/v1746442528/icon-pinterest-basic.png'
     case 'Note':
-      return 'https://img.bme.jp/img/htmlmail/icon-sns/icon-note-basic.png'
+      return 'https://res.cloudinary.com/thownef/image/upload/v1746442560/icon-note-basic.png'
     case 'XWhite':
-      return 'https://img.bme.jp/img/htmlmail/icon-sns/icon-x-white-on.png'
+      return 'https://res.cloudinary.com/thownef/image/upload/v1746442912/icon-x-white-on.png'
     case 'FacebookWhite':
-      return 'https://img.bme.jp/img/htmlmail/icon-sns/icon-facebook-white.png'
+      return 'https://res.cloudinary.com/thownef/image/upload/v1746442918/icon-facebook-white.png'
     case 'YouTubeWhite':
-      return 'https://img.bme.jp/img/htmlmail/icon-sns/icon-youtube-white.png'
+      return 'https://res.cloudinary.com/thownef/image/upload/v1746442928/icon-youtube-white.png'
     case 'InstagramWhite':
-      return 'https://img.bme.jp/img/htmlmail/icon-sns/icon-instagram-white.png'
+      return 'https://res.cloudinary.com/thownef/image/upload/v1746442934/icon-instagram-white.png'
     case 'LINEWhite':
-      return 'https://img.bme.jp/img/htmlmail/icon-sns/icon-line-white.png'
+      return 'https://res.cloudinary.com/thownef/image/upload/v1746442940/icon-line-white.png'
     case 'LinkedInWhite':
-      return 'https://img.bme.jp/img/htmlmail/icon-sns/icon-linkedin-white.png'
+      return 'https://res.cloudinary.com/thownef/image/upload/v1746442946/icon-linkedin-white.png'
     case 'PinterestWhite':
-      return 'https://img.bme.jp/img/htmlmail/icon-sns/icon-pinterest-white.png'
+      return 'https://res.cloudinary.com/thownef/image/upload/v1746442951/icon-pinterest-white.png'
     case 'NoteWhite':
-      return 'https://img.bme.jp/img/htmlmail/icon-sns/icon-note-white-on.png'
+      return 'https://res.cloudinary.com/thownef/image/upload/v1746442955/icon-note-white-on.png'
     default:
       return ''
   }
