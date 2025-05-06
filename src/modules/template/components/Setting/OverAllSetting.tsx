@@ -1,6 +1,6 @@
 import { Space, Typography, type RadioChangeEvent } from 'antd'
-import LeftBlockImage from '@/modules/template/components/Svg/LeftBlockImage'
-import CenterBlockImage from '@/modules/template/components/Svg/CenterBlockImage'
+import LeftBlockImage from '@/modules/template/components/Icon/LeftBlockImage'
+import CenterBlockImage from '@/modules/template/components/Icon/CenterBlockImage'
 import { AggregationColor } from 'antd/es/color-picker/color'
 import { SettingKeys, settingKeys } from '@/modules/template/hooks/useHandleSetting'
 import ColorPicker from '@/shared/components/ColorPicker/ColorPicker'

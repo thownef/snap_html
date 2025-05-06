@@ -10,8 +10,8 @@ import InputNumberDesign from '@/shared/design-system/Input/InputNumberDesign'
 import RadioDesign from '@/shared/design-system/Radio/RadioDesign'
 import { mobileLayoutOptions } from '@/modules/template/core/config/select-options'
 import { MobileLayout } from '@/modules/template/core/enums/block.enum'
-import HorizontalLayoutIcon from '@/modules/template/components/Svg/HorizontalLayoutIcon'
-import VerticalLayoutIcon from '@/modules/template/components/Svg/VerticalLayoutIcon'
+import HorizontalLayoutIcon from '@/modules/template/components/Icon/HorizontalLayoutIcon'
+import VerticalLayoutIcon from '@/modules/template/components/Icon/VerticalLayoutIcon'
 const { Text } = Typography
 
 type BlockDesignSettingProps = {
