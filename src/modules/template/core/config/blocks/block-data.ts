@@ -2,6 +2,39 @@ import { Block } from '@/modules/template/core/types/block.type'
 
 export const initData: Block[] = [
   {
+    id: 1,
+    type: 'default',
+    setting: {
+      bottom: 20,
+      left: 20,
+      right: 20,
+      top: 20,
+      columnsInnerPadding: 20,
+      columnMaxWidth: 560,
+      backgroundColor: 'rgb(255, 255, 255, 0)',
+      mobileLayout: 'vertical'
+    },
+    columns: [
+      {
+        id: 1,
+        parts: [
+          {
+            id: 1,
+            type: 'textOverlay',
+            content: 'Kéo tôi!',
+            setting: {
+              width: 560,
+              height: 303,
+              backgroundImage: 'https://res.cloudinary.com/thownef/image/upload/v1746424649/dummy_image_v3_cpohmd.webp',
+              x: 0,
+              y: 0
+            }
+          }
+        ]
+      }
+    ]
+  },
+  {
     id: 2,
     type: 'default',
     setting: {

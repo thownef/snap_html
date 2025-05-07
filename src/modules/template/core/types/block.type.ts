@@ -16,12 +16,16 @@ export type SettingColumn = {
   backgroundColor?: string
   href?: string
   width?: number
+  height?: number
   isMobileFullWidth?: boolean
   align?: "left" | "center" | "right"
   widthRate?: number
   borderColor?: string
   borderWidth?: string
   borderStyle?: string
+  backgroundImage?: string
+  x?: number
+  y?: number
 }
 
 export type PartBlock = {

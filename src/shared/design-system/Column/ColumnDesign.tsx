@@ -5,7 +5,7 @@ import DividerDesign from '@/shared/design-system/Divider/DividerDesign'
 import SnsDesign from '@/shared/design-system/Sns/SnsDesign'
 import ImageDesign from '@/shared/design-system/Image/ImageDesign'
 import TextDesign from '@/shared/design-system/Text/TextDesign'
-import ImageTextDesign from '@/shared/design-system/ImageText/ImageTextDesign'
+import TextOverlayDesign from '@/shared/design-system/TextOverlay/TextOverlayDesign'
 
 type ColumnDesignProps = {
   part: PartBlock
@@ -25,8 +25,8 @@ const ColumnDesign = ({ part: { content, type, setting, icon }, settingBlock, se
       return <DividerDesign setting={setting} />
     case 'sns':
       return <SnsDesign icon={icon} setting={setting} />
-    case 'imageText':
-      return <ImageTextDesign />
+    case 'textOverlay':
+      return <TextOverlayDesign content={content} setting={setting} />
     default:
       break
   }

@@ -7,6 +7,7 @@ import ButtonSetting from '@/modules/template/components/Setting/ButtonSetting'
 import DividerSetting from '@/modules/template/components/Setting/DividerSetting'
 import SnsSetting from '@/modules/template/components/Setting/SnsSetting'
 import { SettingKeys } from '@/modules/template/hooks/useHandleSetting'
+import TextOverlaySetting from '@/modules/template/components/Setting/TextOverlaySetting'
 
 type BlockSettingProps = {
   selectedColumn: SelectedColumn | null
@@ -84,6 +85,19 @@ const BlockSetting = ({
             key: 'partsEditMenu',
             label: 'SNS編集',
             children: <SnsSetting selectedColumn={selectedColumn} onChangeBlock={onChangeBlock} />
+          },
+          {
+            key: 'blockEditMenu',
+            label: 'ブロックデザイン',
+            children: <BlockDesignSetting selectedColumn={selectedColumn} onChangeSettingBlock={onChangeSettingBlock} />
+          }
+        ]
+      case 'textOverlay':
+        return [
+          {
+            key: 'partsEditMenu',
+            label: '動くテキスト編集',
+            children: <TextOverlaySetting selectedColumn={selectedColumn} onChangeBlock={onChangeBlock} />
           },
           {
             key: 'blockEditMenu',
