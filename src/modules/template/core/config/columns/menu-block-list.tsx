@@ -20,6 +20,7 @@ import Text3Icon from '@/modules/template/components/Icon/Text3Icon'
 import { BlockIcon, BlockList } from '@/modules/template/core/types/block.type'
 import ImageButton1Icon from '@/modules/template/components/Icon/ImageButton1Icon'
 import TextButton2Icon from '@/modules/template/components/Icon/TextButton2Icon'
+import TextOverlayIcon from '@/modules/template/components/Icon/TextOverlayIcon'
 
 export const menuBlockList: BlockList[] = [
   {
@@ -147,5 +148,11 @@ export const blockIconList: BlockIcon[] = [
       { id: '1', count: 2, type: 'textButton', component: TextButton1Icon },
       { id: '2', count: 3, type: 'textButton', component: TextButton2Icon }
     ]
+  },
+  {
+    id: 'textOverlay',
+    name: 'テキスト+オーバーレイ',
+    anchorKey: 'textOverlay',
+    icons: [{ id: '1', count: 1, type: 'textOverlay', component: TextOverlayIcon }]
   }
 ]
