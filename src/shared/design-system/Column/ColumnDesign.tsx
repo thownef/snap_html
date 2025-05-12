@@ -20,13 +20,13 @@ const ColumnDesign = ({ part: { content, type, setting, icon }, settingBlock, se
     case 'image':
       return <ImageDesign content={content} setting={setting} />
     case 'button':
-      return <ButtonDesign content={content} setting={setting!} />
+      return <ButtonDesign content={content} setting={setting} />
     case 'divider':
       return <DividerDesign setting={setting} />
     case 'sns':
       return <SnsDesign icon={icon} setting={setting} />
     case 'textOverlay':
-      return <TextOverlayDesign content={content} setting={setting} />
+      return <TextOverlayDesign content={content} setting={setting} settings={settings} />
     default:
       break
   }

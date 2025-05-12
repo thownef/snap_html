@@ -1,6 +1,7 @@
 import { useRef } from 'react'
-import { useDrag, useDrop } from 'react-dnd'
+import { useDrop } from 'react-dnd'
 import { ChangeBlockType, SelectedColumn } from '@/modules/template/core/types/block.type'
+import TextBoxDraggable from '@/modules/template/components/Drag/TextBoxDraggable'
 
 type DragTextOverlayProps = {
   selectedColumn: SelectedColumn
@@ -15,38 +16,6 @@ type DragTextOverlayProps = {
 const DragTextOverlay = ({ selectedColumn, onChangeBlock }: DragTextOverlayProps) => {
   const imgRef = useRef<HTMLImageElement>(null)
 
-  const TextBoxDraggable = () => {
-    const ref = useRef<HTMLDivElement>(null)
-    const [, drag] = useDrag({
-      type: 'TEXT_BOX',
-      item: { id: selectedColumn.id }
-    })
-
-    drag(ref)
-
-    return (
-      <div
-        ref={ref}
-        data-text-box
-        style={{
-          display: 'inline-block',
-          marginLeft: `${((selectedColumn.setting.x ?? 0) / 100) * (selectedColumn.setting.width ?? 560)}px`,
-          marginTop: `${((selectedColumn.setting.y ?? 0) / 100) * (selectedColumn.setting.height ?? 303)}px`,
-          fontFamily:
-            '-apple-system, BlinkMacSystemFont, Helvetica, Arial, "Noto Sans JP", "BIZ UDGothic", Meiryo, sans-serif',
-          lineHeight: '1.5',
-          background: 'rgba(255,255,255,0.7)',
-          padding: 2,
-          borderRadius: 2,
-          fontSize: 16,
-          width: 'max-content',
-          cursor: 'move'
-        }}
-      >
-        {selectedColumn.content || 'Kéo tôi!'}
-      </div>
-    )
-  }
   const [, drop] = useDrop({
     accept: 'TEXT_BOX',
     drop: (_, monitor) => {
@@ -61,8 +30,8 @@ const DragTextOverlay = ({ selectedColumn, onChangeBlock }: DragTextOverlayProps
       const maxX = 100 - (textBoxRect.width / dropRect.width) * 100
       const maxY = 100 - (textBoxRect.height / dropRect.height) * 100
 
-      const x = ((offset.x - dropRect.left) / dropRect.width) * 100
-      const y = ((offset.y - dropRect.top) / dropRect.height) * 100
+      const x = Math.round(((offset.x - dropRect.left) / dropRect.width) * 100)
+      const y = Math.round(((offset.y - dropRect.top) / dropRect.height) * 100)
 
       const updates = [
         { key: 'setting.x', value: Math.max(0, Math.min(maxX, x)) },
@@ -79,29 +48,31 @@ const DragTextOverlay = ({ selectedColumn, onChangeBlock }: DragTextOverlayProps
   drop(dropRef)
 
   return (
-    <div
-      ref={dropRef}
-      style={{
-        position: 'relative',
-        width: 560,
-        height: 303,
-        background: `url('${selectedColumn.setting.backgroundImage}') no-repeat`,
-        backgroundSize: 'cover',
-        marginBottom: 16
-      }}
-    >
-      <img
-        ref={imgRef}
-        src={selectedColumn.setting.backgroundImage}
-        alt='background'
+    <div className='!border-[rgb(230,80,83)]'>
+      <div
+        ref={dropRef}
         style={{
-          width: selectedColumn.setting.width,
-          height: selectedColumn.setting.height,
-          visibility: 'hidden',
-          position: 'absolute'
+          position: 'relative',
+          width: 560,
+          height: 303,
+          background: `url('${selectedColumn.setting.backgroundImage}') no-repeat`,
+          backgroundSize: 'cover',
+          marginBottom: 16
         }}
-      />
-      <TextBoxDraggable />
+      >
+        <img
+          ref={imgRef}
+          src={selectedColumn.setting.backgroundImage}
+          alt='background'
+          style={{
+            width: selectedColumn.setting.width,
+            height: selectedColumn.setting.height,
+            visibility: 'hidden',
+            position: 'absolute'
+          }}
+        />
+        <TextBoxDraggable selectedColumn={selectedColumn} />
+      </div>
     </div>
   )
 }

@@ -8,12 +8,18 @@ import DividerSetting from '@/modules/template/components/Setting/DividerSetting
 import SnsSetting from '@/modules/template/components/Setting/SnsSetting'
 import { SettingKeys } from '@/modules/template/hooks/useHandleSetting'
 import TextOverlaySetting from '@/modules/template/components/Setting/TextOverlaySetting'
+import TextOverlayPartSetting from '@/modules/template/components/Setting/TextOverlayPartSetting'
 
 type BlockSettingProps = {
   selectedColumn: SelectedColumn | null
   activeTab: string
   settings: SettingKeys
-  onChangeBlock: (keyChange: string, blockId: number, columnId: number, partId: number) => (value: ChangeBlockType) => void
+  onChangeBlock: (
+    keyChange: string,
+    blockId: number,
+    columnId: number,
+    partId: number
+  ) => (value: ChangeBlockType) => void
   onChangeActiveTab: (newKey: string) => void
   onChangeSettingBlock: (blockId: number, keyChange: string) => (value: any) => void
 }
@@ -96,6 +102,17 @@ const BlockSetting = ({
         return [
           {
             key: 'partsEditMenu',
+            label: '動くテキスト編集',
+            children: (
+              <TextOverlayPartSetting
+                settings={settings}
+                selectedColumn={selectedColumn}
+                onChangeBlock={onChangeBlock}
+              />
+            )
+          },
+          {
+            key: 'dragEditMenu',
             label: '動くテキスト編集',
             children: <TextOverlaySetting selectedColumn={selectedColumn} onChangeBlock={onChangeBlock} />
           },

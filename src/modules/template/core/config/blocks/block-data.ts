@@ -21,7 +21,7 @@ export const initData: Block[] = [
           {
             id: 1,
             type: 'textOverlay',
-            content: 'Kéo tôi!',
+            content: '<p style="margin: 0px;">テキストを入力してください。</p><p style="margin: 0px;">テキストを入力してください。</p>',
             setting: {
               width: 560,
               height: 303,
@@ -29,7 +29,7 @@ export const initData: Block[] = [
               x: 0,
               y: 0
             }
-          }
+          },
         ]
       }
     ]
