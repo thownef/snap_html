@@ -283,7 +283,7 @@ const useHandleBlock = () => {
       return (value: ChangeBlockType) => {
         const valueUpdate =
           value === null
-            ? 32
+            ? (keyChange.includes('setting.width') ? 32 : 0)
             : typeof value === 'object'
               ? 'editor' in value
                 ? value.editor.getHTML()
@@ -366,7 +366,7 @@ const useHandleBlock = () => {
               blockSetting: { ...prev.blockSetting, ...blockSetting }
             }
 
-            if (prev.type === 'image') {
+            if (prev.type === 'image' || prev.type === 'textOverlay') {
               const maxWidth = blockSetting.columnMaxWidth
               updatedPart.setting = updateImageWidth(prev.setting, maxWidth)
             }
@@ -381,7 +381,7 @@ const useHandleBlock = () => {
             const updatedColumns = block.columns.map((col) => ({
               ...col,
               parts: col.parts.map((part) => {
-                if (part.type === 'image') {
+                if (part.type === 'image' || part.type === 'textOverlay') {
                   const maxWidth = blockSetting.columnMaxWidth
                   return {
                     ...part,
