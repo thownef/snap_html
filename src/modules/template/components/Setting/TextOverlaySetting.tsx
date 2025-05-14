@@ -2,7 +2,7 @@ import { Space } from 'antd'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
 import { ChangeBlockType, SelectedColumn } from '@/modules/template/core/types/block.type'
-import DragTextOverlay from '@/modules/template/components/Drag/DragTextOverlay'
+import DropTextOverlay from '@/modules/template/components/Drop/DropTextOverlay'
 import InputNumberDesign from '@/shared/design-system/Input/InputNumberDesign'
 import LeftPaddingIcon from '@/modules/template/components/Icon/LeftPaddingIcon'
 import TopPaddingIcon from '@/modules/template/components/Icon/TopPaddingIcon'
@@ -35,7 +35,7 @@ const TextOverlaySetting = ({ selectedColumn, onChangeBlock }: TextOverlaySettin
         />
       </Space>
       <DndProvider backend={HTML5Backend}>
-        <DragTextOverlay selectedColumn={selectedColumn} onChangeBlock={onChangeBlock} />
+        <DropTextOverlay selectedColumn={selectedColumn} onChangeBlock={onChangeBlock} />
       </DndProvider>
     </Space>
   )

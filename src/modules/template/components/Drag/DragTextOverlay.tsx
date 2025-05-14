@@ -1,79 +1,40 @@
 import { useRef } from 'react'
-import { useDrop } from 'react-dnd'
-import { ChangeBlockType, SelectedColumn } from '@/modules/template/core/types/block.type'
-import TextBoxDraggable from '@/modules/template/components/Drag/TextBoxDraggable'
+import { useDrag } from 'react-dnd'
+import { SelectedColumn } from '@/modules/template/core/types/block.type'
 
 type DragTextOverlayProps = {
   selectedColumn: SelectedColumn
-  onChangeBlock: (
-    keyChange: string,
-    blockId: number,
-    columnId: number,
-    partId: number
-  ) => (value: ChangeBlockType) => void
 }
 
-const DragTextOverlay = ({ selectedColumn, onChangeBlock }: DragTextOverlayProps) => {
-  const imgRef = useRef<HTMLImageElement>(null)
-
-  const [, drop] = useDrop({
-    accept: 'TEXT_BOX',
-    drop: (_, monitor) => {
-      const offset = monitor.getSourceClientOffset()
-      const dropRect = dropRef.current?.getBoundingClientRect()
-      if (!offset || !dropRect) return
-
-      const textBox = document.querySelector('[data-text-box]')
-      const textBoxRect = textBox?.getBoundingClientRect()
-      if (!textBoxRect) return
-
-      const maxX = 100 - (textBoxRect.width / dropRect.width) * 100
-      const maxY = 100 - (textBoxRect.height / dropRect.height) * 100
-
-      const x = Math.round(((offset.x - dropRect.left) / dropRect.width) * 100)
-      const y = Math.round(((offset.y - dropRect.top) / dropRect.height) * 100)
-
-      const updates = [
-        { key: 'setting.x', value: Math.max(0, Math.min(maxX, x)) },
-        { key: 'setting.y', value: Math.max(0, Math.min(maxY, y)) }
-      ] as const
-
-      for (const { key, value } of updates) {
-        onChangeBlock(key, selectedColumn.blockId, selectedColumn.columnId, selectedColumn.id)(value)
-      }
-    }
+const DragTextOverlay = ({ selectedColumn }: DragTextOverlayProps) => {
+  const ref = useRef<HTMLDivElement>(null)
+  const [, drag] = useDrag({
+    type: 'TEXT_BOX',
+    item: { id: selectedColumn.id }
   })
 
-  const dropRef = useRef<HTMLDivElement>(null)
-  drop(dropRef)
+  drag(ref)
 
   return (
-    <div className='!border-[rgb(230,80,83)]'>
-      <div
-        ref={dropRef}
-        style={{
-          position: 'relative',
-          width: 560,
-          height: 303,
-          background: `url('${selectedColumn.setting.backgroundImage}') no-repeat`,
-          backgroundSize: 'cover',
-          marginBottom: 16
-        }}
-      >
-        <img
-          ref={imgRef}
-          src={selectedColumn.setting.backgroundImage}
-          alt='background'
-          style={{
-            width: selectedColumn.setting.width,
-            height: selectedColumn.setting.height,
-            visibility: 'hidden',
-            position: 'absolute'
-          }}
-        />
-        <TextBoxDraggable selectedColumn={selectedColumn} />
-      </div>
-    </div>
+    <div
+      className='[&_p]:block [&_p]:m-0 [&_p]:min-h-[1em]'
+      ref={ref}
+      dangerouslySetInnerHTML={{ __html: selectedColumn.content || '' }}
+      data-text-box
+      style={{
+        marginLeft: `${((selectedColumn.setting.x ?? 0) / 100) * (selectedColumn.setting.width ?? 560)}px`,
+        marginTop: `${((selectedColumn.setting.y ?? 0) / 100) * (selectedColumn.setting.height ?? 303)}px`,
+        fontSize: 16,
+        fontFamily:
+          '-apple-system, BlinkMacSystemFont, Helvetica, Arial, "Noto Sans JP", "BIZ UDGothic", Meiryo, sans-serif',
+        lineHeight: '1.5',
+        wordBreak: 'break-word',
+        overflowWrap: 'break-word',
+        width: 'max-content',
+        display: 'inline-block',
+        cursor: 'move'
+      }}
+    />
   )
 }
 
