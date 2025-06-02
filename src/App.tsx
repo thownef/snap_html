@@ -1,19 +1,21 @@
+import { ConfigProvider, notification } from 'antd'
 import RoutesApp from '@/routes'
-import { ConfigProvider } from 'antd'
+import { useNavigation } from '@/shared/hooks/useNavigation'
 
 function App() {
+  const [, contextHolder] = notification.useNotification()
+  useNavigation()
   return (
-    <>
-      <ConfigProvider
-        theme={{
-          token: {
-            colorPrimary: '#d92a33'
-          }
-        }}
-      >
-        <RoutesApp />
-      </ConfigProvider>
-    </>
+    <ConfigProvider
+      theme={{
+        token: {
+          colorPrimary: '#d92a33'
+        }
+      }}
+    >
+      {contextHolder}
+      <RoutesApp />
+    </ConfigProvider>
   )
 }
 

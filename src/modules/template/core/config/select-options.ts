@@ -32,10 +32,6 @@ export const modeOptions: OptionSelect[] = [
   {
     value: Mode.MOBILE,
     label: ModeEnum[Mode.MOBILE]
-  },
-  {
-    value: Mode.ALT,
-    label: ModeEnum[Mode.ALT]
   }
 ]
 
