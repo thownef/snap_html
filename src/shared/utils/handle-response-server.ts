@@ -1,13 +1,11 @@
-import { notification } from 'antd'
+import toast from 'react-hot-toast'
 
 type HttpMethod = 'post' | 'get' | 'put' | 'delete'
 
 export const handleServerError = (method: HttpMethod, message: string) => {
   switch (method) {
     case 'post':
-      notification.error({
-        message: message
-      })
+      toast.error(message)
       return
     default:
       return
@@ -19,19 +17,13 @@ export const handleServerSuccess = (method: HttpMethod, message?: string) => {
 
   switch (method) {
     case 'post':
-      notification.success({
-        message: messageLogin || message || 'Created successfully.'
-      })
+      toast.success(messageLogin || message || 'Created successfully.')
       return
     case 'put':
-      notification.success({
-        message: message || 'Updated successfully.'
-      })
+      toast.success(message || 'Updated successfully.')
       return
     case 'delete':
-      notification.success({
-        message: message || 'Deleted successfully.'
-      })
+      toast.success(message || 'Deleted successfully.')
       return
     default:
       return

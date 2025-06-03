@@ -1,9 +1,10 @@
-import { NavigateFunction, useNavigate } from 'react-router-dom'
+import { NavigateFunction } from 'react-router-dom'
+import { router } from '@/routes'
 
 export let globalNavigate: NavigateFunction;
 
 export const useNavigation  = () => {
-  globalNavigate = useNavigate();
+  globalNavigate = router.navigate;
 
   return globalNavigate;
 };
