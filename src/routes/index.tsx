@@ -1,15 +1,30 @@
-import { Suspense } from "react";
-import { createBrowserRouter, RouteObject, RouterProvider } from "react-router-dom";
-import { lazyLoadRoute } from "@/routes/LazyLoadRoutes";
+import { lazy, Suspense } from "react";
+import { createBrowserRouter, RouteObject } from "react-router-dom";
+import { lazyLoadModuleRoute, lazyLoadRoute } from "@/routes/LazyLoadRoutes";
 import Layout from "@/shared/layouts";
 import { templatesRoute } from "@/routes/modules";
-import NavigateComponent from "@/shared/components/Navigate/Navigate";
+const NavigateComponent = lazy(() => import("@/shared/components/Navigate/Navigate"));
+import { PageName } from "@/shared/core/enum/page.enum";
+import { ModuleName } from "@/shared/core/enum/page.enum";
+import { PagePath } from "@/shared/core/enum";
+import ValidateLoginRoute from "@/routes/ValidateLoginRoute";
+import PrivateRoute from "@/routes/PrivateRoute";
 
 const configRoutes: RouteObject[] = [
   {
+    path: PagePath.LOGIN,
+    element: (
+      <ValidateLoginRoute>
+        {lazyLoadModuleRoute(ModuleName.AUTH, PageName.LOGIN)}
+      </ValidateLoginRoute>
+    ),
+  },
+  {
     path: "/",
     element: (
+      <PrivateRoute>
         <Layout />
+      </PrivateRoute>
     ),
     children: [
       {
@@ -29,10 +44,4 @@ const configRoutes: RouteObject[] = [
   },
 ];
 
-const router = createBrowserRouter(configRoutes);
-
-const RoutesApp = () => {
-  return <RouterProvider router={router} />;
-};
-
-export default RoutesApp;
+export const router = createBrowserRouter(configRoutes);

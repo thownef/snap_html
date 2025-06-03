@@ -44,12 +44,16 @@ export const axiosInterceptorResponseError = (error: ResponseError) => {
 
   // Redirect to Error Page
   if (status === HttpErrorCodeEnum.UNAUTHORIZED) {
+    if (!window.location.pathname.includes("/login")) {
+      useBoundStore.getState().resetProfile();
+      globalNavigate("/login");
+    }
     const { config } = error
 
     handleServerError(config.method, 'Email or password is incorrect')
   }
   if (status === HttpErrorCodeEnum.NOT_FOUND) {
-    // globalNavigate("/not-found");
+    globalNavigate("/not-found");
   }
 
   if (status === HttpErrorCodeEnum.FORBIDDEN || Math.floor(status / 100) === 5) {

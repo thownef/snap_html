@@ -1,3 +1,12 @@
+import { PagePath } from "@/shared/core/enum";
+
+export const navigateWithRole = () => {
+  switch (true) {
+    default:
+      return PagePath.TEMPLATE_FORM;
+  }
+};
+
 export const getSnsIcon = (type: string) => {
   switch (type) {
     case 'X':
@@ -86,4 +95,10 @@ export const isTransparent = (color: string, threshold: number = 0.01): boolean 
   if (color === 'transparent') return true
 
   return false
+}
+
+export const secondsToDays = (seconds: number): number => {
+  const currentTimestamp = Math.floor(Date.now() / 1000) // current time in seconds
+  const timeLeftInSeconds = seconds - currentTimestamp
+  return Math.ceil(timeLeftInSeconds / (24 * 60 * 60)) // convert to days and round up
 }

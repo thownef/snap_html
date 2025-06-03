@@ -1,14 +1,17 @@
 export enum ModuleName {
-  HOME = "home",
+  AUTH = "auth",
   TEMPLATE = "template",
 }
 
 export enum PageName {
-  HOME = "news",
+  LOGIN = "login",
   TEMPLATE = "list",
+  TEMPLATE_FORM = "form",
 }
 
 export enum PagePath {
   HOME = "/",
+  LOGIN = "/login",
   TEMPLATE = "/template",
+  TEMPLATE_FORM = "/template/form",
 }
