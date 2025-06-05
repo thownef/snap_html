@@ -46,7 +46,7 @@ const LoginPage = () => {
   })
 
   return (
-    <div className='min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-500 to-purple-600'>
+    <div className='min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-100 to-purple-100'>
       <div className='w-full max-w-md p-8 bg-white rounded-lg shadow-lg'>
         <Title level={2} className='text-center mb-8 text-gray-800'>
           Welcome Back
