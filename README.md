@@ -1,54 +1,82 @@
-# React + TypeScript + Vite
+# SnapHTML
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A flexible and powerful template/block-based system for creating dynamic layouts.
 
-Currently, two official plugins are available:
+## Overview
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react/README.md) uses [Babel](https://babeljs.io/) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+SnapHTML is a modular system that allows you to create responsive layouts using predefined blocks and components. The system supports various content types including text, images, buttons, social media icons, and dividers.
 
-## Expanding the ESLint configuration
+## Features
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+- **Block-Based Layout**: Create layouts using different block types:
+  - Default blocks
+  - Multi-column blocks
+  - Custom spacing and padding controls
+  
+- **Component Types**:
+  - Text blocks with rich formatting
+  - Image components with responsive settings
+  - Buttons with customizable styles
+  - Social media icons (X, Facebook, YouTube, Instagram)
+  - Dividers with customizable styles
 
-```js
-export default tseslint.config({
-  extends: [
-    // Remove ...tseslint.configs.recommended and replace with this
-    ...tseslint.configs.recommendedTypeChecked,
-    // Alternatively, use this for stricter rules
-    ...tseslint.configs.strictTypeChecked,
-    // Optionally, add this for stylistic rules
-    ...tseslint.configs.stylisticTypeChecked,
-  ],
-  languageOptions: {
-    // other options...
-    parserOptions: {
-      project: ['./tsconfig.node.json', './tsconfig.app.json'],
-      tsconfigRootDir: import.meta.dirname,
-    },
-  },
-})
-```
+- **Responsive Design**:
+  - Mobile-friendly layouts
+  - Configurable column layouts
+  - Adjustable widths and spacing
+  - Mobile-specific settings
 
-You can also install [eslint-plugin-react-x](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://github.com/Rel1cx/eslint-react/tree/main/packages/plugins/eslint-plugin-react-dom) for React-specific lint rules:
+- **Styling Options**:
+  - Custom background colors
+  - Flexible padding and margins
+  - Column width controls
+  - Text formatting options
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Text Component
+- Rich text editing support
+- Custom styling options
+- Margin controls
 
-export default tseslint.config({
-  plugins: {
-    // Add the react-x and react-dom plugins
-    'react-x': reactX,
-    'react-dom': reactDom,
-  },
-  rules: {
-    // other rules...
-    // Enable its recommended typescript rules
-    ...reactX.configs['recommended-typescript'].rules,
-    ...reactDom.configs.recommended.rules,
-  },
-})
-```
+### Button Component
+- Customizable forms (round, etc.)
+- Size options (middle, etc.)
+- Custom colors for text and background
+- Link support (href)
+
+### Image Component
+- Mobile full-width option
+- Alignment controls
+- Width rate adjustment
+- Custom width settings
+
+### SNS (Social Media) Component
+- Support for major platforms
+- Customizable icon size
+- Alignment options
+- Link conversion support
+
+### Divider Component
+- Custom border colors
+- Adjustable border width
+- Various border styles
+
+## Usage
+
+The system uses a structured JSON format to define layouts and components. Each block can contain multiple columns, and each column can contain multiple parts (components).
+
+## Technical Details
+
+The project is built using TypeScript and follows a modular architecture for easy maintenance and extensibility.
+
+## Development
+
+To contribute to this project:
+
+1. Clone the repository
+2. Install dependencies
+3. Follow the coding guidelines
+4. Submit pull requests for review
+
+## License
+
+[Add your license information here]
