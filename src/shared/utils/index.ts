@@ -1,3 +1,4 @@
+import _ from "lodash";
 import { PagePath } from "@/shared/core/enum";
 
 export const navigateWithRole = () => {
@@ -102,3 +103,19 @@ export const secondsToDays = (seconds: number): number => {
   const timeLeftInSeconds = seconds - currentTimestamp
   return Math.ceil(timeLeftInSeconds / (24 * 60 * 60)) // convert to days and round up
 }
+
+export const transformQueryString = (params: { [key: string]: any }) => {
+  const filters: { [key: string]: any } = {};
+
+  for (const property in params) {
+    if (_.isArray(params[property])) {
+      if (params[property].length) {
+        filters[property] = params[property];
+      }
+    } else if (params[property]) {
+      filters[property] = params[property];
+    }
+  }
+
+  return new URLSearchParams(filters).toString();
+};
