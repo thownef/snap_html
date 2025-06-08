@@ -119,3 +119,11 @@ export const transformQueryString = (params: { [key: string]: any }) => {
 
   return new URLSearchParams(filters).toString();
 };
+
+export const convertTimestampToDays = (timestamp: number): number => {
+  const currentDate = new Date()
+  const targetDate = new Date(timestamp)
+  const diffInTime = targetDate.getTime() - currentDate.getTime()
+  return Math.ceil(diffInTime / (1000 * 60 * 60 * 24))
+}
+

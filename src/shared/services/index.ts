@@ -8,7 +8,7 @@ import {
   axiosInterceptorResponseError,
 } from "@/plugins/axios";
 
-const axiosInstance = axios.create(axiosConfig);
+export const axiosInstance = axios.create(axiosConfig);
 
 // set request global
 axiosInstance.interceptors.request.use(axiosInterceptorRequestConfig, axiosInterceptorRequestError);

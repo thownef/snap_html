@@ -1,4 +1,5 @@
 import { decamelizeKeys } from 'humps'
+import Cookies from 'js-cookie'
 import { useBoundStore } from '@/shared/stores'
 
 // Config Axios
@@ -25,8 +26,8 @@ export const axiosInterceptorRequestConfig = (config: any) => {
     config.params = decamelizeKeys(config.params)
   }
 
-  if (localStorage.getItem('accessToken')) {
-    config.headers.Authorization = `Bearer ${localStorage.getItem('accessToken')}`
+  if (Cookies.get('accessToken')) {
+    config.headers.Authorization = `Bearer ${Cookies.get('accessToken')}`
   }
 
   return config

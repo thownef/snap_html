@@ -1,10 +1,16 @@
 import { notification } from 'antd'
 import { camelizeKeys } from 'humps'
+import Cookies from 'js-cookie'
 import { ResponseError } from '@/shared/core/types/common.type'
 import { HttpErrorCodeEnum } from '@/shared/core/enum/http-error-code.enum'
 import { useBoundStore } from '@/shared/stores'
 import { handleServerError, handleServerSuccess } from '@/shared/utils/handle-response-server'
 import { globalNavigate } from '@/shared/hooks/useNavigation'
+import { refreshToken } from '@/shared/services/auth.service'
+import { axiosInstance } from '@/shared/services'
+import { convertTimestampToDays } from '@/shared/utils'
+
+let refreshTokenPromise: Promise<string> | null = null
 
 // Config Response Interceptor
 export const axiosInterceptorResponseConfig = (response: any) => {
@@ -26,7 +32,7 @@ export const axiosInterceptorResponseConfig = (response: any) => {
 }
 
 // Config Response Error Interceptor
-export const axiosInterceptorResponseError = (error: ResponseError) => {
+export const axiosInterceptorResponseError = async (error: ResponseError) => {
   const { countRequest, decrementCountRequest, setIsLoading, resetCountRequest } = useBoundStore.getState()
 
   decrementCountRequest()
@@ -42,18 +48,52 @@ export const axiosInterceptorResponseError = (error: ResponseError) => {
   }
   const { status } = error.response || { status: 500 }
 
-  // Redirect to Error Page
   if (status === HttpErrorCodeEnum.UNAUTHORIZED) {
-    if (!window.location.pathname.includes("/login")) {
-      useBoundStore.getState().resetProfile();
-      globalNavigate("/login");
-    }
-    const { config } = error
+    if (window.location.pathname.includes('/login')) {
+      useBoundStore.getState().resetProfile()
+      globalNavigate('/login')
+      const { config } = error
+      handleServerError(config.method, 'Email or password is incorrect')
+      return Promise.reject(error)
+    } else {
+      try {
+        if (!refreshTokenPromise) {
+          refreshTokenPromise = refreshToken({
+            refreshToken: Cookies.get('refreshToken')
+          })
+            .then((response) => {
+              const { accessToken, refreshToken: newRefreshToken, expiresAt } = response.data.data
+              Cookies.set('accessToken', accessToken, { 
+                secure: true,
+                sameSite: 'strict'
+              })
+              Cookies.set('refreshToken', newRefreshToken, {
+                secure: true,
+                sameSite: 'strict',
+                expires: convertTimestampToDays(expiresAt)
+              })
+              return accessToken
+            })
+            .finally(() => {
+              refreshTokenPromise = null
+            })
+        }
 
-    handleServerError(config.method, 'Email or password is incorrect')
+        const newAccessToken = await refreshTokenPromise
+        return axiosInstance({
+          ...error.config,
+          headers: { ...error.config.headers, Authorization: `Bearer ${newAccessToken}` }
+        })
+      } catch (refreshError) {
+        Cookies.remove('accessToken')
+        Cookies.remove('refreshToken')
+        globalNavigate('/login')
+        return Promise.reject(refreshError)
+      }
+    }
   }
   if (status === HttpErrorCodeEnum.NOT_FOUND) {
-    globalNavigate("/not-found");
+    globalNavigate('/not-found')
   }
 
   if (status === HttpErrorCodeEnum.FORBIDDEN || Math.floor(status / 100) === 5) {
