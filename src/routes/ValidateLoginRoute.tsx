@@ -1,5 +1,6 @@
 import { ReactNode } from 'react'
 import { Navigate, Outlet, useLocation } from 'react-router-dom'
+import Cookies from 'js-cookie'
 import { PagePath } from '@/shared/core/enum'
 
 type Props = {
@@ -8,7 +9,7 @@ type Props = {
 
 const ValidateLoginRoute = ({ children }: Props) => {
   const location = useLocation()
-  const isAuthenticated = localStorage.getItem('accessToken')
+  const isAuthenticated = Cookies.get('accessToken')
 
   if (isAuthenticated) {
     return <Navigate state={{ from: location }} to={PagePath.HOME} />

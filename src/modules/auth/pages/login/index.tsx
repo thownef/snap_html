@@ -31,8 +31,8 @@ const LoginPage = () => {
   const onSubmit = async (values: FormSignIn) => {
     const res = await login(values)
     if (res?.data?.data) {
-      const { user, accessToken } = res.data.data
-      userLogin(user, accessToken)
+      const { user, accessToken, refreshToken, expiresAt } = res.data.data
+      userLogin(user, accessToken, refreshToken, expiresAt)
       const from = location.state?.from?.pathname || '/'
       navigate(from, { replace: true })
     }

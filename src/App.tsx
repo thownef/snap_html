@@ -1,6 +1,7 @@
 import { useEffect } from 'react'
 import { ConfigProvider } from 'antd'
 import _ from 'lodash'
+import Cookies from 'js-cookie'
 import { router } from '@/routes'
 import { useNavigation } from '@/shared/hooks/useNavigation'
 import { RouterProvider } from 'react-router-dom'
@@ -10,17 +11,18 @@ import { useBoundStore } from '@/shared/stores'
 function App() {
   useNavigation()
   const { user, userProfile } = useBoundStore()
-  const isAuthenticated = localStorage.getItem('accessToken')
+  const isAuthenticated = Cookies.get('accessToken')
 
   useEffect(() => {
-    ;(async () => {
+    (async () => {
       if (isAuthenticated && !user) {
         try {
           const profileResponse = await getProfile()
           const profileData = profileResponse?.data?.data || {}
 
           if (_.isEmpty(profileData)) {
-            localStorage.removeItem('accessToken')
+            Cookies.remove('accessToken')
+            Cookies.remove('refreshToken')
           } else {
             userProfile(profileData)
           }
