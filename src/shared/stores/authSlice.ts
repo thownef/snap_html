@@ -1,7 +1,7 @@
 import { StateCreator } from 'zustand'
 import Cookies from 'js-cookie'
 import { User } from '@/shared/core/types/user.type'
-import { convertTimestampToDays } from '@/shared/utils'
+import { convertSecondsToDays } from '@/shared/utils'
 
 export interface IAuthSlice {
   user: null | User
@@ -21,9 +21,8 @@ export const createAuthSlice: StateCreator<IAuthSlice, [], [], IAuthSlice> = (se
       Cookies.set('refreshToken', refreshToken, {
         secure: true,
         sameSite: 'strict',
-        expires: convertTimestampToDays(expiresAt)
+        expires: convertSecondsToDays(expiresAt)
       })
-      console.log(convertTimestampToDays(expiresAt))
 
       return { user }
     }),

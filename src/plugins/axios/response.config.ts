@@ -1,4 +1,3 @@
-import { notification } from 'antd'
 import { camelizeKeys } from 'humps'
 import Cookies from 'js-cookie'
 import { ResponseError } from '@/shared/core/types/common.type'
@@ -8,7 +7,7 @@ import { handleServerError, handleServerSuccess } from '@/shared/utils/handle-re
 import { globalNavigate } from '@/shared/hooks/useNavigation'
 import { refreshToken } from '@/shared/services/auth.service'
 import { axiosInstance } from '@/shared/services'
-import { convertTimestampToDays } from '@/shared/utils'
+import { convertSecondsToDays } from '@/shared/utils'
 
 let refreshTokenPromise: Promise<string> | null = null
 
@@ -33,7 +32,8 @@ export const axiosInterceptorResponseConfig = (response: any) => {
 
 // Config Response Error Interceptor
 export const axiosInterceptorResponseError = async (error: ResponseError) => {
-  const { countRequest, decrementCountRequest, setIsLoading, resetCountRequest } = useBoundStore.getState()
+  const { countRequest, decrementCountRequest, setIsLoading, resetCountRequest, resetProfile } =
+    useBoundStore.getState()
 
   decrementCountRequest()
   if (countRequest <= 0) {
@@ -48,78 +48,75 @@ export const axiosInterceptorResponseError = async (error: ResponseError) => {
   }
   const { status } = error.response || { status: 500 }
 
-  if (status === HttpErrorCodeEnum.UNAUTHORIZED) {
-    if (window.location.pathname.includes('/login')) {
-      useBoundStore.getState().resetProfile()
-      globalNavigate('/login')
-      const { config } = error
-      handleServerError(config.method, 'Email or password is incorrect')
-      return Promise.reject(error)
-    } else {
-      try {
-        if (!refreshTokenPromise) {
-          refreshTokenPromise = refreshToken({
-            refreshToken: Cookies.get('refreshToken')
-          })
-            .then((response) => {
-              const { accessToken, refreshToken: newRefreshToken, expiresAt } = response.data.data
-              Cookies.set('accessToken', accessToken, { 
-                secure: true,
-                sameSite: 'strict'
-              })
-              Cookies.set('refreshToken', newRefreshToken, {
-                secure: true,
-                sameSite: 'strict',
-                expires: convertTimestampToDays(expiresAt)
-              })
-              return accessToken
-            })
-            .finally(() => {
-              refreshTokenPromise = null
-            })
-        }
-
-        const newAccessToken = await refreshTokenPromise
-        return axiosInstance({
-          ...error.config,
-          headers: { ...error.config.headers, Authorization: `Bearer ${newAccessToken}` }
-        })
-      } catch (refreshError) {
-        Cookies.remove('accessToken')
-        Cookies.remove('refreshToken')
+  switch (status) {
+    case HttpErrorCodeEnum.UNAUTHORIZED:
+      if (window.location.pathname.includes('/login')) {
+        resetProfile()
         globalNavigate('/login')
-        return Promise.reject(refreshError)
+        const { config } = error
+        handleServerError(config.method, 'Email or password is incorrect')
+        return Promise.reject(error)
+      } else {
+        try {
+          if (!refreshTokenPromise) {
+            refreshTokenPromise = refreshToken({
+              refreshToken: Cookies.get('refreshToken')
+            })
+              .then((response) => {
+                const { accessToken, refreshToken: newRefreshToken, expiresAt } = response.data.data
+                Cookies.set('accessToken', accessToken, {
+                  secure: true,
+                  sameSite: 'strict'
+                })
+                Cookies.set('refreshToken', newRefreshToken, {
+                  secure: true,
+                  sameSite: 'strict',
+                  expires: convertSecondsToDays(expiresAt)
+                })
+                return accessToken
+              })
+              .finally(() => {
+                refreshTokenPromise = null
+              })
+          }
+
+          const newAccessToken = await refreshTokenPromise
+          return axiosInstance({
+            ...error.config,
+            headers: { ...error.config.headers, Authorization: `Bearer ${newAccessToken}` }
+          })
+        } catch (refreshError) {
+          resetProfile()
+          globalNavigate('/login')
+          return Promise.reject(refreshError)
+        }
       }
+    case HttpErrorCodeEnum.NOT_FOUND:
+      globalNavigate('/not-found')
+      break
+    case HttpErrorCodeEnum.FORBIDDEN || Math.floor(status / 100) === 5:
+      // Redirect Error Page
+      break
+    case HttpErrorCodeEnum.UNPROCESSABLE_CONTENT: {
+      const { data: errors } = error.response || {}
+      return Promise.reject(errors)
     }
-  }
-  if (status === HttpErrorCodeEnum.NOT_FOUND) {
-    globalNavigate('/not-found')
-  }
+    case HttpErrorCodeEnum.SERVER_ERROR: {
+      const { data } = error.response || {}
 
-  if (status === HttpErrorCodeEnum.FORBIDDEN || Math.floor(status / 100) === 5) {
-    // Redirect Error Page
-  }
-
-  if (status === HttpErrorCodeEnum.UNPROCESSABLE_CONTENT) {
-    const { data: errors } = error.response || {}
-
-    return Promise.reject(errors)
-  }
-
-  if (status === HttpErrorCodeEnum.SERVER_ERROR) {
-    const { data } = error.response || {}
-
-    if (data?.url_return) {
-      globalNavigate(data.url_return)
-    } else {
+      if (data?.url_return) {
+        globalNavigate(data.url_return)
+      } else {
+        handleServerError(error.config.method, 'System Error')
+      }
+      break
+    }
+    case HttpErrorCodeEnum.BAD_REQUEST: {
       handleServerError(error.config.method, 'System Error')
+      break
     }
-  }
-
-  if (status === HttpErrorCodeEnum.BAD_REQUEST) {
-    notification.error({
-      message: 'System Error'
-    })
+    default:
+      break
   }
 
   return Promise.reject(error)
