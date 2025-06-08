@@ -25,7 +25,10 @@ export const axiosInterceptorResponseConfig = (response: any) => {
 
     response.data.data = camelizeKeys(data)
   }
-  handleServerSuccess(response?.config?.method)
+
+  if (!response.config.url.includes('refresh-token')) {
+    handleServerSuccess(response?.config?.method)
+  }
 
   return response
 }
