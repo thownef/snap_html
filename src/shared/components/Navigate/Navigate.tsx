@@ -6,7 +6,7 @@ import { Navigate, useLocation } from "react-router-dom";
 const NavigateComponent = () => {
   const location = useLocation();
 
-  if (location.pathname === PagePath.HOME) return lazyLoadModuleRoute(ModuleName.TEMPLATE, PageName.TEMPLATE_FORM);
+  if (location.pathname === PagePath.HOME) return lazyLoadModuleRoute(ModuleName.TEMPLATE, PageName.TEMPLATE);
 
   const path = navigateWithRole();
 

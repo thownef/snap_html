@@ -1,5 +1,7 @@
 import { Card, Typography, Image } from 'antd'
 import { EditOutlined } from '@ant-design/icons'
+import { Link } from 'react-router-dom'
+import { PagePath } from '@/shared/core/enum'
 
 const TemplateCard = () => {
   return (
@@ -21,13 +23,13 @@ const TemplateCard = () => {
           preview={false}
         />
         <div className='absolute inset-0 bg-black/50 opacity-0 hover:opacity-100 transition-opacity flex items-center justify-center'>
-          <a
-            href='https://e.bme.jp/bm/mng/create/html?type=designTemplate&id=30'
+          <Link
+            to={PagePath.TEMPLATE_FORM}
             className='text-white flex flex-col items-center gap-2'
           >
             <EditOutlined className='text-xl' />
             <span>メール編集</span>
-          </a>
+          </Link>
         </div>
       </div>
     </Card>
