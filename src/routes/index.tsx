@@ -9,6 +9,7 @@ import { ModuleName } from "@/shared/core/enum/page.enum";
 import { PagePath } from "@/shared/core/enum";
 import ValidateLoginRoute from "@/routes/ValidateLoginRoute";
 import PrivateRoute from "@/routes/PrivateRoute";
+import AdminLayout from "@/modules/admin/layouts";
 
 const configRoutes: RouteObject[] = [
   {
@@ -36,6 +37,21 @@ const configRoutes: RouteObject[] = [
         ),
       },
       ...templatesRoute,
+    ],
+  },
+  
+  {
+    path: PagePath.ADMIN,
+    element: <AdminLayout />,
+    children: [
+      {
+        index: true,
+        element: (
+          <Suspense fallback="loading...">
+            {lazyLoadModuleRoute(ModuleName.ADMIN, PageName.ADMIN)}
+          </Suspense>
+        ),
+      },
     ],
   },
   {
